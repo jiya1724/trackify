@@ -10,7 +10,7 @@ const Home = ({ username }) => {
       <Image className='absolute left-0 -translate-x-20' source={pattern} />
       <Image className='absolute right-0 bottom-0 translate-x-20' source={pattern} />
 
-      <View className='p-5 pt-10 h-[95px] w-full bg-darkBg bg-opacity-50 rounded-b-[30px]'>
+      <View styl className='p-5 pt-10 h-[95px] w-full bg-darkBg bg-opacity-50 rounded-b-[30px]'>
         <View className='flex flex-row justify-between items-center'>
           <View className='flex flex-row items-center gap-4'>
             <Image className='h-[37.25px] w-[33px]' source={Logo} />
