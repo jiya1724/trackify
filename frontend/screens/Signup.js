@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Image, StyleSheet, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView } from 'react-native';
 import Logo from '../assets/Logo.png';
 import pattern from '../assets/bgPattern.png';
+import Card from '../components/Card';
 
 const Signup = ({ navigation }) => {
   const [formData, setFormData] = useState({
@@ -39,9 +40,9 @@ const Signup = ({ navigation }) => {
     }
 
     setErrorMessage('');
-   
+
     alert("Form submitted!");
-    navigation.navigate('PhotoSetup'); 
+    navigation.navigate('PhotoSetup');
     setFormData({
       username: '',
       companyCode: '',
@@ -158,7 +159,9 @@ const Signup = ({ navigation }) => {
               </View>
             </View>
           </View>
+
         </ScrollView>
+
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

@@ -8,6 +8,7 @@ import Signup from './screens/Signup';
 import PhotoSetup from './screens/PhotoSetup';
 import Home from './screens/Home'
 import Background from './components/Background';
+import Leave from './screens/Leave';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -40,6 +41,11 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Leave"
+          component={Leave}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
