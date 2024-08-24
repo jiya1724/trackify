@@ -25,11 +25,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Signup"
           component={Signup}
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name="PhotoSetup"
           component={PhotoSetup}
