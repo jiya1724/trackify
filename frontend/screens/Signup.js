@@ -41,7 +41,7 @@ const Signup = ({ navigation }) => {
     setErrorMessage('');
    
     alert("Form submitted!");
-    navigation.navigate('PhotoSetup'); // Navigate to the PhotoSetup screen
+    navigation.navigate('PhotoSetup'); 
     setFormData({
       username: '',
       companyCode: '',
