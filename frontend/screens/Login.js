@@ -1,13 +1,14 @@
 import React,{useState} from 'react'
 import { View ,Image,Text, TextInput, StyleSheet, TouchableOpacity} from 'react-native'
 import pattern from '../assets/bgPattern.png'
-import jiya from '../assets/login/jiya.png'
+
 import logo from '../assets/Logo.png'
 
 const Login = () => {
 
   
   const [formData, setFormData] = useState({
+    username: '',
     pin: '',
   });
   const [focusedField, setFocusedField] = useState(null);
@@ -30,46 +31,56 @@ const Login = () => {
 
   return (
     <View className='bg-bg h-full w-full p-5 relative'>
-      <Image className='absolute left-0 rotate-45 -translate-x-20' source={pattern} />
-      <Image className='absolute bottom-0 right-0 rotate-12 translate-x-20 translate-y-7' source={pattern} />
+      <Image className='absolute right-0 translate-x-20' source={pattern} />
+      <Image className='absolute left-0 bottom-0 -translate-x-20' source={pattern} />
+      <View className='w-fit pt-10 pb-5 flex flex-col gap-6'>
+                <Image className='w-[61px] h-[69px]' source={logo} />
+                <View>
+                <Text className='text-Blue font-black text-xl tracking-widest uppercase'>Trackify</Text>
+                  <Text className='text-white tracking-widest font-bold text-lg'>Welcome Back! 🙋🏻‍♂️</Text>
+                  
+                </View></View>
       
-
-      <View className='h-full w-full flex flex-col items-center mt-20 space-y-10'>
-        <View className='flex flex-col space-y-5 justify-center items-center'>
-          <View className='relative flex items-center '>
-            <Image className='w-[71] h-20 absolute translate-x-16' source={logo}></Image>
-            <Image className='h-36 w-36 rounded-full' source={jiya}/>
-          </View>
-          <View className='flex justify-center items-center'>
-            <Text className='text-white text-base font-bold uppercase'>Jiya Trivedi</Text>
-          </View>
+      <View className='flex flex-col space-y-8'>
+      <View className="flex flex-col space-y-3 w-full justify-center">
+        <Text className="text-sm text-Blue font-semibold">Username<Text className='text-darkGrey font-medium text-[10px]'> ~provided by the company</Text></Text>
+        <TextInput
+          style={getInputStyle('username')}
+          value={formData.username}
+          onChangeText={(text) => handleChange('username', text)}
+          placeholder="example_123"
+          placeholderTextColor="#979797"
+          onFocus={() => setFocusedField('username')}
+          onBlur={() => setFocusedField(null)}
+          />
         </View>
 
-        <View className='w-full justify-center items-center space-y-6'>
-          <Text className='text-Blue font-bold text-base '>Enter your PIN</Text>
+        <View className='space-y-3 '>
+          <Text className='text-sm text-Blue font-semibold '>Enter your PIN</Text>
           <TextInput
-          className='drop-shadow-2xl shadow-[#747474] '
-                      style={getInputStyle('pin')}
-                      value={formData.pin}
-                      onChangeText={handlePinChange('pin')}
-                      placeholder="Enter PIN"
-                      placeholderTextColor="#BABABA"
-                      secureTextEntry
-                      keyboardType="numeric"
-                      onFocus={() => setFocusedField('pin')}
-                      onBlur={() => setFocusedField(null)}
-                    />
+            className='drop-shadow-2xl shadow-[#747474] '
+            style={getInputStyle('pin')}
+            value={formData.pin}
+            onChangeText={handlePinChange('pin')}
+            placeholder="Enter PIN"
+            placeholderTextColor="#BABABA"
+            secureTextEntry
+            keyboardType="numeric"
+            onFocus={() => setFocusedField('pin')}
+            onBlur={() => setFocusedField(null)}
+          />
         </View>
         <View className='w-full'>
             <TouchableOpacity style={styles.button} >
               <Text className="text-white font-bold text-base">Login</Text>
             </TouchableOpacity>
         </View>
-
-        <Text className='text-Blue underline'>New User Signup</Text>
-
-
       </View>
+
+        <View className='w-full justify-end flex items-end pt-8'><Text className='text-Blue underline text-sm '>New User? Signup</Text></View>
+
+
+   
 
     
      
@@ -85,8 +96,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 12,
-    textAlign:'center',
-    fontSize:16
+    fontSize:14
     
   },
   button: {
