@@ -50,7 +50,7 @@ const PhotoSetup = () => {
         <Text className='text-Blue text-base text-blue font-bold'>Setup Your Face</Text>
       </View>
 
-      <View className='flex justify-center items-center pt-16'>
+      <View className='flex justify-center items-center pt-12'>
         <View className="bg-white h-80 w-80 rounded-full overflow-hidden">
           {image ? (
             <Image source={{ uri: image }} style={{ width: '100%', height: '100%' }} />
@@ -58,6 +58,10 @@ const PhotoSetup = () => {
             <Camera style={{ width: '100%', height: '100%' }} type={facing} ref={cameraRef} />
           )}
         </View>
+      </View>
+      <View className='flex flex-row items-center justify-center space-x-2 pt-3'>
+        <Image className='h-5 w-5' source={info}/>
+        <Text className='text-lightGrey text-[10px] font-bold'>Look at the Camera while capturing your photo!</Text>
       </View>
 
       <View className=' pt-12 flex-col space-y-7 items-center'>

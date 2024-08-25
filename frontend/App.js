@@ -9,6 +9,7 @@ import PhotoSetup from './screens/PhotoSetup';
 import Home from './screens/Home'
 import Background from './components/Background';
 import Leave from './screens/Leave';
+import Login from './screens/Login'
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -28,22 +29,29 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+      {/* <Stack.Screen
           name="Signup"
           component={Signup}
           options={{ headerShown: false }}
         />  */}
+        {/* <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        />  */}
+
+        {/* <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        /> */}
          <Stack.Screen
           name="PhotoSetup"
           component={PhotoSetup}
           options={{ headerShown: false }}
         />
-        {/* <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
+       
+         {/*<Stack.Screen
           name="Leave"
           component={Leave}
           options={{ headerShown: false }}
