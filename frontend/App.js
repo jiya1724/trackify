@@ -34,22 +34,22 @@ export default function App() {
           component={Signup}
           options={{ headerShown: false }}
         />  */}
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Login"
           component={Login}
           options={{ headerShown: false }}
-        />  */}
+        /> 
 
         {/* <Stack.Screen
           name="Home"
           component={Home}
           options={{ headerShown: false }}
         /> */}
-         <Stack.Screen
+         {/* <Stack.Screen
           name="PhotoSetup"
           component={PhotoSetup}
           options={{ headerShown: false }}
-        />
+        /> */}
        
          {/*<Stack.Screen
           name="Leave"
