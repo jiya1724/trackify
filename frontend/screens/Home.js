@@ -4,6 +4,8 @@ import pattern from '../assets/bgPattern.png';
 import Logo from '../assets/Logo.png';
 import bell from '../assets/home/Bell.png';
 import map from '../assets/home/Map.png';
+import checkIn from '../assets/home/Check In.png'
+import Navbar from '../components/Navbar';
 
 const Home = () => {
   const [username] = useState('Jiya Trivedi');
@@ -31,7 +33,7 @@ const Home = () => {
       <Image className='absolute left-0 -translate-x-20' source={pattern} />
       <Image className='absolute right-0 bottom-0 translate-x-20' source={pattern} />
 
-      <View className='p-5 pt-10 h-[95px] z-50 w-full bg-darkBg bg-opacity-50 rounded-b-[30px]'>
+      <View className='p-5 pt-10 h-[95px] z-50 w-full bg-darkBg backdrop-blur-2xl bg-opacity-50 rounded-b-[30px]'>
         <View className='flex flex-row justify-between items-center'>
           <View className='flex flex-row items-center gap-4'>
             <Image className='h-[37.25px] w-[33px]' source={Logo} />
@@ -53,14 +55,17 @@ const Home = () => {
         </View>
 
         <View>
-          <View className='w-[228px] h-[228px] blur-3xl bg-Red flex justify-center items-center rounded-full'>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Click Me</Text>
+          <View className='w-[200px] h-[200px]  bg-Red flex justify-center items-center rounded-full'>
+            <TouchableOpacity style={styles.button} >
+                <Image className='h-[83px] w-[63px]' source={checkIn}/>
+                <Text className='text-white font-bold text-base uppercase'>Manual</Text>
+                <Text className='text-white font-bold text-base uppercase'>Check In</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
-    </View>
+      <Navbar></Navbar>    
+      </View>
   );
 };
 
