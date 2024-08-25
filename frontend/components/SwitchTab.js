@@ -1,25 +1,30 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import SegmentedControlTab from 'react-native-segmented-control-tab';
 
-const SwitchTab = () => {
-    const [selectedTab, setSelectedTab] = useState('Office');
+const AttendanceTab = () => {
+    const [selectedIndex, setSelectedIndex] = useState(0);
+
+    const handleIndexChange = (index) => {
+        setSelectedIndex(index);
+    };
 
     return (
         <View style={styles.container}>
-            <View style={styles.tabContainer}>
-                <TouchableOpacity
-                    style={[styles.tab, selectedTab === 'Office' && styles.activeTab]}
-                    onPress={() => setSelectedTab('Office')}
-                >
-                    <Text style={[styles.tabText, selectedTab === 'Office' && styles.activeTabText]}>Office</Text>
-                </TouchableOpacity>
+            <SegmentedControlTab
+                values={['Office', 'Offsite']}
+                selectedIndex={selectedIndex}
+                onTabPress={handleIndexChange}
+                tabsContainerStyle={styles.tabsContainer}
+                tabStyle={styles.tabStyle}
+                activeTabStyle={styles.activeTabStyle}
+                tabTextStyle={styles.tabTextStyle}
+                activeTabTextStyle={styles.activeTabTextStyle}
+            />
 
-                <TouchableOpacity
-                    style={[styles.tab, selectedTab === 'Offsite' && styles.activeTab]}
-                    onPress={() => setSelectedTab('Offsite')}
-                >
-                    <Text style={[styles.tabText, selectedTab === 'Offsite' && styles.activeTabText]}>Offsite</Text>
-                </TouchableOpacity>
+            <View style={styles.contentContainer}>
+                {selectedIndex === 0 && <Text style={styles.text}>Office content goes here</Text>}
+                {selectedIndex === 1 && <Text style={styles.text}>Offsite content goes here</Text>}
             </View>
         </View>
     );
@@ -27,33 +32,35 @@ const SwitchTab = () => {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
+        padding: 20,
+    },
+    tabsContainer: {
         marginVertical: 20,
+        height:48
     },
-    tabContainer: {
-        flexDirection: 'row',
-        backgroundColor: '#1e1e1e', 
-        borderRadius: 10,
+    tabStyle: {
+        borderColor: '#3085FE',
+        backgroundColor: '#1E1E1E',
+        
     },
-    tab: {
-        flex: 1,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+    activeTabStyle: {
+        backgroundColor: '#3085FE',
+        
+    },
+    tabTextStyle: {
+        color: 'white',
+    },
+    activeTabTextStyle: {
+        color: 'white',
+    },
+    contentContainer: {
+        marginTop: 20,
         alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 10,
     },
-    tabText: {
-        color: '#fff', 
+    text: {
+        color: 'white',
         fontSize: 16,
-    },
-    activeTab: {
-        backgroundColor: '#3085FE', 
-    },
-    activeTabText: {
-        color: '#fff', 
-        fontWeight: 'bold',
     },
 });
 
-export default SwitchTab;
+export default AttendanceTab;
