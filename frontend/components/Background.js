@@ -1,10 +1,11 @@
 import React from 'react'
-import { View,Text } from 'react-native'
+import { View,Image } from 'react-native'
+import pattern from '../assets/bgPattern.png'
 
 const Background = () => {
   return (
-     <View className='w-full h-full bg-bg'>
-        <Text>Hi</Text>
+     <View className=''>
+        
      </View>
   )
 }

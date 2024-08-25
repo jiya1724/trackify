@@ -78,11 +78,6 @@ const Login = () => {
       </View>
 
         <View className='w-full justify-end flex items-end pt-8'><Text className='text-Blue underline text-sm '>New User? Signup</Text></View>
-
-
-   
-
-    
      
     </View>
   )
