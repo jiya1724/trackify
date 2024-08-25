@@ -1,0 +1,100 @@
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+const Employee = require('../models/Emp');
+
+const JWT_SECRET = 'SIH2024'; // Replace this with your own secret key
+
+router.post('/createemp', async (req, res) => {
+    try {
+        const { userName, email, password, pin, image } = req.body;
+        let success = false;
+        // Check if the user exists by username
+        const user = await User.findOne({ userName });
+        if (!user) {
+            return res.status(404).json({ success, message: 'User not found by username' });
+        }
+
+        // Check if the email matches the user's email
+        if (user.email !== email) {
+            return res.status(400).json({ success, message: 'Email does not match the user' });
+        }
+
+        if (user) {
+            if (user.isActivated) {
+                return res.status(400).json({ success, message: 'Employeee Already created' });
+
+            }
+        }
+
+        // Check if the password is correct
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ success, message: 'Invalid password' });
+        }
+
+        // Create the employee
+        const newEmployee = new Employee({
+            image,
+            pin,
+            userName,
+            password,
+            email,// Assuming employee should be activated upon creation
+        });
+
+        await newEmployee.save();
+
+        user.isActivated = true;
+        await user.save(); // Save the updated user
+
+        // Generate JWT with the user's ID
+        const token = jwt.sign({ id: newEmployee._id }, JWT_SECRET);
+
+        res.status(201).json({
+            success: true,
+            token // Send the JWT token in the response
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+router.post('/login', async (req, res) => {
+    try {
+        const { userName, pin } = req.body;
+        let success = false;
+
+        // Check if the employee exists by username
+        const employee = await Employee.findOne({ userName });
+        if (!employee) {
+            return res.status(404).json({ success, message: 'Employee not found' });
+        }
+
+        // Check if the password is correct
+        const matchPin = employee.pin;
+        console.log(matchPin)
+        console.log(pin)
+
+        if (matchPin === pin) {
+            const token = jwt.sign({ id: employee.id }, JWT_SECRET);
+            res.status(200).json({
+                success: true,
+                token, // Send the JWT token in the response
+            });
+            
+        }
+
+        // Generate JWT with the employee's ID
+
+
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+module.exports = router;
