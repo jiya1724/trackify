@@ -6,23 +6,28 @@ import arrow from '../assets/record/arrow.png';
 
 const Office = () => {
   const [checkinTime] = useState('10:30 am');
-  const [fromDate, setFromDate] = useState(null); 
-  const [toDate, setToDate] = useState(null); 
+  const [dateRange, setDateRange] = useState({
+    fromDate: null,  
+    toDate: null,    
+  });
   const [showFromPicker, setShowFromPicker] = useState(false);
   const [showToPicker, setShowToPicker] = useState(false);
 
   const onChangeFrom = (event, selectedDate) => {
-    const currentDate = selectedDate || fromDate;
     setShowFromPicker(false);
-    setFromDate(currentDate);
+    setDateRange((prev) => ({
+      ...prev,
+      fromDate: selectedDate || prev.fromDate,
+    }));
   };
 
   const onChangeTo = (event, selectedDate) => {
-    const currentDate = selectedDate || toDate;
     setShowToPicker(false);
-    setToDate(currentDate);
+    setDateRange((prev) => ({
+      ...prev,
+      toDate: selectedDate || prev.toDate, 
+    }));
   };
-
   
   const formatDate = (date) => {
     return date?.toLocaleDateString('en-GB', {
@@ -65,13 +70,13 @@ const Office = () => {
       <View className='flex-row justify-around items-center mt-4'>
         <TouchableOpacity className='flex flex-row justify-center items-center space-x-2' onPress={() => setShowFromPicker(true)} style={styles.dateButton}>
           <Text style={styles.dateText}>
-            {fromDate ? formatDate(fromDate) : 'From'} 
+            {dateRange.fromDate ? formatDate(dateRange.fromDate): 'From'} 
           </Text>
           <Image className='h-2 w-4' source={arrow} />
         </TouchableOpacity>
         <TouchableOpacity className='flex flex-row justify-center items-center space-x-2' onPress={() => setShowToPicker(true)} style={styles.dateButton}>
           <Text style={styles.dateText}>
-            {toDate ? formatDate(toDate) : 'To'} 
+            {dateRange.toDate ? formatDate(dateRange.toDate) : 'To'} 
           </Text>
           <Image className='h-2 w-4 ' source={arrow} />
         </TouchableOpacity>
@@ -80,7 +85,7 @@ const Office = () => {
       {showFromPicker && (
         <DateTimePicker
           testID="dateTimePickerFrom"
-          value={fromDate || new Date()} 
+          value={dateRange.fromDate || null} 
           mode="date"
           display="default"
           onChange={onChangeFrom}
@@ -90,7 +95,7 @@ const Office = () => {
       {showToPicker && (
         <DateTimePicker
           testID="dateTimePickerTo"
-          value={toDate || new Date()} 
+          value={dateRange.toDate || new Date()}
           mode="date"
           display="default"
           onChange={onChangeTo}
