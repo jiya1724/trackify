@@ -10,6 +10,8 @@ import Home from './screens/Home'
 import Background from './components/Background';
 import Leave from './screens/Leave';
 import Login from './screens/Login'
+import Records from './screens/Records'
+
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -34,22 +36,28 @@ export default function App() {
           component={Signup}
           options={{ headerShown: false }}
         />  */}
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Login"
           component={Login}
           options={{ headerShown: false }}
-        /> 
+        />  */}
 
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
+        
          {/* <Stack.Screen
           name="PhotoSetup"
           component={PhotoSetup}
           options={{ headerShown: false }}
         /> */}
+        {/* <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        /> */}
+        <Stack.Screen
+          name="Records"
+          component={Records}
+          options={{ headerShown: false }}
+        />
        
          {/*<Stack.Screen
           name="Leave"

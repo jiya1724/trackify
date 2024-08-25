@@ -105,6 +105,7 @@ const Login = ({ navigation }) => {
         </View>
       </View>
 
+<<<<<<< HEAD
       <View className='w-full justify-end flex items-end pt-8'><Text className='text-Blue underline text-sm '>New User? Signup</Text></View>
 
 
@@ -112,6 +113,10 @@ const Login = ({ navigation }) => {
 
 
 
+=======
+        <View className='w-full justify-end flex items-end pt-8'><Text className='text-Blue underline text-sm '>New User? Signup</Text></View>
+     
+>>>>>>> 9dc9457055774ec06801854b6ec329756795d6a2
     </View>
   )
 }

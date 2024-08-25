@@ -20,10 +20,13 @@
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-native": "0.74.5",
-    "react-native-encrypted-storage": "^4.0.3"
+    "react-native-encrypted-storage": "^4.0.3",
+    "react-native-segmented-control-tab": "^4.0.0",
+    "react-native-svg": "15.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "react-native-svg-transformer": "^1.5.0",
     "tailwindcss": "^3.3.2"
   },
   "private": true
