@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Camera, CameraType,  } from 'expo-camera/legacy';
 import pattern from '../assets/bgPattern.png';
+import info from '../assets/photosetup/Info.png'
 
 const PhotoSetup = () => {
   const [image, setImage] = useState(null);
@@ -16,11 +17,16 @@ const PhotoSetup = () => {
 
   if (!hasPermission.granted) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.message}>We need your permission to use the camera</Text>
+      <View className='bg-bg w-full h-full flex p-5 justify-center items-center '>
+        <View className='h-48 border border-solid border-darkGrey bg-darkBg w-full justify-center items-center space-y-4 flex-col p-8'>
+        <View className='flex flex-row gap-3 '>
+          <Image className='h-5 w-5 flex justify-center items-center' source={info}></Image>
+          <Text className="text-white font-bold text-sm">Allow access to Camera to continue</Text>
+          </View>
         <TouchableOpacity onPress={requestPermission} style={styles.button}>
           <Text style={styles.buttonText}>Grant Permission</Text>
         </TouchableOpacity>
+        </View>
       </View>
     );
   }
