@@ -3,16 +3,16 @@ var jwt = require('jsonwebtoken');
 require("dotenv").config();
 require('dotenv').config();
 
-const JWT_token = process.env.NODE_JWT_TOKEN;
+const JWT_token = 'SIH2024';
 
-const fetchUser = (req, res, next) => {
+const fetchEmp = (req, res, next) => {
 
     try {
-        const empToken = req.header('emp-token')
-        if (!authToken) {
+        const empToken = req.header('auth-token')
+        if (!empToken) {
             res.status(401).json({ Error: "Please enter correct auth token" });
         }
-        const authtokenData = jwt.verify(authToken, JWT_token);
+        const authtokenData = jwt.verify(empToken, JWT_token);
         req.user = authtokenData;
         next();
     } catch (error) {
@@ -21,4 +21,4 @@ const fetchUser = (req, res, next) => {
 
 }
 
-module.exports = fetchUser;
+module.exports = fetchEmp;
