@@ -1,22 +1,39 @@
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import React, { useState, useRef } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Camera, CameraType,  } from 'expo-camera/legacy';
 import pattern from '../assets/bgPattern.png';
 
 const PhotoSetup = () => {
   const [image, setImage] = useState(null);
+  const [facing, setFacing] = useState(CameraType.back); 
+  const [hasPermission, requestPermission] = Camera.useCameraPermissions();
+  const cameraRef = useRef(null);
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
 
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
+  if (!hasPermission) {
+    return <View />;
+  }
+
+  if (!hasPermission.granted) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.message}>We need your permission to use the camera</Text>
+        <TouchableOpacity onPress={requestPermission} style={styles.button}>
+          <Text style={styles.buttonText}>Grant Permission</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  const takePicture = async () => {
+    if (cameraRef.current) {
+      const photo = await cameraRef.current.takePictureAsync();
+      setImage(photo.uri); 
     }
+  };
+
+  const toggleCameraFacing = () => {
+    setFacing(facing === CameraType.back ? CameraType.front : CameraType.back);
   };
 
   return (
@@ -30,19 +47,19 @@ const PhotoSetup = () => {
       <View className='flex justify-center items-center pt-16'>
         <View className="bg-white h-80 w-80 rounded-full overflow-hidden">
           {image ? (
-            <Image
-              source={{ uri: image }}
-              style={{ width: '100%', height: '100%' }}
-            />
+            <Image source={{ uri: image }} style={{ width: '100%', height: '100%' }} />
           ) : (
-            <Text style={styles.placeholderText}>No Image</Text>
+            <Camera style={{ width: '100%', height: '100%' }} type={facing} ref={cameraRef} />
           )}
         </View>
       </View>
 
-      <View className='pt-24 flex-col space-y-8 items-center'>
-        <TouchableOpacity style={styles.button} onPress={pickImage}>
-          <Text style={styles.buttonText}>Add a Photo</Text>
+      <View className=' pt-12 flex-col space-y-7 items-center'>
+        <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+          <Text style={styles.buttonText}>Flip Camera</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={takePicture}>
+          <Text style={styles.buttonText}>Capture Photo</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button2}>
           <Text style={styles.buttonText}>Proceed</Text>
@@ -53,6 +70,15 @@ const PhotoSetup = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  message: {
+    textAlign: 'center',
+    paddingBottom: 10,
+  },
   button: {
     backgroundColor: 'transparent',
     width: '100%', 
@@ -74,8 +100,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontWeight: 'semi-bold', 
-    fontSize: 16,
+    fontWeight: '600', 
+    fontSize: 14,
   },
   placeholderText: {
     color: '#B0B0B0', 

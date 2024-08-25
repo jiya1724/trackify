@@ -38,7 +38,7 @@ export default function App() {
           component={PhotoSetup}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Home"
           component={Home}
           options={{ headerShown: false }}
@@ -47,7 +47,7 @@ export default function App() {
           name="Leave"
           component={Leave}
           options={{ headerShown: false }}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
