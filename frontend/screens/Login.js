@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { View, Image, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 import pattern from '../assets/bgPattern.png'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { useSelector, useDispatch } from 'react-redux'
 import logo from '../assets/Logo.png'
+import { addData,setSessionToken } from '../redux/auth/authSlice';
 
 const Login = ({ navigation }) => {
-
+  
 
   const [formData, setFormData] = useState({
     userName: '',
@@ -20,7 +21,6 @@ const Login = ({ navigation }) => {
     }));
 
   };
-  console.log(formData)
   const handlePinChange = (name) => (text) => {
     if (/^\d{0,4}$/.test(text)) {
       handleChange(name, Number(text));
@@ -47,7 +47,7 @@ const Login = ({ navigation }) => {
         // console.log(data.token)
         await AsyncStorage.setItem('auth-token', data.token);
         navigation.navigate('Home')
-      }else{
+      } else {
         alert(data.message);
       }
 
@@ -55,6 +55,7 @@ const Login = ({ navigation }) => {
     } catch (error) {
       console.error(error);
     }
+
   }
 
   return (

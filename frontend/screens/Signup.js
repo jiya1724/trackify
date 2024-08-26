@@ -3,8 +3,11 @@ import { View, Image, StyleSheet, Text, TextInput, TouchableOpacity, KeyboardAvo
 import Logo from '../assets/Logo.png';
 import pattern from '../assets/bgPattern.png';
 import Card from '../components/Card';
-
+import { useSelector, useDispatch } from 'react-redux'
+import { addData,RemoveData } from '../redux/auth/authSlice';
 const Signup = ({ navigation }) => {
+  const userData = useSelector((state) => state.authentication.userData)
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     username: '',
     companyCode: '',
@@ -13,7 +16,7 @@ const Signup = ({ navigation }) => {
   });
   const [focusedField, setFocusedField] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
-
+  console.log(formData)
   const handleChange = (name, value) => {
     setFormData(prevFormData => ({
       ...prevFormData,
@@ -21,7 +24,7 @@ const Signup = ({ navigation }) => {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     const { username, companyCode, setupPin, confirmPin } = formData;
 
     if (!username || !companyCode || !setupPin || !confirmPin) {
@@ -40,8 +43,13 @@ const Signup = ({ navigation }) => {
     }
 
     setErrorMessage('');
-
-    alert("Form submitted!");
+    const confirmNumberPin = Number(confirmPin);
+    dispatch(addData({
+      userName:formData.username,
+      pin:confirmNumberPin,
+      password:formData.companyCode,
+    }))
+    alert("Form submitted!");  
     navigation.navigate('PhotoSetup');
     setFormData({
       username: '',
@@ -50,7 +58,7 @@ const Signup = ({ navigation }) => {
       confirmPin: '',
     });
   };
-
+ 
   const getInputStyle = (field) => ({
     ...styles.input,
     borderColor: focusedField === field ? '#007BFF' : '#BABABA',
@@ -58,9 +66,15 @@ const Signup = ({ navigation }) => {
 
   const handlePinChange = (name) => (text) => {
     if (/^\d{0,4}$/.test(text)) {
-      handleChange(name, text);
+      handleChange(name, (text));
     }
   };
+  const handleCreateUser = async () => {
+    dispatch(addData({
+      userName:formData.username,
+      password:formData.companyCode,
+    }))
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#f0f0f0' }}>

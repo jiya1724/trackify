@@ -7,13 +7,14 @@ import map from '../assets/home/Map.png';
 import checkIn from '../assets/home/Check In.png'
 import Navbar from '../components/Navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { useSelector, useDispatch } from 'react-redux'
 const Home = () => {
   const [username] = useState('Jiya Trivedi');
   const [c_location] = useState('Gail India');
   const [currentDateTime, setCurrentDateTime] = useState('');
   const [name, setName] = useState('')
-  
+  const userData = useSelector((state) => state.authentication.userData)
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const formatDate = () => {
@@ -39,7 +40,7 @@ const Home = () => {
       const value = await AsyncStorage.getItem('auth-token');
       if (value !== null) {
         // value previously stored
-        console.log(value);
+        
       }
     }
     const getUser = async () => {
@@ -54,7 +55,7 @@ const Home = () => {
           },
         });
         const data = await response.json();
-        setName(data.name);
+        setName(data?.name);
 
       } catch (error) {
         console.error(error);
@@ -65,7 +66,6 @@ const Home = () => {
     getUser();
 
   }, [])
-console.log(name)
 
   return (
     <View className='w-full h-full bg-bg'>

@@ -11,7 +11,7 @@ const JWT_SECRET = 'SIH2024'; // Replace this with your own secret key
 
 router.post('/createemp', async (req, res) => {
     try {
-        const { userName, email, password, pin, image } = req.body;
+        const { userName, password, pin, image } = req.body;
         let success = false;
         // Check if the user exists by username
         const user = await User.findOne({ userName });
@@ -19,10 +19,7 @@ router.post('/createemp', async (req, res) => {
             return res.status(404).json({ success, message: 'User not found by username' });
         }
 
-        // Check if the email matches the user's email
-        if (user.email !== email) {
-            return res.status(400).json({ success, message: 'Email does not match the user' });
-        }
+        
 
         if (user) {
             if (user.isActivated) {
@@ -44,7 +41,6 @@ router.post('/createemp', async (req, res) => {
             pin,
             userName,
             password,
-            email,// Assuming employee should be activated upon creation
         });
 
         await newEmployee.save();
