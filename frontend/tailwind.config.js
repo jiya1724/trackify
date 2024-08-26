@@ -10,7 +10,8 @@ module.exports = {
       lightGrey:'#BABABA',
       darkGrey:'#979797',
       Red:"#E64646",
-      darkBg:'#0D0D0D'
+      darkBg:'#0D0D0D',
+      greyishBlack: '#1E1E1E'
 
 
     }},

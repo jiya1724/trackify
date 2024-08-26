@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
+import Office from './Office';
 
 const AttendanceTab = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -23,8 +24,8 @@ const AttendanceTab = () => {
             />
 
             <View style={styles.contentContainer}>
-                {selectedIndex === 0 && <Text style={styles.text}>Office content goes here</Text>}
-                {selectedIndex === 1 && <Text style={styles.text}>Offsite content goes here</Text>}
+                {selectedIndex === 0 && <View className="w-full"><Office/></View>}
+                {selectedIndex === 1 && <Text >Offsite content goes here</Text>}
             </View>
         </View>
     );
@@ -54,8 +55,8 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     contentContainer: {
-        marginTop: 20,
-        alignItems: 'center',
+        marginTop: 10,
+        
     },
     text: {
         color: 'white',
