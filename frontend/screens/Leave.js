@@ -12,7 +12,7 @@ const Leave = () => {
       <View className='flex-1 pt-10 flex-col items-center'>
         <Text className='text-white text-lg font-bold'>My Requests</Text>
         
-        <ScrollView  className='contentContainerStyle={{ flexGrow: 1,  }}w'>
+        <ScrollView  className='contentContainerStyle={{ flexGrow: 1,  }}'>
         
           <View className="bg-slate-400 space-y-10 w-full z-10 pt-10 items-center justify-center">
             <View className="bg-red-600 w-[100px] h-[300px] justify-center" />
