@@ -1,21 +1,23 @@
 import React from "react";
 import Logo from "../assets/Images/Logo.svg";
 import Cover from "../assets/Images/Cover.svg";
+import pattern from '../assets/Images/bgPattern.png'
 
 const Landing = () => {
   return (
     <div>
-      <div className="h-[100vh]  flex items-start justify-center  w-[100vw]">
-        <div className="">
+      <div className="h-[100vh]  flex items-start justify-center  ">
+        <div className="h-full w-full relative">
+          <div className=" w-full h-fit z-50 top-0 fixed">
           <div className="bg-neutral-950 w-full">
-            <div className="flex justify-between items-center">
-              {" "}
+            <div className="flex w-full justify-between  items-center">
+              
               {/* Flex container with justify-between */}
               <div className="p-4">
                 <img src={Logo} alt="Logo" />
               </div>
               <div className="flex p-4 space-x-2">
-                {" "}
+               
                 {/* Adjust padding and add space between buttons */}
                 <button
                   type="button"
@@ -33,35 +35,25 @@ const Landing = () => {
             </div>
           </div>
           <hr></hr>
-
-          <div className="  p-4 flex bg-neutral-950  w-full">
+          </div>
+          <div className=" bg-neutral-950 h-fit">
+          <img className="-z-10 -translate-x-20 translate-y-20" src={pattern} alt="" />
+          
+          <div className=" pt-0  pb-8 flex justify-between   -translate-y-10 w-full ">
+            
             <div className="w-[50vw] p-10">
-              <div className="text-blue-700 text-left text-5xl">
+              <div className=" font-bold text-blue-700 text-left text-5xl">
                 Stay Accurate With Our
               </div>
-              <div className="text-blue-700 text-left text-5xl">Attendance</div>
-              <div className="text-blue-700 text-left text-5xl">
+              <div className=" font-bold text-blue-700 text-left text-5xl">Attendance</div>
+              <div className=" font-bold text-blue-700 text-left text-5xl">
                 Management System
               </div>
-              <div className="p-4">
-                <div className=" text-xs text-left text-white">
-                  Track and verify attendance seamlessly using geolocation
-                </div>
-                <div className=" text-xs text-left text-white">
-                  technology, ensuring employees or students are present at
-                </div>
-                <div className=" text-xs text-left text-white">
-                  the designated location. Our system provides accurate,{" "}
-                </div>
-                <div className=" text-xs text-left text-white">
-                  real-time attendance data, enhancing accountability and
-                </div>
-                <div className=" text-xs text-left text-white">
-                  operational efficiency
-                </div>
+              <div className="pt-10 pb-10">
+                <div className="text-white text-lg ">Track and verify attendance seamlessly using geolocation technology, ensuring employees or students are present at the designated location. Our system provides accurate, real-time attendance data, enhancing accountability and operational efficiency</div>
               </div>
 
-              <div className="flex p-4 justify-start">
+              <div className="flex space-x-8 ">
                 <button
                   type="button"
                   className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
@@ -76,9 +68,11 @@ const Landing = () => {
                 </button>
               </div>
             </div>
+            
             <div>
               <img className=" " src={Cover}></img>
             </div>
+          </div>
           </div>
 
           <div className="bg-neutral-950 p-1 w-full">
@@ -97,7 +91,7 @@ const Landing = () => {
                 />
                 <button
                   type="button"
-                  className="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex justify-center items-center bg-blue-700 text-white rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   Subscribe
                 </button>
