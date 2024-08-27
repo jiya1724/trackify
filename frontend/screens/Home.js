@@ -4,11 +4,17 @@ import pattern from '../assets/bgPattern.png';
 import Logo from '../assets/Logo.png';
 import bell from '../assets/home/Bell.png';
 import map from '../assets/home/Map.png';
-
+import checkIn from '../assets/home/Check In.png'
+import Navbar from '../components/Navbar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector, useDispatch } from 'react-redux'
 const Home = () => {
   const [username] = useState('Jiya Trivedi');
   const [c_location] = useState('Gail India');
   const [currentDateTime, setCurrentDateTime] = useState('');
+  const [name, setName] = useState('')
+  const userData = useSelector((state) => state.authentication.userData)
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const formatDate = () => {
@@ -20,22 +26,57 @@ const Home = () => {
       const month = now.toLocaleString('en-US', { month: 'short' });
       const year = now.getFullYear().toString().slice(-2);
 
+
+
       return `${hours}:${minutes} ${ampm}, ${day} ${month} ${year}`;
     };
 
     setCurrentDateTime(formatDate());
   }, []);
 
+  useEffect(() => {
+    const getLocalStorage = async () => {
+
+      const value = await AsyncStorage.getItem('auth-token');
+      if (value !== null) {
+        // value previously stored
+        
+      }
+    }
+    const getUser = async () => {
+      try {
+        const value = await AsyncStorage.getItem('auth-token');
+        const response = await fetch('http://192.168.29.199:5000/emp/getemp', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'auth-token':value
+          },
+        });
+        const data = await response.json();
+        setName(data?.name);
+
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getLocalStorage()
+    getUser();
+
+  }, [])
+
   return (
     <View className='w-full h-full bg-bg'>
       <Image className='absolute left-0 -translate-x-20' source={pattern} />
       <Image className='absolute right-0 bottom-0 translate-x-20' source={pattern} />
 
-      <View className='p-5 pt-10 h-[95px] z-50 w-full bg-darkBg bg-opacity-50 rounded-b-[30px]'>
+      <View className='p-5 pt-10 h-[95px] z-50 w-full bg-darkBg backdrop-blur-2xl bg-opacity-50 rounded-b-[30px]'>
         <View className='flex flex-row justify-between items-center'>
           <View className='flex flex-row items-center gap-4'>
             <Image className='h-[37.25px] w-[33px]' source={Logo} />
-            <Text className='text-base text-white font-bold'>Namaste! {username}</Text>
+            <Text className='text-base text-white font-bold'>Namaste! {name}</Text>
           </View>
           <View className='flex items-center'>
             <Image className='h-[28px] w-[28px]' source={bell} />
@@ -53,23 +94,26 @@ const Home = () => {
         </View>
 
         <View>
-          <View className='w-[228px] h-[228px] blur-3xl bg-Red flex justify-center items-center rounded-full'>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Click Me</Text>
+          <View className='w-[200px] h-[200px]  bg-Red flex justify-center items-center rounded-full'>
+            <TouchableOpacity style={styles.button} >
+              <Image className='h-[83px] w-[63px]' source={checkIn} />
+              <Text className='text-white font-bold text-base uppercase'>Manual</Text>
+              <Text className='text-white font-bold text-base uppercase'>Check In</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
+      <Navbar></Navbar>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#3085FE', 
-    width: 180, 
-    height: 180, 
-    borderRadius: 100, 
+    backgroundColor: '#3085FE',
+    width: 180,
+    height: 180,
+    borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
   },
