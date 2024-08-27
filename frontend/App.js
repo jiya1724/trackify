@@ -37,12 +37,12 @@ export default function App() {
           name="Signup"
           component={Signup}
           options={{ headerShown: false }}
-        />  
-           <Stack.Screen
+        /> 
+          <Stack.Screen
             name="Login"
             component={Login}
             options={{ headerShown: false }}
-          /> 
+          />
 
 
           <Stack.Screen
@@ -59,7 +59,7 @@ export default function App() {
           name="Records"
           component={Records}
           options={{ headerShown: false }}
-        /> 
+        />
 
           <Stack.Screen
           name="Leave"

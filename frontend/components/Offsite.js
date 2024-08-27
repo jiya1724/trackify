@@ -93,7 +93,7 @@ const Offsite = () => {
       
 
       <View className='w-full justify-center items-center'>
-        <TouchableOpacity onPress={download}  style={styles.button} >
+        <TouchableOpacity   style={styles.button} onPress={download}>
           <Text className="text-white font-bold text-base">Download</Text>
         </TouchableOpacity>
         
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   button: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#3085FE',
     height: 56,
     borderRadius: 8,
     justifyContent: 'center',
