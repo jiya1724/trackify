@@ -47,7 +47,7 @@ const Landing = () => {
               </div>
               <div className=" font-bold text-blue-700 text-left text-5xl">Attendance</div>
               <div className=" font-bold text-blue-700 text-left text-5xl">
-                Management System
+                Management System 
               </div>
               <div className="pt-10 pb-10">
                 <div className="text-white text-lg ">Track and verify attendance seamlessly using geolocation technology, ensuring employees or students are present at the designated location. Our system provides accurate, real-time attendance data, enhancing accountability and operational efficiency</div>
