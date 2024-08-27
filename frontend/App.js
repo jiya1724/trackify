@@ -33,11 +33,11 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen
+          <Stack.Screen
           name="Signup"
           component={Signup}
           options={{ headerShown: false }}
-        />  */}
+        /> 
           <Stack.Screen
             name="Login"
             component={Login}
@@ -45,27 +45,27 @@ export default function App() {
           />
 
 
-          {/* <Stack.Screen
+          <Stack.Screen
           name="PhotoSetup"
           component={PhotoSetup}
           options={{ headerShown: false }}
-        /> */}
+        />
           <Stack.Screen
           name="Home"
           component={Home}
           options={{ headerShown: false }}
         />
-          {/* <Stack.Screen
+          <Stack.Screen
           name="Records"
           component={Records}
           options={{ headerShown: false }}
-        /> */}
+        />
 
-          {/*<Stack.Screen
+          <Stack.Screen
           name="Leave"
           component={Leave}
           options={{ headerShown: false }}
-        /> */}
+        />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
