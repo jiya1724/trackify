@@ -33,7 +33,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
+          {/* <Stack.Screen
           name="Signup"
           component={Signup}
           options={{ headerShown: false }}
@@ -49,13 +49,13 @@ export default function App() {
           name="PhotoSetup"
           component={PhotoSetup}
           options={{ headerShown: false }}
-        />
+        /> */}
           <Stack.Screen
           name="Home"
           component={Home}
           options={{ headerShown: false }}
         />
-          <Stack.Screen
+          {/* <Stack.Screen
           name="Records"
           component={Records}
           options={{ headerShown: false }}
@@ -65,7 +65,7 @@ export default function App() {
           name="Leave"
           component={Leave}
           options={{ headerShown: false }}
-        />
+        /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

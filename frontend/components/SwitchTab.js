@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, StyleSheet, Animated } from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 import Office from './Office';
+import Offsite from './Offsite';
 
-const AttendanceTab = () => {
+const SwitchTab = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const fadeAnim = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 800,
+            useNativeDriver: true,
+        }).start();
+    }, [selectedIndex]);
 
     const handleIndexChange = (index) => {
+        fadeAnim.setValue(0);
         setSelectedIndex(index);
     };
 
@@ -23,10 +34,10 @@ const AttendanceTab = () => {
                 activeTabTextStyle={styles.activeTabTextStyle}
             />
 
-            <View style={styles.contentContainer}>
-                {selectedIndex === 0 && <View className="w-full"><Office/></View>}
-                {selectedIndex === 1 && <Text >Offsite content goes here</Text>}
-            </View>
+            <Animated.View style={[styles.contentContainer, { opacity: fadeAnim }]}>
+                {selectedIndex === 0 && <View className="w-full"><Office /></View>}
+                {selectedIndex === 1 && <View className='w-full'><Offsite /></View>}
+            </Animated.View>
         </View>
     );
 };
@@ -37,16 +48,14 @@ const styles = StyleSheet.create({
     },
     tabsContainer: {
         marginVertical: 20,
-        height:48
+        height: 48,
     },
     tabStyle: {
         borderColor: '#3085FE',
         backgroundColor: '#1E1E1E',
-        
     },
     activeTabStyle: {
         backgroundColor: '#3085FE',
-        
     },
     tabTextStyle: {
         color: 'white',
@@ -56,12 +65,7 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         marginTop: 10,
-        
-    },
-    text: {
-        color: 'white',
-        fontSize: 16,
     },
 });
 
-export default AttendanceTab;
+export default SwitchTab;

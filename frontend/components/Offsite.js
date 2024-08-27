@@ -3,10 +3,11 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import checkin from '../assets/record/arrowSector.png';
 import arrow from '../assets/record/arrow.png';
-import SevenDaysRecoed from './SevenDaysRecoed';
 
-const Office = () => {
-  const [checkinTime] = useState('10:30 am');
+import OffsiteAttendance from './OffsiteAttendance';
+
+const Offsite = () => {
+  const [checkinTime] = useState('NA');
   const [dateRange, setDateRange] = useState({
     fromDate: null,  
     toDate: null,    
@@ -92,14 +93,14 @@ const Office = () => {
       
 
       <View className='w-full justify-center items-center'>
-        <TouchableOpacity  style={styles.button} onPress={download} >
+        <TouchableOpacity   style={styles.button} onPress={download}>
           <Text className="text-white font-bold text-base">Download</Text>
         </TouchableOpacity>
         
       </View>
 
       <View>
-        <SevenDaysRecoed/>
+        <OffsiteAttendance/>
       </View>
       <View className=' h-12 w-full bottom-0'></View>
       {showFromPicker && (
@@ -147,4 +148,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Office;
+export default Offsite;

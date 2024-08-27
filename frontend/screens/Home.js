@@ -1,31 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Image, Text, TouchableOpacity, StyleSheet, Button, TouchableHighlight } from 'react-native';
 import pattern from '../assets/bgPattern.png';
 import Logo from '../assets/Logo.png';
 import bell from '../assets/home/Bell.png';
+import map from '../assets/home/Map.png';
+import checkIn from '../assets/home/Check In.png'
 import Navbar from '../components/Navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Map from '../components/Map';
 import * as Location from 'expo-location';
-import * as TaskManager from 'expo-task-manager';
 import * as geolib from 'geolib';
-
-const LOCATION_TASK_NAME = 'background-location-task';
-
-TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
-  if (error) {
-    console.error(error);
-    return;
-  }
-  if (data) {
-    const { locations } = data;
-    const location = locations[0];
-    if (location) {
-      console.log('Background location:', location.coords.latitude, location.coords.longitude);
-    }
-  }
-});
 
 const Home = () => {
   const [username] = useState('Jiya Trivedi');
@@ -34,6 +19,7 @@ const Home = () => {
   const [name, setName] = useState('');
   const [trackingInterval, setTrackingInterval] = useState(null);
   const userData = useSelector((state) => state.authentication.userData);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const formatDate = () => {
@@ -87,21 +73,23 @@ const Home = () => {
     longitudeDelta: 0.001,
   });
 
-  // State for location tracking
+  // Logic for tracking and geofencing goes from here
+
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [foregroundStatus, requestForegroundPermission] = Location.useForegroundPermissions();
   const [backgroundStatus, requestBackgroundPermission] = Location.useBackgroundPermissions();
-  const [isTracking, setIsTracking] = useState(false);
+  const [isTracking, setIsTracking] = useState(false); // Track if tracking is active
+  const [locationSubscription, setLocationSubscription] = useState(null); // Manage subscription
 
   useEffect(() => {
     return () => {
       // Cleanup on unmount
-      if (trackingInterval) {
-        clearInterval(trackingInterval);
+      if (locationSubscription) {
+        locationSubscription.remove();
       }
     };
-  }, [trackingInterval]);
+  }, [locationSubscription]);
 
   const startTracking = async () => {
     if (foregroundStatus?.status !== 'granted') {
@@ -120,37 +108,54 @@ const Home = () => {
       }
     }
 
-    await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
-      accuracy: Location.Accuracy.Highest,
-      distanceInterval: 0.5, // Minimum change (in meters) required for an update
-      deferredUpdatesInterval: 1000, // Receive updates at least every 1000ms
-      foregroundService: {
-        notificationTitle: 'Location Tracking',
-        notificationBody: 'Your location is being tracked in the background',
+    const subscription = await Location.watchPositionAsync(
+      {
+        accuracy: Location.Accuracy.Highest, // or any other accuracy level   
+        distanceInterval: 0.5, // Minimum change (in meters) required for an update
       },
-    });
+      (newLocation) => {
+        setLocation(newLocation);
+        console.log(newLocation.coords.latitude)
+        console.log(newLocation.coords.longitude)
 
+
+      }
+    );
+
+    setLocationSubscription(subscription);
     setIsTracking(true);
   };
 
-  const stopTracking = async () => {
-    await Location.stopLocationUpdatesAsync(LOCATION_TASK_NAME);
-    setIsTracking(false);
+  const stopTracking = () => {
+    if (locationSubscription) {
+      locationSubscription.remove();
+      setLocationSubscription(null);
+      setIsTracking(false);
+    }
   };
+
+  let text = isTracking ? 'Tracking location...' : 'Press Start to track location';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location, null, 2);
+  }
 
   useEffect(() => {
     if (location) {
-      const checkLatitude = location.coords.latitude;
-      const checkLongitude = location.coords.longitude;
-      console.log(
-        geolib.isPointWithinRadius(
-          { latitude: 19.07754689737984, longitude: 72.9003631331292 },
-          { latitude: checkLatitude, longitude: checkLongitude },
-          14
-        )
-      );
-    }
-  }, [location]);
+          const checkLatitude = location.coords.latitude;
+          const checkLongitude = location.coords.longitude;
+          console.log(geolib.isPointWithinRadius(
+            { latitude: 19.07754689737984, longitude:  72.9003631331292 },
+            { latitude: checkLatitude, longitude: checkLongitude },
+            14
+          ))
+
+        }
+
+      
+    }, [location])
+
 
   return (
     <View className='w-full h-full bg-bg'>
@@ -171,9 +176,7 @@ const Home = () => {
 
       <View className='flex flex-col gap-7 justify-center items-center pt-5'>
         <View className='flex flex-col space-y-2'>
-          <View className='w-[90%]'>
-            <Map region={region} setRegion={setRegion} />
-          </View>
+          <View className='w-[90%]'><Map region={region} setRegion={setRegion} /></View>
           <View className='flex flex-row items-center justify-between'>
             <Text className="text-white font-semibold text-[11px]">Current Location: {c_location}</Text>
             <Text className="date text-darkGrey font-semibold text-[11px]">{currentDateTime}</Text>
@@ -181,6 +184,13 @@ const Home = () => {
         </View>
         <View>
           <Text className='text-white' style={styles.paragraph}></Text>
+          {/* <View className='w-[200px] h-[200px] bg-Red flex justify-center items-center rounded-full'>
+            <TouchableOpacity style={styles.button}>
+              <Image className='h-[83px] w-[63px]' source={checkIn} />
+              <Text className='text-white font-bold text-base uppercase'>Manual</Text>
+              <Text className='text-white font-bold text-base uppercase'>Check In</Text>
+            </TouchableOpacity>
+          </View> */}
           <TouchableOpacity onPress={startTracking} className='bg-slate-500'>
             <Text className="text-white">Start</Text>
           </TouchableOpacity>

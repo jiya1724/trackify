@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.bg_image{
+  background-image: url('./assets//images/Mainbg.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  /* background-image: no-repeat; */
+
+}
+.bg_imagelogin {
+  background-image: url('./assets/images/Logincover.svg');
+  background-repeat: no-repeat;
+  background-size: cover; /* Ensures the image covers the full area */
+  background-position: center; /* Centers the image in the viewport */
+  width: 100vw; /* Full view width */
+  height: 100vh; /* Full view height */
+}
