@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image , Text } from 'react-native'
+import { View, Image , Text, ScrollView } from 'react-native'
 import Navbar from '../components/Navbar'
 import pattern from '../assets/bgPattern.png'
 import SwitchTab from '../components/SwitchTab'
@@ -13,9 +13,11 @@ const Records = () => {
       <View className='pt-16 flex justify-center items-center'>
         <Text className='text-white text-lg text-blue font-bold'>Records</Text>
       </View>
+      <ScrollView  className='contentContainerStyle={{ flexGrow: 1,  }}'>
       <SwitchTab/>
       
-
+      </ScrollView>
+      
 
     </View>
   )
