@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Map from '../components/Map';
 import * as Location from 'expo-location';
 import * as geolib from 'geolib';
-
+import SuggestModal from '../components/SuggestModal';
 const Home = () => {
   const [username] = useState('Jiya Trivedi');
   const [c_location] = useState('Gail India');
@@ -198,6 +198,9 @@ const Home = () => {
             <Text className="text-white">Stop</Text>
           </TouchableOpacity>
         </View>
+      </View>
+      <View className='justify-center items-center'>
+      <SuggestModal/>
       </View>
       <Navbar></Navbar>
     </View>
