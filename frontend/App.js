@@ -13,6 +13,7 @@ import Login from './screens/Login'
 import Records from './screens/Records'
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import FaceVerify from './screens/FaceVerify';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -37,7 +38,7 @@ export default function App() {
           name="Signup"
           component={Signup}
           options={{ headerShown: false }}
-        /> 
+        />  */}
           <Stack.Screen
             name="Login"
             component={Login}
@@ -45,7 +46,7 @@ export default function App() {
           />
 
 
-          <Stack.Screen
+          {/* <Stack.Screen
           name="PhotoSetup"
           component={PhotoSetup}
           options={{ headerShown: false }}
@@ -59,11 +60,16 @@ export default function App() {
           name="Records"
           component={Records}
           options={{ headerShown: false }}
-        />
+        /> */}
 
-          <Stack.Screen
+          {/* <Stack.Screen
           name="Leave"
           component={Leave}
+          options={{ headerShown: false }}
+        /> */}
+        {/* <Stack.Screen
+          name="Face Verify"
+          component={FaceVerify}
           options={{ headerShown: false }}
         /> */}
         </Stack.Navigator>

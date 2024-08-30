@@ -82,6 +82,10 @@ const Home = () => {
   const [isTracking, setIsTracking] = useState(false); // Track if tracking is active
   const [locationSubscription, setLocationSubscription] = useState(null); // Manage subscription
 
+  // useEffect(() => {
+  //   startTracking();
+  // }, [])
+  
   useEffect(() => {
     return () => {
       // Cleanup on unmount

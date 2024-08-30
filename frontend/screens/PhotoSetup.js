@@ -42,6 +42,7 @@ const PhotoSetup = ({ navigation }) => {
   const takePicture = async () => {
     if (cameraRef.current) {
       const photo = await cameraRef.current.takePictureAsync();
+      console.log(photo.uri)
       dispatch(addData({
         image: photo.uri
       }))

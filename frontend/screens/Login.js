@@ -34,7 +34,8 @@ const Login = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://192.168.29.199:5000/emp/login', {
+      console.log("Doing");
+      const response = await fetch('http://10.0.70.233:5000/emp/login', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -44,7 +45,7 @@ const Login = ({ navigation }) => {
       });
       const data = await response.json();
       if (data.success) {
-        // console.log(data.token)
+        console.log(data.token)
         await AsyncStorage.setItem('auth-token', data.token);
         navigation.navigate('Home')
       } else {
