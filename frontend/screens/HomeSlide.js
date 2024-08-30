@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View ,Image} from 'react-native'
+import { StyleSheet, Text, View ,Image, ScrollView} from 'react-native'
 import pattern from '../assets/bgPattern.png';
 import Logo from '../assets/Logo.png';
 import bell from '../assets/home/Bell.png';
@@ -11,7 +11,7 @@ import Navbar from '../components/Navbar';
 const HomeSlide = () => {
     const name= useState('Jiya')
   return (
-    <View className="w-full h-full bg-bg">
+    <View className="w-full h-full bg-bg ">
         <Image className='absolute left-0 -translate-x-20' source={pattern} />
       <Image className='absolute right-0 bottom-0 translate-x-20' source={pattern} />
 
@@ -26,7 +26,10 @@ const HomeSlide = () => {
           </View>
         </View>
       </View>
-        <SwitchTab name1="Main Office" name2="Manual CheckIn/Out" comp1={Home} comp2={Home}/>
+      <ScrollView>
+      <SwitchTab name1="Main Office" name2="Manual CheckIn/Out" comp1={Home} comp2={Home} />
+      </ScrollView>
+      <View className='bg-yellow-300 h-16 w-full'></View>
       <Navbar/>
     </View>
   )
