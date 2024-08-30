@@ -16,3 +16,11 @@
   width: 100vw; /* Full view width */
   height: 100vh; /* Full view height */
 }
+@media (min-width:768px){
+  .mob{
+    display: none;
+  }
+}
+@media (max-width:768px){
+  .desk{display: none;}
+}
