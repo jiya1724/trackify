@@ -3,6 +3,8 @@ import { View, Image , Text, ScrollView } from 'react-native'
 import Navbar from '../components/Navbar'
 import pattern from '../assets/bgPattern.png'
 import SwitchTab from '../components/SwitchTab'
+import Offsite from '../components/Offsite'
+import Office from '../components/Office'
 
 const Records = () => {
   return (
@@ -14,7 +16,7 @@ const Records = () => {
         <Text className='text-white text-lg text-blue font-bold'>Records</Text>
       </View>
       <ScrollView  className='contentContainerStyle={{ flexGrow: 1,  }}'>
-      <SwitchTab/>
+      <SwitchTab name1="Office" name2="Off-site" comp1={<Office/>} comp2={<Offsite/>}/>
       
       </ScrollView>
       

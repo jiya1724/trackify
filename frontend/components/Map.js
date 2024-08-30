@@ -6,7 +6,7 @@ const { width,height } = Dimensions.get('window'); // Get the screen width
 
 const styles = StyleSheet.create({
     container: {
-        width: width * 0.97, // Set the width to 80% of the screen width
+        width: width * 0.9, // Set the width to 80% of the screen width
         height: height* 0.4 ,
         position: 'relative',
     },

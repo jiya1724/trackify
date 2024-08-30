@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
-import Office from './Office';
-import Offsite from './Offsite';
 
-const SwitchTab = () => {
+const SwitchTab = ({ name1, name2, comp1, comp2 }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -24,7 +22,7 @@ const SwitchTab = () => {
     return (
         <View style={styles.container}>
             <SegmentedControlTab
-                values={['Office', 'Offsite']}
+                values={[name1, name2]}
                 selectedIndex={selectedIndex}
                 onTabPress={handleIndexChange}
                 tabsContainerStyle={styles.tabsContainer}
@@ -35,8 +33,8 @@ const SwitchTab = () => {
             />
 
             <Animated.View style={[styles.contentContainer, { opacity: fadeAnim }]}>
-                {selectedIndex === 0 && <View className="w-full"><Office /></View>}
-                {selectedIndex === 1 && <View className='w-full'><Offsite /></View>}
+                {selectedIndex === 0 && <View className="w-full">{React.isValidElement(comp1) ? comp1 : <comp1 />}</View>}
+                {selectedIndex === 1 && <View className='w-full'>{React.isValidElement(comp2) ? comp2 : <comp2 />}</View>}
             </Animated.View>
         </View>
     );
@@ -45,6 +43,7 @@ const SwitchTab = () => {
 const styles = StyleSheet.create({
     container: {
         padding: 20,
+        paddingTop:5
     },
     tabsContainer: {
         marginVertical: 20,
@@ -64,7 +63,7 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     contentContainer: {
-        marginTop: 10,
+        marginTop: 0,
     },
 });
 
