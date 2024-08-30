@@ -26,7 +26,7 @@ const HomeSlide = () => {
           </View>
         </View>
       </View>
-        <SwitchTab name1="Main Office" name2="Manual CheckIn/Out" comp1={<Home/>} comp2={<Home/>}/>
+        <SwitchTab name1="Main Office" name2="Manual CheckIn/Out" comp1={Home} comp2={Home}/>
       <Navbar/>
     </View>
   )
