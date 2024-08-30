@@ -6,6 +6,7 @@ import info from '../assets/photosetup/Info.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { addData } from '../redux/auth/authSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import IP_Address from '../utilities';
 
 const PhotoSetup = ({ navigation }) => {
   const [image, setImage] = useState(null);
@@ -58,7 +59,7 @@ const PhotoSetup = ({ navigation }) => {
   };
   const handleProceed =async () => {
     try {
-      const response = await fetch('http://192.168.29.199:5000/emp/createemp', {
+      const response = await fetch(`http://${IP_Address}:5000/emp/createemp`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

@@ -9,6 +9,8 @@ import * as geolib from 'geolib';
 import SuggestModal from '../components/SuggestModal';
 import Connected from '../assets/home/connected.svg'
 import NotConnected from '../assets/home/notConnected.svg'
+import IP_Address from '../utilities';
+
 const Home = () => {
   const [username] = useState('Jiya Trivedi');
   const [c_location] = useState('Gail India');
@@ -18,7 +20,7 @@ const Home = () => {
   const userData = useSelector((state) => state.authentication.userData);
   const dispatch = useDispatch();
 
-  const [isCheckedIn, setIsCheckedIn] = useState(true);
+  const [isCheckedIn, setIsCheckedIn] = useState(false);
 
   useEffect(() => {
     const formatDate = () => {
@@ -43,10 +45,11 @@ const Home = () => {
         // value previously stored
       }
     };
+    
     const getUser = async () => {
       try {
         const value = await AsyncStorage.getItem('auth-token');
-        const response = await fetch('http://192.168.29.199:5000/emp/getemp', {
+        const response = await fetch(`http://${IP_Address}:5000/emp/getemp`, {
           method: 'POST',
           headers: {
             Accept: 'application/json',

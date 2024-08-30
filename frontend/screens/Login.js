@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector, useDispatch } from 'react-redux'
 import logo from '../assets/Logo.png'
 import { addData,setSessionToken } from '../redux/auth/authSlice';
+import IP_Address from '../utilities';
+
 
 const Login = ({ navigation }) => {
   
@@ -35,7 +37,7 @@ const Login = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       console.log("Doing");
-      const response = await fetch('http://10.0.70.233:5000/emp/login', {
+      const response = await fetch(`http://${IP_Address}:5000/emp/login`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
