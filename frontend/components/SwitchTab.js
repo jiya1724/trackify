@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 
-const SwitchTab = ({ name1, name2, comp1, comp2 }) => {
+const SwitchTab = ({ name1, name2, comp1:Comp1, comp2:Comp2 }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -33,8 +33,8 @@ const SwitchTab = ({ name1, name2, comp1, comp2 }) => {
             />
 
             <Animated.View style={[styles.contentContainer, { opacity: fadeAnim }]}>
-                {selectedIndex === 0 && <View className="w-full">{React.isValidElement(comp1) ? comp1 : <comp1 />}</View>}
-                {selectedIndex === 1 && <View className='w-full'>{React.isValidElement(comp2) ? comp2 : <comp2 />}</View>}
+                {selectedIndex === 0 && <View className="w-full">{<Comp1/>}</View>}
+                {selectedIndex === 1 && <View className='w-full'>{<Comp2/>}</View>}
             </Animated.View>
         </View>
     );
