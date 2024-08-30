@@ -7,6 +7,8 @@ import Map from '../components/Map';
 import * as Location from 'expo-location';
 import * as geolib from 'geolib';
 import SuggestModal from '../components/SuggestModal';
+import Connected from '../assets/home/connected.svg'
+import NotConnected from '../assets/home/notConnected.svg'
 const Home = () => {
   const [username] = useState('Jiya Trivedi');
   const [c_location] = useState('Gail India');
@@ -15,6 +17,8 @@ const Home = () => {
   const [trackingInterval, setTrackingInterval] = useState(null);
   const userData = useSelector((state) => state.authentication.userData);
   const dispatch = useDispatch();
+
+  const [isCheckedIn, setIsCheckedIn] = useState(true);
 
   useEffect(() => {
     const formatDate = () => {
@@ -177,17 +181,31 @@ const Home = () => {
               <Text className='text-white font-bold text-base uppercase'>Check In</Text>
             </TouchableOpacity>
           </View> */}
-          <TouchableOpacity onPress={startTracking} className='bg-slate-500'>
+          {/* <TouchableOpacity onPress={startTracking} className='bg-slate-500'>
             <Text className="text-white">Start</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={stopTracking} className='bg-slate-500'>
             <Text className="text-white">Stop</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
-      <View className='justify-center items-center'>
-      <SuggestModal/>
+      {isCheckedIn ? 
+      <View className=' items-center '>
+      <Connected></Connected>
+      <View className='bg-darkBg border mt-3 border-solid border-seagreen rounded-md p-2'>
+        <Text className='font-bold text-sm text-seagreen'>02 hrs 15 mins</Text>
       </View>
+      <Text className='text-xs font-semibold text-Blue mt-2'>Checked In at: 10:20 am</Text>
+    </View>
+      
+      
+      : 
+      <View className='items-center'>
+        <NotConnected/>
+        <Text className='text-Red font-bold text-xs mt-3'>Not Checked In</Text>
+      </View>
+      }
+      
       
       </ScrollView>
     </View>
