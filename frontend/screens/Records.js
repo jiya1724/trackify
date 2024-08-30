@@ -16,7 +16,7 @@ const Records = () => {
         <Text className='text-white text-lg text-blue font-bold'>Records</Text>
       </View>
       <ScrollView  className='contentContainerStyle={{ flexGrow: 1,  }}'>
-      <SwitchTab name1="Office" name2="Off-site" comp1={<Office/>} comp2={<Offsite/>}/>
+      <SwitchTab name1="Office" name2="Off-site" comp1={Office} comp2={Offsite}/>
       
       </ScrollView>
       
