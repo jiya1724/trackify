@@ -74,7 +74,9 @@ const SuggestModal = () => {
               <Text className='text-white font-bold text-base uppercase'>Manual</Text>
               <Text className='text-white font-bold text-base uppercase'>Check In</Text>
             </TouchableOpacity>
+            
       </View>
+      <View className="bg-yellow-300 h-80 w-full"></View>
       <Modal
         animationType="slide"
         transparent={true}

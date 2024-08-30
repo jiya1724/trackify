@@ -13,6 +13,7 @@ import Login from './screens/Login'
 import Records from './screens/Records'
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import HomeSlide from './screens/HomeSlide';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -50,17 +51,20 @@ export default function App() {
           component={PhotoSetup}
           options={{ headerShown: false }}
         /> */}
-          <Stack.Screen
+        <Stack.Screen name='HomeSlide' 
+        component={HomeSlide} 
+        options={{headerShown:false}}/>
+          {/* <Stack.Screen
           name="Home"
           component={Home}
           options={{ headerShown: false }}
-        />
+        /> */}
           {/* <Stack.Screen
           name="Records"
           component={Records}
           options={{ headerShown: false }}
-        />
-
+        /> */}
+{/* 
           <Stack.Screen
           name="Leave"
           component={Leave}
