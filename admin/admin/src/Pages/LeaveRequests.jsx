@@ -7,41 +7,45 @@ import {
   FaMapMarkerAlt,
   FaKey,
   FaEnvelope,
+  FaCalendarAlt,
 } from "react-icons/fa";
 import Logo from "../assets/Images/Logo.svg";
 import TrianglesBG from "../assets/Images/TrianglesBG.png";
 
-// Sample data
-const sampleEmployees = [
+// Sample data for leave requests
+const sampleLeaveRequests = [
   {
     id: 1,
     photo: "https://via.placeholder.com/50",
     name: "Bhakti Lahane",
-    code: "E123",
-    location: "Office A",
+    leaveFrom: "2024-09-01",
+    leaveTo: "2024-09-05",
+    reason: "Medical appointment",
   },
   {
     id: 2,
     photo: "https://via.placeholder.com/50",
     name: "Khushi Poojary",
-    code: "E456",
-    location: "Office B",
+    leaveFrom: "2024-09-10",
+    leaveTo: "2024-09-12",
+    reason: "Family event",
   },
   {
     id: 3,
     photo: "https://via.placeholder.com/50",
     name: "Jiya Trivedi",
-    code: "E789",
-    location: "Office C",
+    leaveFrom: "2024-09-15",
+    leaveTo: "2024-09-20",
+    reason: "Vacation",
   },
 ];
 
-const ConfirmAttendance = () => {
+const LeaveRequests = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [activePage, setActivePage] = useState("attendance");
-  const [attendance, setAttendance] = useState(
-    sampleEmployees.map((employee) => ({
-      ...employee,
+  const [activePage, setActivePage] = useState("leaveRequests");
+  const [requests, setRequests] = useState(
+    sampleLeaveRequests.map((request) => ({
+      ...request,
       status: null,
       showStatus: false,
     }))
@@ -52,15 +56,15 @@ const ConfirmAttendance = () => {
   };
 
   const handleButtonClick = (id, status) => {
-    setAttendance((prev) =>
-      prev.map((emp) =>
-        emp.id === id ? { ...emp, status: status, showStatus: true } : emp
+    setRequests((prev) =>
+      prev.map((req) =>
+        req.id === id ? { ...req, status: status, showStatus: true } : req
       )
     );
     setTimeout(() => {
-      setAttendance((prev) =>
-        prev.map((emp) =>
-          emp.id === id ? { ...emp, status: null, showStatus: false } : emp
+      setRequests((prev) =>
+        prev.map((req) =>
+          req.id === id ? { ...req, status: null, showStatus: false } : req
         )
       );
     }, 1000);
@@ -166,16 +170,16 @@ const ConfirmAttendance = () => {
         />
 
         <h1 className="text-3xl font-extrabold text-white mb-8">
-          Confirm Attendance
+          Leave Requests
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {attendance.map((employee) => (
+          {requests.map((request) => (
             <div
-              key={employee.id}
+              key={request.id}
               className={`bg-white p-6 rounded-lg shadow-lg flex flex-col items-center transition-transform duration-300 ${
-                employee.showStatus
-                  ? employee.status === "accepted"
+                request.showStatus
+                  ? request.status === "accepted"
                     ? "bg-green-100"
                     : "bg-red-100"
                   : ""
@@ -183,27 +187,32 @@ const ConfirmAttendance = () => {
               style={{ transition: "background-color 1s" }}
             >
               <img
-                src={employee.photo}
-                alt={`${employee.name} photo`}
+                src={request.photo}
+                alt={`${request.name} photo`}
                 className="w-20 h-20 rounded-full mb-4 border-2 border-gray-300"
               />
               <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                {employee.name}
+                {request.name}
               </h2>
-              <p className="text-sm text-gray-600">Code: {employee.code}</p>
-              <p className="text-sm text-gray-600">Location: {employee.location}</p>
+              <p className="text-sm text-gray-600">
+                Leave From: {request.leaveFrom}
+              </p>
+              <p className="text-sm text-gray-600">
+                Leave To: {request.leaveTo}
+              </p>
+              <p className="text-sm text-gray-600">Reason: {request.reason}</p>
               <div className="mt-4 flex space-x-4">
-                {!employee.showStatus ? (
+                {!request.showStatus ? (
                   <>
                     <button
                       className="bg-green-500 text-white px-5 py-2 rounded-lg flex items-center transition-transform transform hover:scale-105"
-                      onClick={() => handleButtonClick(employee.id, "accepted")}
+                      onClick={() => handleButtonClick(request.id, "accepted")}
                     >
                       <FaCheckCircle className="mr-2" /> Accept
                     </button>
                     <button
                       className="bg-red-500 text-white px-5 py-2 rounded-lg flex items-center transition-transform transform hover:scale-105"
-                      onClick={() => handleButtonClick(employee.id, "rejected")}
+                      onClick={() => handleButtonClick(request.id, "rejected")}
                     >
                       <FaTimesCircle className="mr-2" /> Reject
                     </button>
@@ -211,12 +220,12 @@ const ConfirmAttendance = () => {
                 ) : (
                   <p
                     className={`text-lg font-semibold ${
-                      employee.status === "accepted"
+                      request.status === "accepted"
                         ? "text-green-700"
                         : "text-red-700"
                     }`}
                   >
-                    {employee.status === "accepted" ? "Accepted" : "Rejected"}
+                    {request.status === "accepted" ? "Accepted" : "Rejected"}
                   </p>
                 )}
               </div>
@@ -228,4 +237,4 @@ const ConfirmAttendance = () => {
   );
 };
 
-export default ConfirmAttendance;
+export default LeaveRequests;
