@@ -11,6 +11,6 @@ import ConfirmAttendance from './Pages/ConfirmAttendance.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Locations />
+    <Home />
   </StrictMode>
 )

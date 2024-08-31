@@ -156,7 +156,7 @@ const ConfirmAttendance = () => {
       <div
         className={`flex-1 transition-all duration-300 ${
           isSidebarOpen ? "ml-64" : "ml-0"
-        } p-8 bg-gray-900 relative`}
+        } p-8 h-fit bg-gray-900 relative`}
       >
         {/* Watermark Logo */}
         <img
