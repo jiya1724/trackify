@@ -1,5 +1,5 @@
 import React from 'react'
 
-const IP_Address="10.0.70.233"
+const IP_Address="192.168.29.199"
 
-export default index
+export default IP_Address

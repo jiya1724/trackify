@@ -7,8 +7,11 @@ import Map from '../components/Map';
 import * as Location from 'expo-location';
 import * as geolib from 'geolib';
 import SuggestModal from '../components/SuggestModal';
-import Connected from '../assets/home/connected.svg';
-import NotConnected from '../assets/home/notConnected.svg';
+import Connected from '../assets/home/connected.svg'
+import NotConnected from '../assets/home/notConnected.svg'
+import IP_Address from '../utilities';
+import Timer from '../components/Timer';
+
 
 const Home = () => {
   const [username] = useState('Jiya Trivedi');
@@ -18,7 +21,7 @@ const Home = () => {
   const [trackingInterval, setTrackingInterval] = useState(null);
   const userData = useSelector((state) => state.authentication.userData);
   const dispatch = useDispatch();
-  const [isCheckedIn, setIsCheckedIn] = useState(true);
+
 
   useEffect(() => {
     const formatDate = () => {
@@ -43,10 +46,11 @@ const Home = () => {
         // value previously stored
       }
     };
+
     const getUser = async () => {
       try {
         const value = await AsyncStorage.getItem('auth-token');
-        const response = await fetch('http://192.168.29.199:5000/emp/getemp', {
+        const response = await fetch(`http://${IP_Address}:5000/emp/getemp`, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -73,7 +77,7 @@ const Home = () => {
   });
 
   // Logic for tracking and geofencing goes from here
-
+  const [locationInRadius, setLocationInRadius] = useState(false)
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [foregroundStatus, requestForegroundPermission] = Location.useForegroundPermissions();
@@ -83,7 +87,7 @@ const Home = () => {
 
   useEffect(() => {
     return () => {
-      // Cleanup on unmount
+
       if (locationSubscription) {
         locationSubscription.remove();
       }
@@ -109,8 +113,8 @@ const Home = () => {
 
     const subscription = await Location.watchPositionAsync(
       {
-        accuracy: Location.Accuracy.Highest, // or any other accuracy level   
-        distanceInterval: 0.5, // Minimum change (in meters) required for an update
+        accuracy: Location.Accuracy.Highest,
+        distanceInterval: 0.5,
       },
       (newLocation) => {
         setLocation(newLocation);
@@ -138,17 +142,68 @@ const Home = () => {
     text = JSON.stringify(location, null, 2);
   }
 
+
+
+  // Logic for auto checkin and checkout goes here
+
+  const [isCheckedIn, setIsCheckedIn] = useState(true);
+  const [checkinTime, setCheckinTime] = useState(null);
+  const [checkOutTime, setCheckOutTime] = useState(null);
+  const [timerStatus, setTimerStatus] = useState('false');
+
+  const getFormattedTime = () => {
+    const date = new Date(Date.now());
+
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+
+    return `${hours}:${minutesStr} ${ampm}`;
+  };
+
+  // useEffect(() => {
+  //   startTracking()
+  // }, [])
+
   useEffect(() => {
     if (location) {
       const checkLatitude = location.coords.latitude;
       const checkLongitude = location.coords.longitude;
-      console.log(geolib.isPointWithinRadius(
-        { latitude: 19.07754689737984, longitude: 72.9003631331292 },
+      setLocationInRadius(geolib.isPointWithinRadius(
+        { latitude: 19.077682672473255, longitude: 72.90027765218709 },
         { latitude: checkLatitude, longitude: checkLongitude },
-        14
+        200
       ));
     }
+
+    if (locationInRadius) {
+      if (!isCheckedIn) {
+        setIsCheckedIn(true)
+        setTimerStatus('true')
+        const settingTime=getFormattedTime();
+        setCheckinTime(settingTime);
+      }
+    } else {
+      if (isCheckedIn) {
+        setIsCheckedIn(false)
+        setTimerStatus('false')
+        const settingTime=getFormattedTime();
+        setCheckOutTime(settingTime);
+      }
+    }
+
   }, [location]);
+
+
+
+
+
+
+
 
   return (
     <View className="w-full h-full">
@@ -172,22 +227,17 @@ const Home = () => {
               <Text className="text-white" style={styles.paragraph}></Text>
             </View>
           </View>
-           {/* <TouchableOpacity onPress={startTracking} className='bg-slate-500'>
-            <Text className="text-white">Start</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={stopTracking} className='bg-slate-500'>
-            <Text className="text-white">Stop</Text>
-          </TouchableOpacity> */}
+          <View className='flex-row '>
+            <View><TouchableOpacity className='bg-white p-4 ' onPress={startTracking}><Text>Start</Text></TouchableOpacity></View>
+            <View><TouchableOpacity className='bg-white p-4 ' onPress={stopTracking}><Text>Stop</Text></TouchableOpacity></View>
+          </View>
+
           {isCheckedIn ? (
             <View className="items-center">
               <Connected />
-              <View className="bg-darkBg border mt-5 border-solid border-seagreen rounded-md p-2">
-                <Text className="font-bold text-sm text-seagreen">
-                  02 hrs 15 mins
-                </Text>
-              </View>
+              <Timer status={timerStatus} />
               <Text className="text-xs font-semibold text-Blue mt-3">
-                Checked In at: 10:20 am
+                Checked In at: {checkinTime}
               </Text>
             </View>
           ) : (

@@ -8,9 +8,11 @@ import SwitchTab from '../components/SwitchTab'
 import Home from './Home'
 import Navbar from '../components/Navbar';
 import Manual from '../screens/Manual';
+import IP_Address from '../utilities';
 
 const HomeSlide = () => {
     const name= useState('Jiya')
+    console.log(IP_Address);
   return (
     <View className="w-full h-full bg-bg ">
         <Image className='absolute left-0 -translate-x-20' source={pattern} />
