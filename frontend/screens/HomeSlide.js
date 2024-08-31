@@ -7,6 +7,7 @@ import React, { useState } from 'react'
 import SwitchTab from '../components/SwitchTab'
 import Home from './Home'
 import Navbar from '../components/Navbar';
+import Manual from '../screens/Manual';
 
 const HomeSlide = () => {
     const name= useState('Jiya')
@@ -27,7 +28,7 @@ const HomeSlide = () => {
         </View>
       </View>
       <ScrollView>
-      <SwitchTab name1="Main Office" name2="Manual CheckIn/Out" comp1={Home} comp2={Home} />
+      <SwitchTab name1="Main Office" name2="Manual CheckIn/Out" comp1={Home} comp2={Manual} />
       </ScrollView>
       <View className='bg-yellow-300 h-16 w-full'></View>
       <Navbar/>

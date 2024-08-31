@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Image, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Image, Text, TextInput, StyleSheet, TouchableOpacity, Touchable } from 'react-native'
 import pattern from '../assets/bgPattern.png'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector, useDispatch } from 'react-redux'
@@ -35,7 +35,7 @@ const Login = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       console.log("Doing");
-      const response = await fetch('http://10.0.70.233:5000/emp/login', {
+      const response = await fetch('http://192.168.133.182:5000/emp/login', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -47,7 +47,7 @@ const Login = ({ navigation }) => {
       if (data.success) {
         console.log(data.token)
         await AsyncStorage.setItem('auth-token', data.token);
-        navigation.navigate('Home')
+        navigation.navigate('HomeSlide')
       } else {
         alert(data.message);
       }
@@ -107,8 +107,10 @@ const Login = ({ navigation }) => {
         </View>
       </View>
 
+      <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
       <View className='w-full justify-end flex items-end pt-8'><Text className='text-Blue underline text-sm '>New User? Signup</Text></View>
 
+      </TouchableOpacity>
 
 
 

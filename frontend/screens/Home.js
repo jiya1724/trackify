@@ -172,6 +172,12 @@ const Home = () => {
               <Text className="text-white" style={styles.paragraph}></Text>
             </View>
           </View>
+           {/* <TouchableOpacity onPress={startTracking} className='bg-slate-500'>
+            <Text className="text-white">Start</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={stopTracking} className='bg-slate-500'>
+            <Text className="text-white">Stop</Text>
+          </TouchableOpacity> */}
           {isCheckedIn ? (
             <View className="items-center">
               <Connected />

@@ -26,7 +26,6 @@
     "react": "18.2.0",
     "react-native": "0.74.5",
     "react-native-encrypted-storage": "^4.0.3",
-    "react-native-fs": "^2.20.0",
     "react-native-maps": "^1.18.0",
     "react-native-segmented-control-tab": "^4.0.0",
     "react-native-svg": "15.2.0",
