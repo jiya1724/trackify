@@ -1,13 +1,16 @@
 import { View, Image, Text, TouchableOpacity, StyleSheet, Modal, TextInput, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import checkIn from '../assets/home/Check In.png';
+import checkOut from '../assets/home/checkOut.png'
 import { Svg,Path } from 'react-native-svg';
+import circle from '../assets/home/circle.png'
 
 const SuggestModal = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredLocations, setFilteredLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({ index: null, source: '' });
+  const [isCheckedIn, setIsCheckedIn] = useState(false);
 
   const data1 = {
     location: [
@@ -64,19 +67,56 @@ const SuggestModal = () => {
     setSelectedLocation({ index, source });
   };
 
+  const handleChecked = () => {
+    console.log('Before setting isCheckedIn:', isCheckedIn);
+    setIsCheckedIn(true);
+    console.log('After setting isCheckedIn:', isCheckedIn);
+    closeModal();
+  };
+  
+  useEffect(() => {
+    console.log('isCheckedIn state changed:', isCheckedIn);
+  }, [isCheckedIn]);
+  
  
 
   return (
-    <View>
-      <View className='w-[200px] h-[200px] bg-Red flex justify-center items-center rounded-full'>
-            <TouchableOpacity style={styles.button} onPress={manualCheckIn}>
-              <Image className='h-[83px] w-[63px]' source={checkIn} />
-              <Text className='text-white font-bold text-base uppercase'>Manual</Text>
-              <Text className='text-white font-bold text-base uppercase'>Check In</Text>
-            </TouchableOpacity>
-            
+    <View className='w-full'>
+      <View className='w-full '>
+      {isCheckedIn ? (
+        <View className='w-full'>
+      <View className='  items-center justify-center rounded-full'>
+        <Image className='-z-10 h-[200px] w-[200px]' source={circle} />
+        <TouchableOpacity className='z-10 top-0 translate-y-5 absolute bg-[#1E1E1E]' style={styles.button}>
+          <Image className='h-[83px] w-[63px]' source={checkOut} />
+          <Text className='text-lightGrey font-bold text-xs mt-2 uppercase'>Already</Text>
+          <Text className='text-lightGrey font-bold text-xs uppercase'>Checked In</Text>
+        </TouchableOpacity>
+        
       </View>
-      <View className="bg-yellow-300 h-80 w-full"></View>
+      </View>
+    ) : (
+      <View className=' items-center justify-center rounded-full'>
+        <Image className='-z-10 h-[200px] w-[200px]' source={circle} />
+        <TouchableOpacity className='z-10 top-0 translate-y-5 bg-Blue absolute' style={styles.button} onPress={manualCheckIn}>
+          <Image className='h-[83px] w-[63px]' source={checkIn} />
+          <Text className='text-white font-bold text-base uppercase'>Manual</Text>
+          <Text className='text-white font-bold text-base uppercase'>Check In</Text>
+        </TouchableOpacity>
+      </View>
+    )}
+      
+      {isCheckedIn?(
+        <View className=' p-3 bg-transparent justify-center border border-solid border-seagreen rounded-xl'>
+        <Text className='text-seagreen font-bold text-[12px]'>Checked In at :1230  </Text>
+        
+          
+      </View>
+      ):(
+        <View>
+          </View>
+      )}
+      </View>
       <Modal
         animationType="slide"
         transparent={true}
@@ -160,7 +200,7 @@ const SuggestModal = () => {
               )}
             
 
-            <TouchableOpacity style={styles.checkInButton} onPress={closeModal}>
+            <TouchableOpacity style={styles.checkInButton} onPress={handleChecked}>
               <Text style={styles.checkInButtonText}>Check IN</Text>
             </TouchableOpacity>
             </ScrollView>
@@ -177,9 +217,9 @@ export default SuggestModal
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#3085FE',
-    width: 180,
-    height: 180,
+   
+    width: 160,
+    height: 160,
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',

@@ -15,6 +15,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import FaceVerify from './screens/FaceVerify';
 import HomeSlide from './screens/HomeSlide';
+import Navbar from './components/Navbar';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -77,9 +78,11 @@ export default function App() {
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
+        
       </NavigationContainer>
+      
     </Provider>
-
+    
   );
 }
 

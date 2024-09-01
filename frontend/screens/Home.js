@@ -159,13 +159,15 @@ const Home = () => {
     const ampm = hours >= 12 ? 'PM' : 'AM';
 
     hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
+    hours = hours ? hours : 12; 
     const minutesStr = minutes < 10 ? '0' + minutes : minutes;
 
     return `${hours}:${minutesStr} ${ampm}`;
   };
 
-  ;
+  useEffect(() => {
+    startTracking()
+  }, [])
 
   useEffect(() => {
     if (location) {
@@ -237,6 +239,11 @@ const Home = () => {
               <Text className="text-xs font-semibold text-Blue mt-3">
                 Checked In at: {checkinTime}
               </Text>
+              <View className='w-full p-3 bg-transparent border border-solid border-seagreen rounded-xl'>
+                <Text className='text-seagreen font-bold text-[12px]'>Checked In at : {checkinTime}</Text>
+                
+                  
+              </View>
             </View>
           ) : (
             <View className="items-center">
@@ -244,6 +251,7 @@ const Home = () => {
               <Text className="text-Red font-bold text-xs mt-3">
                 Not Checked In
               </Text>
+
             </View>
           )}
         </View>

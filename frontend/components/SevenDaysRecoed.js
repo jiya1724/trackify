@@ -1,39 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { View, Text } from 'react-native';
 
-
-
-const SevenDaysRecoed = () => {
-    const data = {
-        records: [
-          {
-            date: "Mon, 19th August 24",
-            workingHours: "9hrs 45mins",
-          },
-          {
-            date: "Tue, 20th August 24",
-            workingHours: "8hrs 30mins",
-          },
-          {
-            date: "Wed, 21st August 24",
-            workingHours: "7hrs 50mins",
-          },
-          {
-            date: "Thu, 22nd August 24",
-            workingHours: "6hrs 15mins",
-          },
-          
-          {
-            date: "Fri, 23rd August 24",
-            workingHours: "8hrs 10mins",
-          },
-        ],
-      };
+const SevenDaysRecoed = ({ records }) => {
   return (
     <View className='mt-3 justify-center items-center'>
       <Text className='text-white text-xs font-medium pb-4 '>Attendance Record of Past 7 days</Text>
-
-      {data.records.map((record, index) => (
+      {records.map((record, index) => (
         <View
           key={index}
           className='w-full flex-row p-3 rounded-lg border-[0.5px] border-solid border-darkGrey justify-between items-center mt-2'
@@ -45,16 +17,10 @@ const SevenDaysRecoed = () => {
           <View>
             <Text className='text-sm font-semibold text-white'>{record.workingHours}</Text>
           </View>
-          
         </View>
       ))}
-      
     </View>
+  );
+};
 
-    
-  )
-}
-
-export default SevenDaysRecoed
-
-const styles = StyleSheet.create({})
+export default SevenDaysRecoed;

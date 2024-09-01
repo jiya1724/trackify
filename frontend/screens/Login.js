@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Image, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Image, Text, TextInput, StyleSheet, TouchableOpacity, Touchable } from 'react-native'
 import pattern from '../assets/bgPattern.png'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector, useDispatch } from 'react-redux'
@@ -109,8 +109,10 @@ const Login = ({ navigation }) => {
         </View>
       </View>
 
+      <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
       <View className='w-full justify-end flex items-end pt-8'><Text className='text-Blue underline text-sm '>New User? Signup</Text></View>
 
+      </TouchableOpacity>
 
 
 
