@@ -84,6 +84,10 @@ const Home = () => {
   const [backgroundStatus, requestBackgroundPermission] = Location.useBackgroundPermissions();
   const [isTracking, setIsTracking] = useState(false); // Track if tracking is active
   const [locationSubscription, setLocationSubscription] = useState(null); // Manage subscription
+  const [confirmationVisible, setConfirmationVisible] = useState(true);
+  const handleCloseConfirmation = () => {
+    setConfirmationVisible(false); 
+  };
 
   useEffect(() => {
     return () => {
@@ -199,7 +203,16 @@ const Home = () => {
   }, [location]);
 
 
-
+  const handleChecked = () => {
+    console.log('Before setting isCheckedIn:', isCheckedIn);
+    setIsCheckedIn(true);
+    console.log('After setting isCheckedIn:', isCheckedIn);
+    closeModal();
+  };
+  
+  useEffect(() => {
+    console.log('isCheckedIn state changed:', isCheckedIn);
+  }, [isCheckedIn]);
 
 
 
@@ -232,18 +245,12 @@ const Home = () => {
             <View><TouchableOpacity className='bg-white p-4 ' onPress={stopTracking}><Text>Stop</Text></TouchableOpacity></View>
           </View> */}
 
-          {isCheckedIn ? (
+          {isCheckedIn ?(
             <View className="items-center">
               <Connected />
               <Timer status={timerStatus} />
-              <Text className="text-xs font-semibold text-Blue mt-3">
-                Checked In at: {checkinTime}
-              </Text>
-              <View className='w-full p-3 bg-transparent border border-solid border-seagreen rounded-xl'>
-                <Text className='text-seagreen font-bold text-[12px]'>Checked In at : {checkinTime}</Text>
-                
-                  
-              </View>
+              
+              
             </View>
           ) : (
             <View className="items-center">
@@ -254,6 +261,19 @@ const Home = () => {
 
             </View>
           )}
+          {isCheckedIn && confirmationVisible ? (
+          <View className="p-3 -translate-y-16  bg-darkBg z-20 justify-center border border-solid border-seagreen rounded-xl">
+            <Text className="text-seagreen font-bold text-[10px]">Checked In : {checkinTime}</Text>
+            <Text className="text-darkGrey text-[8px]">You are within 200 mts of your workplace</Text>
+            <TouchableOpacity style={styles.modalCloseButton} onPress={handleCloseConfirmation}>
+              <Svg width="10" height="10" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <Path d="M1 16L16 1M16 16L1 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </Svg>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View></View>
+        )}
         </View>
       </ScrollView>
     </View>
@@ -261,6 +281,11 @@ const Home = () => {
 };
 
 const styles = StyleSheet.create({
+  modalCloseButton: {
+    position: 'absolute',
+    top: 20,
+    right: 16,
+  },
   button: {
     backgroundColor: '#3085FE',
     width: 180,
