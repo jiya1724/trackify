@@ -35,47 +35,47 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen
-          name="Signup"
-          component={Signup}
-          options={{ headerShown: false }}
-        />  */}
-          {/* <Stack.Screen
+          <Stack.Screen
+            name="Signup"
+            component={Signup}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="Login"
             component={Login}
             options={{ headerShown: false }}
-          /> */}
+          />
 
 
-          {/* <Stack.Screen
-          name="PhotoSetup"
-          component={PhotoSetup}
-          options={{ headerShown: false }}
-        /> */}
-        <Stack.Screen name='HomeSlide' 
-        component={HomeSlide} 
-        options={{headerShown:false}}/>
-          {/* <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        /> */}
-          {/* <Stack.Screen
-          name="Records"
-          component={Records}
-          options={{ headerShown: false }}
-        /> */}
-{/* 
           <Stack.Screen
-          name="Leave"
-          component={Leave}
-          options={{ headerShown: false }}
-        /> */}
-        {/* <Stack.Screen
-          name="Face Verify"
-          component={FaceVerify}
-          options={{ headerShown: false }}
-        /> */}
+            name="PhotoSetup"
+            component={PhotoSetup}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name='HomeSlide'
+            component={HomeSlide}
+            options={{ headerShown: false }} />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Records"
+            component={Records}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="Leave"
+            component={Leave}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Face Verify"
+            component={FaceVerify}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

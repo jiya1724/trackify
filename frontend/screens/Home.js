@@ -165,9 +165,7 @@ const Home = () => {
     return `${hours}:${minutesStr} ${ampm}`;
   };
 
-  // useEffect(() => {
-  //   startTracking()
-  // }, [])
+  ;
 
   useEffect(() => {
     if (location) {
@@ -227,10 +225,10 @@ const Home = () => {
               <Text className="text-white" style={styles.paragraph}></Text>
             </View>
           </View>
-          <View className='flex-row '>
+          {/* <View className='flex-row '>
             <View><TouchableOpacity className='bg-white p-4 ' onPress={startTracking}><Text>Start</Text></TouchableOpacity></View>
             <View><TouchableOpacity className='bg-white p-4 ' onPress={stopTracking}><Text>Stop</Text></TouchableOpacity></View>
-          </View>
+          </View> */}
 
           {isCheckedIn ? (
             <View className="items-center">
