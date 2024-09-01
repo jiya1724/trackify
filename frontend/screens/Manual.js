@@ -15,7 +15,7 @@ const Manual = () => {const [username] = useState('Jiya Trivedi');
     const [trackingInterval, setTrackingInterval] = useState(null);
     const userData = useSelector((state) => state.authentication.userData);
     const dispatch = useDispatch();
-    const [isCheckedIn, setIsCheckedIn] = useState(true);
+   
   
     useEffect(() => {
       const formatDate = () => {
@@ -106,8 +106,8 @@ const Manual = () => {const [username] = useState('Jiya Trivedi');
   
       const subscription = await Location.watchPositionAsync(
         {
-          accuracy: Location.Accuracy.Highest, // or any other accuracy level   
-          distanceInterval: 0.5, // Minimum change (in meters) required for an update
+          accuracy: Location.Accuracy.Highest,   
+          distanceInterval: 0.5, 
         },
         (newLocation) => {
           setLocation(newLocation);

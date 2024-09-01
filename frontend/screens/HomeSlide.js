@@ -9,6 +9,7 @@ import Home from './Home'
 import Navbar from '../components/Navbar';
 import Manual from '../screens/Manual';
 import IP_Address from '../utilities';
+import Switch from '../components/Switch';
 
 const HomeSlide = () => {
     const name= useState('Jiya')
@@ -30,7 +31,7 @@ const HomeSlide = () => {
         </View>
       </View>
       <ScrollView>
-      <SwitchTab name1="Main Office" name2="Manual CheckIn/Out" comp1={Home} comp2={Manual} />
+      <Switch/>
       </ScrollView>
       <View className='bg-yellow-300 h-16 w-full'></View>
       <Navbar/>

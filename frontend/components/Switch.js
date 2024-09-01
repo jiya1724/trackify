@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
-import Offsite from './Offsite';
-import Office from '../components/Office'
+import Home from '../screens/Home';
+import Manual from '../screens/Manual';
 
-const SwitchTab = ({ name1, name2, comp1: Comp1, comp2: Comp2 }) => {
+const Switch = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -24,7 +24,7 @@ const SwitchTab = ({ name1, name2, comp1: Comp1, comp2: Comp2 }) => {
     return (
         <View style={styles.container}>
             <SegmentedControlTab
-                values={["Office","Offsite"]}
+                values={["Main Office","Manual CheckIn/Out "]}
                 selectedIndex={selectedIndex}
                 onTabPress={handleIndexChange}
                 tabsContainerStyle={styles.tabsContainer}
@@ -35,8 +35,8 @@ const SwitchTab = ({ name1, name2, comp1: Comp1, comp2: Comp2 }) => {
             />
 
             <Animated.View style={[styles.contentContainer, { opacity: fadeAnim }]}>
-            {selectedIndex === 0 && <Office/>}
-            {selectedIndex === 1 && <Offsite/>}
+            {selectedIndex === 0 && <Home/>}
+            {selectedIndex === 1 && <Manual/>}
             </Animated.View>
         </View>
     );
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SwitchTab;
+export default Switch;

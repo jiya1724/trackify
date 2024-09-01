@@ -67,35 +67,56 @@ const SuggestModal = () => {
     setSelectedLocation({ index, source });
   };
 
+  const handleChecked = () => {
+    console.log('Before setting isCheckedIn:', isCheckedIn);
+    setIsCheckedIn(true);
+    console.log('After setting isCheckedIn:', isCheckedIn);
+    closeModal();
+  };
+  
+  useEffect(() => {
+    console.log('isCheckedIn state changed:', isCheckedIn);
+  }, [isCheckedIn]);
+  
  
 
   return (
-    <View>
+    <View className='w-full'>
+      <View className='w-full '>
       {isCheckedIn ? (
-            <View className=' items-center justify-center rounded-full'>
-            <Image className='-z-10 h-[200px] w-[200px]' source={circle}></Image>
-            <TouchableOpacity className='z-10 top-0 translate-y-5 bg-Blue absolute' style={styles.button} onPress={manualCheckIn}>
-                  <Image className='h-[83px] w-[63px]' source={checkIn} />
-                  <Text className='text-white font-bold text-base uppercase'>Manual</Text>
-                  <Text className='text-white font-bold text-base uppercase'>Check In</Text>
-                </TouchableOpacity>
-                
-                
-          </View>
-          ) : (
-            <View className=' items-center justify-center rounded-full'>
-        <Image className='-z-10 h-[200px] w-[200px]' source={circle}></Image>
-        <TouchableOpacity className='z-10  top-0 translate-y-5 absolute bg-[#1E1E1E]' style={styles.button} >
-              <Image className='h-[83px] w-[63px]' source={checkOut} />
-              <Text className='text-lightGrey font-bold text-xs mt-2 uppercase'>Already</Text>
-              <Text className='text-lightGrey font-bold text-xs uppercase'>Checked In</Text>
-            </TouchableOpacity>
-            
-            
+        <View className='w-full'>
+      <View className='  items-center justify-center rounded-full'>
+        <Image className='-z-10 h-[200px] w-[200px]' source={circle} />
+        <TouchableOpacity className='z-10 top-0 translate-y-5 absolute bg-[#1E1E1E]' style={styles.button}>
+          <Image className='h-[83px] w-[63px]' source={checkOut} />
+          <Text className='text-lightGrey font-bold text-xs mt-2 uppercase'>Already</Text>
+          <Text className='text-lightGrey font-bold text-xs uppercase'>Checked In</Text>
+        </TouchableOpacity>
+        
       </View>
-          )}
+      </View>
+    ) : (
+      <View className=' items-center justify-center rounded-full'>
+        <Image className='-z-10 h-[200px] w-[200px]' source={circle} />
+        <TouchableOpacity className='z-10 top-0 translate-y-5 bg-Blue absolute' style={styles.button} onPress={manualCheckIn}>
+          <Image className='h-[83px] w-[63px]' source={checkIn} />
+          <Text className='text-white font-bold text-base uppercase'>Manual</Text>
+          <Text className='text-white font-bold text-base uppercase'>Check In</Text>
+        </TouchableOpacity>
+      </View>
+    )}
       
-      
+      {isCheckedIn?(
+        <View className=' p-3 bg-transparent justify-center border border-solid border-seagreen rounded-xl'>
+        <Text className='text-seagreen font-bold text-[12px]'>Checked In at :1230  </Text>
+        
+          
+      </View>
+      ):(
+        <View>
+          </View>
+      )}
+      </View>
       <Modal
         animationType="slide"
         transparent={true}
@@ -179,7 +200,7 @@ const SuggestModal = () => {
               )}
             
 
-            <TouchableOpacity style={styles.checkInButton} onPress={closeModal}>
+            <TouchableOpacity style={styles.checkInButton} onPress={handleChecked}>
               <Text style={styles.checkInButtonText}>Check IN</Text>
             </TouchableOpacity>
             </ScrollView>
