@@ -11,6 +11,10 @@ const SuggestModal = () => {
   const [filteredLocations, setFilteredLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({ index: null, source: '' });
   const [isCheckedIn, setIsCheckedIn] = useState(false);
+  const [confirmationVisible, setConfirmationVisible] = useState(true);
+  const handleCloseConfirmation = () => {
+    setConfirmationVisible(false); 
+  };
 
   const data1 = {
     location: [
@@ -106,16 +110,19 @@ const SuggestModal = () => {
       </View>
     )}
       
-      {isCheckedIn?(
-        <View className=' p-3 bg-transparent justify-center border border-solid border-seagreen rounded-xl'>
-        <Text className='text-seagreen font-bold text-[12px]'>Checked In at :1230  </Text>
-        
-          
-      </View>
-      ):(
-        <View>
+      {isCheckedIn && confirmationVisible ? (
+          <View className="p-3 -translate-y-16  bg-darkBg z-20 justify-center border border-solid border-seagreen rounded-xl">
+            <Text className="text-seagreen font-bold text-[10px]">Checked In Confirmation Request sent to the admin</Text>
+            <Text className="text-darkGrey text-[8px]">Working Hours will be displayed in the Records section once admin approves</Text>
+            <TouchableOpacity style={styles.modalCloseButton} onPress={handleCloseConfirmation}>
+              <Svg width="10" height="10" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <Path d="M1 16L16 1M16 16L1 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </Svg>
+            </TouchableOpacity>
           </View>
-      )}
+        ) : (
+          <View></View>
+        )}
       </View>
       <Modal
         animationType="slide"
@@ -223,6 +230,11 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  modalCloseButton: {
+    position: 'absolute',
+    top: 20,
+    right: 16,
   },
   buttonText: {
     color: 'white',
