@@ -37,7 +37,9 @@ const ChangePIN = () => {
         <View className='bg-darkBg flex-row items-center pt-10  space-x-[25%] pb-5 '>
             <TouchableWithoutFeedback>
                 <View className='translate-x-3'>
-                <Back></Back>
+                <TouchableWithoutFeedback>
+                    <Back></Back>
+                </TouchableWithoutFeedback>
                 </View>
             </TouchableWithoutFeedback>
             <View className=' justify-center'>

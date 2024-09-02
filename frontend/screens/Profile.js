@@ -14,7 +14,7 @@ import ChangePIN from '../components/ChangePIN'
 const Profile = () => {
   return (
     <View className='w-full h-full bg-bg'>
-        {/* <Image className='absolute left-0 -translate-x-20' source={pattern} />
+        <Image className='absolute left-0 -translate-x-20' source={pattern} />
       <Image className='absolute right-0 bottom-0 translate-x-20' source={pattern} />
 
       <View className='w-full p-5'>
@@ -65,9 +65,9 @@ const Profile = () => {
       </View>
 
 
-      <Navbar/> */}
+      <Navbar/>
 
-      <ChangePIN/>
+     
     </View>
   )
 }
