@@ -11,6 +11,7 @@ import Tc from '../assets/profile/t&c.svg'
 
 import Arrow from '../assets/profile/arrowSide.svg'
 import ChangePIN from '../components/ChangePIN'
+import Notifications from '../components/Notifications'
 const Profile = () => {
   return (
     <View className='w-full h-full bg-bg'>
@@ -66,7 +67,7 @@ const Profile = () => {
 
 
       <Navbar/>
-
+    
      
     </View>
   )
