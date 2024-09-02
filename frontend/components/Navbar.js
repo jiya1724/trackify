@@ -46,7 +46,7 @@ const Navbar = () => {
                 </View>
             </TouchableWithoutFeedback>
 
-            <TouchableWithoutFeedback onPress={() => navigation.navigate('HomeSlide')}>
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('Profile')}>
                 <View className='flex items-center justify-center space-y-1'>
                     <Profile stroke={getStrokeColor('Profile')} />
                     <Text style={{ color: getTextColor('Profile') }} className='text-xs'>Profile</Text>

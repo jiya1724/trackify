@@ -16,6 +16,7 @@ import store from './redux/store';
 import FaceVerify from './screens/FaceVerify';
 import HomeSlide from './screens/HomeSlide';
 import Navbar from './components/Navbar';
+import Profile from './screens/Profile';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -54,7 +55,7 @@ export default function App() {
           component={PhotoSetup}
           options={{ headerShown: false }}
         /> */}
-        <Stack.Screen name='HomeSlide' 
+        {/* <Stack.Screen name='HomeSlide' 
         component={HomeSlide} 
         options={{headerShown:false}}/>
           
@@ -73,9 +74,13 @@ export default function App() {
           name="Face Verify"
           component={FaceVerify}
           options={{ headerShown: false }}
-        />
+        /> */}
+        <Stack.Screen
+         name="Profile"
+         component={Profile}
+         options={{headerShown:false}}
+        ></Stack.Screen>
         </Stack.Navigator>
-        
       </NavigationContainer>
       
     </Provider>
