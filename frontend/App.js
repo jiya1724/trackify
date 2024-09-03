@@ -36,23 +36,24 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
-            name="Signup"
-            component={Signup}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
+
+          {/* <Stack.Screen
             name="Login"
             component={Login}
             options={{ headerShown: false }}
-          />
+          /> */}
+          {/* <Stack.Screen
+            name="Signup"
+            component={Signup}
+            options={{ headerShown: false }}
+          /> */}
 
 
-          <Stack.Screen
+          {/* <Stack.Screen
             name="PhotoSetup"
             component={PhotoSetup}
             options={{ headerShown: false }}
-          />
+          /> */}
           <Stack.Screen name='HomeSlide'
             component={HomeSlide}
             options={{ headerShown: false }} />
@@ -78,11 +79,11 @@ export default function App() {
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
-        
+
       </NavigationContainer>
-      
+
     </Provider>
-    
+
   );
 }
 

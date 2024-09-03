@@ -23,7 +23,7 @@ const HomeSlide = () => {
         <View className='flex flex-row justify-between items-center'>
           <View className='flex flex-row items-center gap-4'>
             <Image className='h-[37.25px] w-[33px]' source={Logo} />
-            <Text className='text-base text-white font-bold'>Namaste! Toyash</Text>
+            <Text className='text-base text-white font-bold'>Namaste! Employee1</Text>
           </View>
           <View className='flex items-center'>
             <Image className='h-[28px] w-[28px]' source={bell} />

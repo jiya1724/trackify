@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Svg,Path } from 'react-native-svg';
 import { View, Image, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import Navbar from '../components/Navbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,6 +14,7 @@ import IP_Address from '../utilities';
 import Timer from '../components/Timer';
 
 
+
 const Home = () => {
   const [username] = useState('Jiya Trivedi');
   const [c_location] = useState('Gail India');
@@ -21,6 +23,13 @@ const Home = () => {
   const [trackingInterval, setTrackingInterval] = useState(null);
   const userData = useSelector((state) => state.authentication.userData);
   const dispatch = useDispatch();
+  const userCheckin = useSelector((state) => state.punch.latestCheckIn);
+  const userCheckout = useSelector((state) => state.punch.latestCheckIn);
+  
+
+  // console.log(userCheckin)
+
+  
 
 
   useEffect(() => {
@@ -202,6 +211,10 @@ const Home = () => {
 
   }, [location]);
 
+  // logic for checkin checkout hours calculation goes here
+
+  
+
 
   const handleChecked = () => {
     console.log('Before setting isCheckedIn:', isCheckedIn);
@@ -240,10 +253,10 @@ const Home = () => {
               <Text className="text-white" style={styles.paragraph}></Text>
             </View>
           </View>
-          {/* <View className='flex-row '>
-            <View><TouchableOpacity className='bg-white p-4 ' onPress={startTracking}><Text>Start</Text></TouchableOpacity></View>
-            <View><TouchableOpacity className='bg-white p-4 ' onPress={stopTracking}><Text>Stop</Text></TouchableOpacity></View>
-          </View> */}
+          <View className='flex-row '>
+            <View><TouchableOpacity className='bg-white p-4 ' onPress={startTracking}><Text>set</Text></TouchableOpacity></View>
+            <View><TouchableOpacity className='bg-white p-4 ' onPress={stopTracking}><Text>calculate</Text></TouchableOpacity></View>
+          </View>
 
           {isCheckedIn ?(
             <View className="items-center">

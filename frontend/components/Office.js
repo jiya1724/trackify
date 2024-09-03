@@ -40,7 +40,8 @@ const generateCSV = (records) => {
 };
 
 const Office = () => {
-  const [checkinTime] = useState('10:30 am');
+  const [checkinTime] = useState('4:02 pm');
+  const [checinHours, setChecinHours] = useState('20 mins')
   const [dateRange, setDateRange] = useState({
     fromDate: null,
     toDate: null,
@@ -106,7 +107,7 @@ const Office = () => {
               <Text className='text-white text-xs font-medium'>Total Working Hours:</Text>
             </View>
             <View className='w-full flex justify-center items-center text-center'>
-              <Text className='text-white font-bold text-base'>{checkinTime}</Text>
+              <Text className='text-white font-bold text-base'>{checinHours}</Text>
             </View>
           </View>
         </View>
