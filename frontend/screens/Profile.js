@@ -4,8 +4,9 @@ import Navbar from '../components/Navbar'
 import pattern from '../assets/bgPattern.png'
 import Emp from '../assets/profile/empProfile.svg'
 
+
 import ChangePin from '../assets/profile/changePin.svg'
-import Logout from '../assets/profile/logout.svg'
+// import Logout from '../assets/profile/logout.svg'
 import Notifi from '../assets/profile/notifi.svg'
 import Tc from '../assets/profile/t&c.svg'
 
@@ -54,7 +55,7 @@ const Profile = () => {
             </View></TouchableWithoutFeedback>
             <TouchableWithoutFeedback><View className='flex-row justify-between items-center pb-6 pt-6 '>
                 <View  className='flex-row justify-center items-center space-x-3'>
-                    <Logout></Logout>
+                    {/* <Logout></Logout> */}
                     <Text className='text-white font-bold text-sm'>Logout</Text>
 
 

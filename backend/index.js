@@ -12,6 +12,10 @@ const PORT = 5000;
 
 app.use('/auth',require('./routes/auth'));
 app.use('/emp',require('./routes/emp'));
+app.use('/punch',require('./routes/hours'));
+app.use('/leave',require('./routes/leave'));
+app.use('/twilio',require('./routes/twilio'));
+
 
 
 app.get('/',(req,res)=>{

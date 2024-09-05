@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View, Dimensions } from 'react-native'
 import React, { useState } from 'react'
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+import MapView, {Marker, PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 
-const { width,height } = Dimensions.get('window'); // Get the screen width
+const { width, height } = Dimensions.get('window'); // Get the screen width
 
 const styles = StyleSheet.create({
     container: {
         width: width * 0.9, // Set the width to 80% of the screen width
-        height: height* 0.4 ,
+        height: height * 0.4,
         position: 'relative',
     },
     map: {
@@ -15,9 +15,9 @@ const styles = StyleSheet.create({
     },
 });
 
-const Map = ({region,setRegion}) => {
+const Map = ({ region, setRegion }) => {
 
-    
+
 
     return (
         <View style={styles.container}>
@@ -26,7 +26,16 @@ const Map = ({region,setRegion}) => {
                 style={styles.map}
                 region={region}
                 onRegionChangeComplete={(newRegion) => setRegion(newRegion)}
-            />
+            >
+                <Marker
+                    coordinate={{
+                        latitude: region.latitude,
+                        longitude: region.longitude,
+                    }}
+                    title="Marker Title"
+                    description="This is a description for the marker"
+                />
+            </MapView>
         </View>
     )
 }
