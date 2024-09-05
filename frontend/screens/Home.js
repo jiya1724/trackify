@@ -12,7 +12,7 @@ import Connected from '../assets/home/connected.svg';
 import NotConnected from '../assets/home/notConnected.svg';
 import IP_Address from '../utilities';
 import Timer from '../components/Timer';
-import { addLatestcheckIn, addLatestCheckOut,setShowCheckinTime } from '../redux/punch/punchSlice';
+import { addLatestcheckIn, addLatestCheckOut, setShowCheckinTime } from '../redux/punch/punchSlice';
 
 const Home = () => {
   const [username] = useState('Jiya Trivedi');
@@ -23,7 +23,7 @@ const Home = () => {
   const userData = useSelector((state) => state.authentication.userData);
   const [confirmationVisible, setConfirmationVisible] = useState(true);
   const dispatch = useDispatch();
-    const handleCloseConfirmation = () => {
+  const handleCloseConfirmation = () => {
     setConfirmationVisible(false);
   };
 
@@ -156,8 +156,8 @@ const Home = () => {
     console.log(userCheckin);
     console.log(userCheckout);
   }, [isCheckedIn])
-  
-  const settingshowtime=(time)=>{
+
+  const settingshowtime = (time) => {
     dispatch(setShowCheckinTime(time))
   }
 
@@ -173,16 +173,16 @@ const Home = () => {
       console.log(checkLatitude)
       console.log(checkLongitude)
     }
-    
+
 
     if (locationInRadius) {
       if (!isCheckedIn) {
         setIsCheckedIn(true)
         setTimerStatus('true')
-        const settingTime =getFormattedTime();
+        const settingTime = getFormattedTime();
         settingshowtime(settingTime);
         setCheckinTime(settingTime);
-        
+
       }
     } else {
       if (isCheckedIn) {
@@ -193,7 +193,7 @@ const Home = () => {
         setCheckOutTime(settingTime);
       }
     }
-    
+
 
     if (locationInRadius && !isCheckedIn) {
       setIsCheckedIn(true);
@@ -222,11 +222,11 @@ const Home = () => {
 
   useEffect(() => {
     startTracking();
-  
-    
+
+
   }, [])
-  
- 
+
+
 
   useEffect(() => {
     if (userCheckin && userCheckout && checkOutTime) {
@@ -236,14 +236,14 @@ const Home = () => {
         const differenceInMinutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60)); // Convert remaining to minutes
         const differenceInSeconds = Math.floor((differenceInMs % (1000 * 60)) / 1000);
         alert(`Time worked: ${differenceInHours} hours, ${differenceInMinutes} minutes , ${differenceInSeconds} sec`);
-      } 
+      }
     }
   }, [userCheckin, userCheckout, checkOutTime]);
   // const showTime = () => {
   //   if (userCheckin && userCheckout) {
   //     console.log('Check-in time (ms):', userCheckin);
   //     console.log('Check-out time (ms):', userCheckout);
-  
+
 
   //     if (userCheckout > userCheckin) {
   //       const differenceInMs = userCheckout - userCheckin;
@@ -261,8 +261,39 @@ const Home = () => {
   //     alert('Please check in and check out to see the difference.');
   //   }
   // };
-  
-  
+
+  // Background
+
+  const startBackgroundLocationUpdates = async () => {
+    const { status } = await Location.requestBackgroundPermissionsAsync();
+    if (status !== 'granted') {
+      setErrorMsg('Permission to access background location was denied');
+      return;
+    }
+
+    await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
+      accuracy: Location.Accuracy.Highest,
+      distanceInterval: 0.5,
+      deferredUpdatesInterval: 1000,
+      foregroundService: {
+        notificationTitle: 'Location Tracking',
+        notificationBody: 'We are tracking your location in the background',
+      },
+    });
+  };
+
+  const LOCATION_TASK_NAME = 'background-location-task';                   
+  useEffect(() => {
+    if (foregroundStatus?.status !== 'granted') {
+      requestForegroundPermission();
+    }
+    if (backgroundStatus?.status !== 'granted') {
+      requestBackgroundPermission();
+    }
+
+    startBackgroundLocationUpdates();
+  }, []);
+
 
   return (
     <View className="w-full h-full">
