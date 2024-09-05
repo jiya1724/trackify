@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "../assets/Images/Logo.svg";
 import Cover from "../assets/Images/Cover.svg";
 import pattern from "../assets/Images/bgPattern.png";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
@@ -40,15 +41,20 @@ const Landing = () => {
             Stay Accurate With Our Attendance Management System
           </h1>
           <p className="text-white text-lg pt-10">
-            Track and verify attendance seamlessly using geolocation technology, ensuring employees or students are present at the designated location. Our system provides accurate, real-time attendance data, enhancing accountability and operational efficiency.
+            Track and verify attendance seamlessly using geolocation technology,
+            ensuring employees or students are present at the designated
+            location. Our system provides accurate, real-time attendance data,
+            enhancing accountability and operational efficiency.
           </p>
           <div className="flex justify-center md:justify-start space-x-4 mt-10">
-            <button
-              type="button"
-              className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
-            >
-              Login As Admin
-            </button>
+            <Link to="/auth">
+              <button
+                type="button"
+                className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+              >
+                Login As Admin
+              </button>
+            </Link>
             <button
               type="button"
               className="text-[#1E1E1E] bg-[#3085FE] hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
