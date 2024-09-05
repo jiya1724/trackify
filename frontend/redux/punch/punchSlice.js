@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   latestCheckIn:0,
   latestCheckout:0,
+  showCheckinTime:""
 }
 
 export const punchSlice = createSlice({
@@ -17,12 +18,16 @@ export const punchSlice = createSlice({
     
       state.latestCheckout =action.payload
     },
+    setShowCheckinTime: (state,action) => {
+    
+      state.showCheckinTime =action.payload
+    },
     
   },
 })
 
 // Export actions
-export const {addLatestCheckOut,addLatestcheckIn} = punchSlice.actions
+export const {addLatestCheckOut,addLatestcheckIn,setShowCheckinTime} = punchSlice.actions
 
 // Export reducer
 export default punchSlice.reducer

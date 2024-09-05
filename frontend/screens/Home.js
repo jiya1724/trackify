@@ -12,7 +12,7 @@ import Connected from '../assets/home/connected.svg'
 import NotConnected from '../assets/home/notConnected.svg'
 import IP_Address from '../utilities';
 import Timer from '../components/Timer';
-import { addLatestcheckIn, addLatestCheckOut } from '../redux/punch/punchSlice';
+import { addLatestcheckIn, addLatestCheckOut,setShowCheckinTime } from '../redux/punch/punchSlice';
 
 
 
@@ -187,7 +187,9 @@ const Home = () => {
     console.log(userCheckout);
   }, [isCheckedIn])
   
-
+  const settingshowtime=(time)=>{
+    dispatch(setShowCheckinTime(time))
+  }
 
   useEffect(() => {
     if (location) {
@@ -205,14 +207,17 @@ const Home = () => {
       if (!isCheckedIn) {
         setIsCheckedIn(true)
         setTimerStatus('true')
-        const settingTime = getFormattedTime();
+        const settingTime =getFormattedTime();
+        settingshowtime(settingTime);
         setCheckinTime(settingTime);
+        
       }
     } else {
       if (isCheckedIn) {
         setIsCheckedIn(false)
         setTimerStatus('false')
         const settingTime = getFormattedTime();
+        console.log(settingTime)
         setCheckOutTime(settingTime);
       }
     }
@@ -222,7 +227,7 @@ const Home = () => {
   // logic for checkin checkout hours calculation goes here
   const userCheckin = useSelector((state) => state.punch.latestCheckIn);
   const userCheckout = useSelector((state) => state.punch.latestCheckout);
-
+  const showCheckin = useSelector((state) => state.punch.showCheckinTime);
 
   const handleTimecheckin = () => {
     dispatch(addLatestcheckIn(Date.now()));
@@ -330,7 +335,7 @@ const Home = () => {
           )}
           {isCheckedIn && confirmationVisible ? (
             <View className="p-3 -translate-y-16  bg-darkBg z-20 justify-center border border-solid border-seagreen rounded-xl">
-              <Text className="text-seagreen font-bold text-[10px]">Checked In : {checkinTime}</Text>
+              <Text className="text-seagreen font-bold text-[10px]">Checked In : {showCheckin}</Text>
               <Text className="text-darkGrey text-[8px]">You are within 200 mts of your workplace</Text>
               <TouchableOpacity style={styles.modalCloseButton} onPress={handleCloseConfirmation}>
                 <Svg width="10" height="10" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
