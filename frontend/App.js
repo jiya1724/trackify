@@ -60,21 +60,21 @@ export default function App() {
             component={Records}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Leave"
             component={Leave}
             options={{ headerShown: false }}
-          /> */}
+          />
           {/* <Stack.Screen
             name="Face Verify"
             component={FaceVerify}
             options={{ headerShown: false }}
           /> */}
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Profile"
             component={Profile}
             options={{ headerShown: false }}
-          /> */}
+          />
         </Stack.Navigator>
 
       </NavigationContainer>

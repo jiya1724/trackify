@@ -43,7 +43,7 @@ const generateCSV = (records) => {
 const Office = () => {
   const showCheckin = useSelector((state) => state.punch.showCheckinTime);
   const [checkinTime] = useState('4:02 pm');
-  const [checinHours, setChecinHours] = useState('20 mins')
+  const [checinHours, setChecinHours] = useState('NA')
   const [dateRange, setDateRange] = useState({
     fromDate: null,
     toDate: null,

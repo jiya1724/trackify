@@ -87,7 +87,7 @@ const Home = () => {
   const [backgroundStatus, requestBackgroundPermission] = Location.useBackgroundPermissions();
   const [isTracking, setIsTracking] = useState(false);
   const [locationSubscription, setLocationSubscription] = useState(null);
-
+  const [timerStatus, setTimerStatus] = useState('false')
   useEffect(() => {
     return () => {
       if (locationSubscription) {
@@ -170,6 +170,8 @@ const Home = () => {
         { latitude: checkLatitude, longitude: checkLongitude },
         200
       ));
+      console.log(checkLatitude)
+      console.log(checkLongitude)
     }
     
 
@@ -191,6 +193,7 @@ const Home = () => {
         setCheckOutTime(settingTime);
       }
     }
+    
 
     if (locationInRadius && !isCheckedIn) {
       setIsCheckedIn(true);
@@ -203,7 +206,7 @@ const Home = () => {
       setCheckOutTime(time);
       handleTimeCheckOut();
     }
-  }, [location, locationInRadius]);
+  }, [location]);
 
   const userCheckin = useSelector((state) => state.punch.latestCheckIn);
   const userCheckout = useSelector((state) => state.punch.latestCheckout);
@@ -217,6 +220,12 @@ const Home = () => {
     dispatch(addLatestCheckOut(Date.now()));
   };
 
+  useEffect(() => {
+    startTracking();
+  
+    
+  }, [])
+  
  
 
   useEffect(() => {
@@ -259,22 +268,22 @@ const Home = () => {
     <View className="w-full h-full">
       <ScrollView className="flex-1">
         <View className="w-full">
-          <View className="flex flex-col gap-5 justify-center items-center">
+          <View className="flex flex-col gap-5 mb-8  justify-center items-center">
             <Map region={region} setRegion={setRegion} />
-            <View className="flex flex-row items-center justify-between">
+            <View className="flex flex-row w-full pr-4 pl-4 justify-between ">
               <Text className="text-white font-semibold text-[11px]">Current Location: {c_location}</Text>
               <Text className="date text-darkGrey font-semibold text-[11px]">{currentDateTime}</Text>
             </View>
           </View>
-          <View className="flex-row">
+          {/* <View className="flex-row">
             <TouchableOpacity className="bg-white p-4" >
               <Text>calculate</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           {isCheckedIn ? (
             <View className="items-center">
               <Connected />
-              <Timer status="true" />
+              <Timer status={timerStatus} />
             </View>
           ) : (
             <View className="items-center">
