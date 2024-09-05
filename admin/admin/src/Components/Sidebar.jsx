@@ -19,13 +19,10 @@ const Sidebar = ({
 }) => {
   return (
     <nav
-      className={`fixed top-0 left-0 h-full w-64 bg-[#1e1e1e] text-white transition-transform duration-300 ${
+      className={`fixed top-0 left-0 h-full w-64 bg-[#0D3671] text-white transition-transform duration-300 ${
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       } z-40`}
-      style={{
-        backgroundImage: `url(${TrianglesBG})`,
-        backgroundSize: "cover",
-      }}
+      
     >
       <div className="flex flex-col h-full">
         <div className="flex-1 pt-16">
