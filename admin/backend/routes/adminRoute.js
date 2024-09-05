@@ -46,11 +46,11 @@ router.post('/createadmin', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        const { userName, password } = req.body;
+        const { officeCode, password } = req.body;
         let success = false;
 
         // Check if the admin exists by username
-        const admin = await Admin.findOne({ userName });
+        const admin = await Admin.findOne({ officeCode});
         if (!admin) {
             return res.status(404).json({ success, message: 'Admin not found' });
         }
