@@ -1,8 +1,10 @@
 import React from 'react'
 import Landing from '../Pages/Landing'
-import Login from '../Pages/Login';
+import Login from '../Pages/Login'
 import Register from '../Pages/Register'
 import ConfirmAttendance from '../Pages/ConfirmAttendance.jsx'
+import Credentials from '../Pages/Credentials.jsx'
+
 
 const routes =[
     {
@@ -21,6 +23,11 @@ const routes =[
         path : "/confirmAttendance",
         element: <ConfirmAttendance/>,
     },
+    {
+        path : "/credentials",
+        element: <Credentials/>,
+    },
+
     
     
 ];
