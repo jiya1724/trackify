@@ -4,7 +4,9 @@ import Login from '../Pages/Login'
 import Register from '../Pages/Register'
 import ConfirmAttendance from '../Pages/ConfirmAttendance.jsx'
 import Credentials from '../Pages/Credentials.jsx'
-
+import Home from '../Pages/Home.jsx'
+import Locations from '../Pages/Locations.jsx'
+import LeaveRequests from '../Pages/LeaveRequests.jsx'
 
 const routes =[
     {
@@ -20,13 +22,25 @@ const routes =[
         element: <Register/>,
     },
     {
-        path : "/confirmAttendance",
+        path : "/confirmattendance",
         element: <ConfirmAttendance/>,
     },
     {
         path : "/credentials",
         element: <Credentials/>,
     },
+    {
+        path : "/home",
+        element: <Home/>,
+    },
+    {
+        path : "/locations",
+        element: <Locations/>,
+    },
+    {
+        path:"/leaverequests",
+        element:<LeaveRequests/>
+    }
 
     
     

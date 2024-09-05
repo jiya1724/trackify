@@ -7,12 +7,11 @@ import {
   FaMapMarkerAlt,
   FaKey,
   FaEnvelope,
-  FaCalendarAlt,
 } from "react-icons/fa";
 import Logo from "../assets/Images/Logo.svg";
+import Sidebar from "../Components/Sidebar.jsx";
 import TrianglesBG from "../assets/Images/TrianglesBG.png";
 
-// Sample data for leave requests
 const sampleLeaveRequests = [
   {
     id: 1,
@@ -47,9 +46,9 @@ const LeaveRequests = () => {
     sampleLeaveRequests.map((request) => ({
       ...request,
       status: null,
-      showStatus: false,
     }))
   );
+  const [selectedRequest, setSelectedRequest] = useState(null);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -57,97 +56,29 @@ const LeaveRequests = () => {
 
   const handleButtonClick = (id, status) => {
     setRequests((prev) =>
-      prev.map((req) =>
-        req.id === id ? { ...req, status: status, showStatus: true } : req
-      )
+      prev.map((req) => (req.id === id ? { ...req, status } : req))
     );
-    setTimeout(() => {
-      setRequests((prev) =>
-        prev.map((req) =>
-          req.id === id ? { ...req, status: null, showStatus: false } : req
-        )
-      );
-    }, 1000);
+    setSelectedRequest(null); // Close modal
+  };
+
+  const openModal = (request) => {
+    setSelectedRequest(request);
+  };
+
+  const closeModal = () => {
+    setSelectedRequest(null);
   };
 
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <nav
-        className={`fixed top-0 left-0 h-full w-64 bg-[#1e1e1e] text-white transition-transform duration-300 ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } z-40`}
-        style={{
-          backgroundImage: `url(${TrianglesBG})`,
-          backgroundSize: "cover",
-        }}
-      >
-        <div className="flex flex-col h-full">
-          <div className="flex-1 pt-16">
-            <ul className="space-y-4 px-4">
-              <li
-                className={`flex items-center space-x-4 p-3 rounded-lg cursor-pointer transition-colors duration-200 ${
-                  activePage === "home" ? "bg-gray-800" : "hover:bg-gray-700"
-                }`}
-                onClick={() => setActivePage("home")}
-              >
-                <FaHome size={20} />
-                <span className="text-lg">Home</span>
-              </li>
-              <li
-                className={`flex items-center space-x-4 p-3 rounded-lg cursor-pointer transition-colors duration-200 ${
-                  activePage === "locations"
-                    ? "bg-gray-800"
-                    : "hover:bg-gray-700"
-                }`}
-                onClick={() => setActivePage("locations")}
-              >
-                <FaMapMarkerAlt size={20} />
-                <span className="text-lg">Locations</span>
-              </li>
-              <li
-                className={`flex items-center space-x-4 p-3 rounded-lg cursor-pointer transition-colors duration-200 ${
-                  activePage === "credentials"
-                    ? "bg-gray-800"
-                    : "hover:bg-gray-700"
-                }`}
-                onClick={() => setActivePage("credentials")}
-              >
-                <FaKey size={20} />
-                <span className="text-lg">Credentials</span>
-              </li>
-              <li
-                className={`flex items-center space-x-4 p-3 rounded-lg cursor-pointer transition-colors duration-200 ${
-                  activePage === "attendance"
-                    ? "bg-gray-800"
-                    : "hover:bg-gray-700"
-                }`}
-                onClick={() => setActivePage("attendance")}
-              >
-                <FaCheckCircle size={20} />
-                <span className="text-lg">Confirm Attendance</span>
-              </li>
-              <li
-                className={`flex items-center space-x-4 p-3 rounded-lg cursor-pointer transition-colors duration-200 ${
-                  activePage === "leaveRequests"
-                    ? "bg-gray-800"
-                    : "hover:bg-gray-700"
-                }`}
-                onClick={() => setActivePage("leaveRequests")}
-              >
-                <FaEnvelope size={20} />
-                <span className="text-lg">Leave Requests</span>
-              </li>
-            </ul>
-          </div>
-          {/* Logo */}
-          <div className="flex justify-center items-end flex-shrink-0 p-4">
-            <img src={Logo} alt="Logo" className="w-32" />
-          </div>
-        </div>
-      </nav>
+      <Sidebar
+        isSidebarOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
+        activePage={activePage}
+        setActivePage={setActivePage}
+      />
 
-      {/* Hamburger Icon */}
       <button
         className="fixed top-4 left-4 z-50 text-gray-700 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 focus:outline-none transition-colors duration-200"
         onClick={toggleSidebar}
@@ -160,78 +91,107 @@ const LeaveRequests = () => {
         className={`flex-1 transition-all duration-300 ${
           isSidebarOpen ? "ml-64" : "ml-0"
         } p-8 bg-[#121212] relative`}
-        style={{ minHeight: "100vh" }}
       >
-        {/* Watermark Logo */}
-        <img
-          src={Logo}
-          alt="Logo"
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 opacity-10 pointer-events-none"
-        />
-
         <h1 className="text-3xl font-extrabold text-white mb-8">
           Leave Requests
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {requests.map((request) => (
-            <div
-              key={request.id}
-              className={`bg-white p-6 rounded-lg shadow-lg flex flex-col items-center transition-transform duration-300 ${
-                request.showStatus
-                  ? request.status === "accepted"
-                    ? "bg-green-100"
-                    : "bg-red-100"
-                  : ""
-              }`}
-              style={{ transition: "background-color 1s" }}
-            >
-              <img
-                src={request.photo}
-                alt={`${request.name} photo`}
-                className="w-20 h-20 rounded-full mb-4 border-2 border-gray-300"
-              />
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                {request.name}
-              </h2>
-              <p className="text-sm text-gray-600">
-                Leave From: {request.leaveFrom}
-              </p>
-              <p className="text-sm text-gray-600">
-                Leave To: {request.leaveTo}
-              </p>
-              <p className="text-sm text-gray-600">Reason: {request.reason}</p>
-              <div className="mt-4 flex space-x-4">
-                {!request.showStatus ? (
-                  <>
-                    <button
-                      className="bg-green-500 text-white px-5 py-2 rounded-lg flex items-center transition-transform transform hover:scale-105"
-                      onClick={() => handleButtonClick(request.id, "accepted")}
+        <table className="min-w-full bg-white rounded-lg overflow-hidden">
+          <thead>
+            <tr>
+              <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
+                Name
+              </th>
+              <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
+                Leave From
+              </th>
+              <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
+                Leave To
+              </th>
+              <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
+                Status
+              </th>
+              <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {requests.map((request) => (
+              <tr key={request.id} className="border-t">
+                <td className="py-3 px-6">{request.name}</td>
+                <td className="py-3 px-6">{request.leaveFrom}</td>
+                <td className="py-3 px-6">{request.leaveTo}</td>
+                <td className="py-3 px-6">
+                  {request.status ? (
+                    <span
+                      className={`px-2 py-1 rounded-full text-sm font-semibold ${
+                        request.status === "accepted"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
                     >
-                      <FaCheckCircle className="mr-2" /> Accept
-                    </button>
-                    <button
-                      className="bg-red-500 text-white px-5 py-2 rounded-lg flex items-center transition-transform transform hover:scale-105"
-                      onClick={() => handleButtonClick(request.id, "rejected")}
-                    >
-                      <FaTimesCircle className="mr-2" /> Reject
-                    </button>
-                  </>
-                ) : (
-                  <p
-                    className={`text-lg font-semibold ${
-                      request.status === "accepted"
-                        ? "text-green-700"
-                        : "text-red-700"
-                    }`}
+                      {request.status.charAt(0).toUpperCase() +
+                        request.status.slice(1)}
+                    </span>
+                  ) : (
+                    "Pending"
+                  )}
+                </td>
+                <td className="py-3 px-6">
+                  <button
+                    className="text-blue-600 hover:underline"
+                    onClick={() => openModal(request)}
                   >
-                    {request.status === "accepted" ? "Accepted" : "Rejected"}
-                  </p>
-                )}
+                    View
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {/* Modal */}
+        {selectedRequest && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
+              <h2 className="text-2xl font-semibold mb-4">
+                Leave Request from {selectedRequest.name}
+              </h2>
+              <p className="text-sm mb-2">
+                Leave From: {selectedRequest.leaveFrom}
+              </p>
+              <p className="text-sm mb-2">
+                Leave To: {selectedRequest.leaveTo}
+              </p>
+              <p className="text-sm mb-4">Reason: {selectedRequest.reason}</p>
+              <div className="flex justify-end space-x-4">
+                <button
+                  className="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center"
+                  onClick={() =>
+                    handleButtonClick(selectedRequest.id, "accepted")
+                  }
+                >
+                  <FaCheckCircle className="mr-2" /> Accept
+                </button>
+                <button
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg flex items-center"
+                  onClick={() =>
+                    handleButtonClick(selectedRequest.id, "rejected")
+                  }
+                >
+                  <FaTimesCircle className="mr-2" /> Reject
+                </button>
+                <button
+                  className="bg-gray-500 text-white px-4 py-2 rounded-lg flex items-center"
+                  onClick={closeModal}
+                >
+                  Cancel
+                </button>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

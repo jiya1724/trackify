@@ -14,6 +14,7 @@ import {
 import Logo from "../assets/Images/Logo.svg";
 import TrianglesBG from "../assets/Images/TrianglesBG.png";
 import DailyEmployeesChart from "../Components/DailyEmployeesChart";
+import Sidebar from "../Components/Sidebar.jsx";
 
 const Home = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -28,82 +29,12 @@ const Home = () => {
       <div className="desk">
         <div className="relative flex h-screen">
           {/* Sidebar */}
-          <nav
-            className={`fixed top-0 left-0 h-full w-64 bg-[#121212] text-white transition-transform duration-300 ${
-              isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-            } z-40`}
-            style={{
-              backgroundImage: `url(${TrianglesBG})`,
-              backgroundSize: "cover",
-            }}
-          >
-            <div className="flex flex-col h-full">
-              {/* Sidebar items */}
-              <div className="flex-1 pt-16">
-                <ul className="space-y-4 px-4">
-                  <li
-                    className={`flex items-center space-x-4 p-2 rounded-lg cursor-pointer ${
-                      activePage === "home"
-                        ? "bg-gray-700"
-                        : "hover:bg-gray-700"
-                    }`}
-                    onClick={() => setActivePage("home")}
-                  >
-                    <FaHome size={20} />
-                    <span className="text-lg">Home</span>
-                  </li>
-                  <li
-                    className={`flex items-center space-x-4 p-2 rounded-lg cursor-pointer ${
-                      activePage === "locations"
-                        ? "bg-gray-700"
-                        : "hover:bg-gray-700"
-                    }`}
-                    onClick={() => setActivePage("locations")}
-                  >
-                    <FaMapMarkerAlt size={20} />
-                    <span className="text-lg">Locations</span>
-                  </li>
-                  <li
-                    className={`flex items-center space-x-4 p-2 rounded-lg cursor-pointer ${
-                      activePage === "credentials"
-                        ? "bg-gray-700"
-                        : "hover:bg-gray-700"
-                    }`}
-                    onClick={() => setActivePage("credentials")}
-                  >
-                    <FaKey size={20} />
-                    <span className="text-lg">Credentials</span>
-                  </li>
-                  <li
-                    className={`flex items-center space-x-4 p-2 rounded-lg cursor-pointer ${
-                      activePage === "attendance"
-                        ? "bg-gray-700"
-                        : "hover:bg-gray-700"
-                    }`}
-                    onClick={() => setActivePage("attendance")}
-                  >
-                    <FaCheckCircle size={20} />
-                    <span className="text-lg">Confirm Attendance</span>
-                  </li>
-                  <li
-                    className={`flex items-center space-x-4 p-2 rounded-lg cursor-pointer ${
-                      activePage === "leaveRequests"
-                        ? "bg-gray-700"
-                        : "hover:bg-gray-700"
-                    }`}
-                    onClick={() => setActivePage("leaveRequests")}
-                  >
-                    <FaEnvelope size={20} />
-                    <span className="text-lg">Leave Requests</span>
-                  </li>
-                </ul>
-              </div>
-              {/* Logo */}
-              <div className="flex justify-center items-end flex-shrink-0 p-4">
-                <img src={Logo} alt="Logo" className="w-32" />
-              </div>
-            </div>
-          </nav>
+          <Sidebar
+            isSidebarOpen={isSidebarOpen}
+            toggleSidebar={toggleSidebar}
+            activePage={activePage}
+            setActivePage={setActivePage}
+          />
 
           {/* Hamburger Icon */}
           <button
