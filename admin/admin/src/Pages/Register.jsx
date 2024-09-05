@@ -32,15 +32,12 @@ const Register = () => {
     <div>
       <div className="desk">
         <div
-          className="h-screen flex items-center justify-center bg-cover bg-center"
-          style={{ backgroundImage: `url(${TrianglesBG})` }}
+          className="h-screen flex items-center justify-center bg-bg"
+          
         >
+          
           <div className="w-full max-w-md bg-neutral-950 rounded-lg shadow-lg relative overflow-hidden">
-            <img
-              className="absolute top-0 right-0 w-1/2 h-full object-cover opacity-30"
-              src={pattern}
-              alt="Background Pattern"
-            />
+            
 
             <div className="relative p-8">
               <div className="text-center mb-6">
