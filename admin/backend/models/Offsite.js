@@ -14,7 +14,7 @@ const offsiteSchema= new Schema({
         type: Number,
         require: true,    
     },
-    latitiude:{
+    latitude:{
         type: Number,
         require: true,
     }

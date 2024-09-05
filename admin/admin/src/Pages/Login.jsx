@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Logo from "../assets/Images/Logo.svg";
 import pattern from "../assets/Images/bgPattern.png";
 import TrianglesBG from "../assets/Images/TrianglesBG.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     code: '',
     password: '',
@@ -31,6 +32,7 @@ const Login = () => {
       if (response.ok) {
         console.log("Login successful:", data);
         localStorage.setItem('token', data.token);
+        navigate('/home')
       } else {
         setErrorMessage(data.message || 'Login failed');
       }
@@ -122,7 +124,7 @@ const Login = () => {
                   </div>
                 </div>
 
-                <Link to="/home"><button
+                <button
                   type="submit"
                   className={`w-full bg-blue-700 text-white font-medium rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-800 ${
                     !isFormValid ? "opacity-50 cursor-not-allowed" : ""
@@ -130,7 +132,7 @@ const Login = () => {
                   disabled={!isFormValid}
                 >
                   Login
-                </button></Link>
+                </button>
               </form>
 
               {errorMessage && (
