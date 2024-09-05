@@ -5,6 +5,7 @@ import { writeAsStringAsync, documentDirectory } from 'expo-file-system';
 import checkin from '../assets/record/arrowSector.png';
 import arrow from '../assets/record/arrow.png';
 import SevenDaysRecoed from './SevenDaysRecoed';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Define your data directly or fetch it as needed
 const data = {
@@ -40,7 +41,9 @@ const generateCSV = (records) => {
 };
 
 const Office = () => {
-  const [checkinTime] = useState('10:30 am');
+  const showCheckin = useSelector((state) => state.punch.showCheckinTime);
+  const [checkinTime] = useState('4:02 pm');
+  const [checinHours, setChecinHours] = useState('20 mins')
   const [dateRange, setDateRange] = useState({
     fromDate: null,
     toDate: null,
@@ -98,7 +101,7 @@ const Office = () => {
               <Text className='text-white text-xs font-medium'>Check In</Text>
             </View>
             <View className='w-full flex justify-center items-center text-center'>
-              <Text className='text-white font-bold text-base'>{checkinTime}</Text>
+              <Text className='text-white font-bold text-base'>{showCheckin}</Text>
             </View>
           </View>
           <View className='flex flex-1 flex-col space-y-2 bg-greyishBlack border-solid border-[0.5px] border-Blue rounded-lg p-3 justify-center items-center'>
@@ -106,7 +109,7 @@ const Office = () => {
               <Text className='text-white text-xs font-medium'>Total Working Hours:</Text>
             </View>
             <View className='w-full flex justify-center items-center text-center'>
-              <Text className='text-white font-bold text-base'>{checkinTime}</Text>
+              <Text className='text-white font-bold text-base'>{checinHours}</Text>
             </View>
           </View>
         </View>
