@@ -12,6 +12,6 @@ import LeaveRequests from "./Pages/LeaveRequests.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <LeaveRequests />
+    <Home />
   </StrictMode>
 );
