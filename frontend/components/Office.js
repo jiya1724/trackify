@@ -41,6 +41,8 @@ const generateCSV = (records) => {
 };
 
 const Office = () => {
+  const showworking = useSelector((state) => state.punch.working);
+
   const showCheckin = useSelector((state) => state.punch.showCheckinTime);
   const [checkinTime] = useState('4:02 pm');
   const [checinHours, setChecinHours] = useState('NA')
@@ -109,7 +111,7 @@ const Office = () => {
               <Text className='text-white text-xs font-medium'>Total Working Hours:</Text>
             </View>
             <View className='w-full flex justify-center items-center text-center'>
-              <Text className='text-white font-bold text-base'>{checinHours}</Text>
+              <Text className='text-white font-bold text-base'>{showworking}</Text>
             </View>
           </View>
         </View>

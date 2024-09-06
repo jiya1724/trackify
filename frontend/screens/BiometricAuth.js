@@ -43,7 +43,7 @@ const BiometricAuth = ({navigation}) => {
         // <Button title="Login with Fingerprint" onPress={handleBiometricAuth} />
         <View className='w-full mt-4'>
                   <TouchableOpacity style={styles.button} onPress={handleBiometricAuth}>
-                    <Text className="text-white font-bold text-base">Sign Up</Text>
+                    <Text className="text-white font-bold text-base">Login With FingerPrint</Text>
                   </TouchableOpacity>
         </View>
       ) : (

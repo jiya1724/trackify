@@ -8,7 +8,6 @@ import Office from '../components/Office'
 import { useSelector, useDispatch } from 'react-redux';
 
 const Records = () => {
-  const showCheckin = useSelector((state) => state.punch.showCheckinTime);
   return (
     <View className='bg-bg w-full h-full'>
       <Navbar/>

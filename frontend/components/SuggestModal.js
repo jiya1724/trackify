@@ -5,7 +5,6 @@ import checkOut from '../assets/home/checkOut.png';
 import { Svg, Path } from 'react-native-svg';
 import circle from '../assets/home/circle.png';
 import IP_Address from '../utilities';
-import * as geolib from 'geolib';
 
 const SuggestModal = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -46,49 +45,26 @@ const SuggestModal = () => {
           'Content-Type': 'application/json',
         },
       });
-      
       if (response.ok) {
         const data = await response.json();
-
-        // Define your geofence center point
-        const geofenceCenter = { latitude: 19.072778, longitude: 72.900730 };
-        const geofenceRadius = 2000; // Radius in meters
-
-        // Filter the data to only include those within the geofence
-        const filteredData = data.filter(offsite => {
-          return geolib.isPointWithinRadius(
-            { latitude: offsite.latitude, longitude: offsite.longitude },
-            geofenceCenter,
-            geofenceRadius
-          );
-        });
-
-        // Set the filtered data
-        console.log(filteredData)
-        setOffsiteData(filteredData);
+        console.log("Fetched Data:", data); // Log fetched data
+        setOffsiteData(data);
       } else {
         const errorText = await response.text();
-        console.error('Error Response:', errorText);
+        console.error('Error Response:', errorText); // Log error response
       }
     } catch (error) {
-      console.error('Fetch Error:', error);
+      console.error('Fetch Error:', error); // Log fetch errors
     }
   };
-
-  useEffect(() => {
-    if (searchQuery.trim() !== '') {
-      const filtered = data2.location.filter((loca) =>
-        loca.address.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredLocations(filtered);
-    } else {
-      setFilteredLocations([]);
-    }
-  }, [searchQuery]);
+  
 
   const manualCheckIn = () => {
+    console.log('Manual Check In Triggered');
     setModalVisible(true);
+    getOffsitesLocations(); // Fetch data when modal is opened
   };
+  
 
   useEffect(() => {
     console.log('Fetched Offsite Data:', offsiteData);
@@ -168,7 +144,7 @@ const SuggestModal = () => {
               </Svg>
             </TouchableOpacity>
             <ScrollView className='flex flex-col space-y-4'>
-  {offsiteData.map((loca, index) => (
+  {offsiteData.slice(0, 1).map((loca, index) => (  // Using slice(0, 1) to get the first entry
     <TouchableOpacity
       key={index}
       onPress={() => handleLocationSelect(index, 'offsiteData')}
@@ -192,6 +168,7 @@ const SuggestModal = () => {
     </TouchableOpacity>
   ))}
 </ScrollView>
+
 
             <TouchableOpacity
               className='bg-Blue flex items-center justify-center rounded-full w-full p-2'

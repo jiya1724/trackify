@@ -12,7 +12,7 @@ import Connected from '../assets/home/connected.svg';
 import NotConnected from '../assets/home/notConnected.svg';
 import IP_Address from '../utilities';
 import Timer from '../components/Timer';
-import { addLatestcheckIn, addLatestCheckOut, setShowCheckinTime } from '../redux/punch/punchSlice';
+import { addLatestcheckIn, addLatestCheckOut, setShowCheckinTime,setWorking } from '../redux/punch/punchSlice';
 
 const Home = () => {
   const [username] = useState('Jiya Trivedi');
@@ -168,7 +168,7 @@ const Home = () => {
       setLocationInRadius(geolib.isPointWithinRadius(
         { latitude: 19.072778, longitude: 72.900730 },
         { latitude: checkLatitude, longitude: checkLongitude },
-        200
+        2
       ));
       console.log(checkLatitude)
       console.log(checkLongitude)
@@ -235,6 +235,7 @@ const Home = () => {
         const differenceInHours = Math.floor(differenceInMs / (1000 * 60 * 60)); // Convert to hours
         const differenceInMinutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60)); // Convert remaining to minutes
         const differenceInSeconds = Math.floor((differenceInMs % (1000 * 60)) / 1000);
+        dispatch(setWorking(`${differenceInHours} hours, ${differenceInMinutes} minutes , ${differenceInSeconds} sec`));
         alert(`Time worked: ${differenceInHours} hours, ${differenceInMinutes} minutes , ${differenceInSeconds} sec`);
       }
     }
