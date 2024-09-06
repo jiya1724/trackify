@@ -5,6 +5,7 @@ import checkOut from '../assets/home/checkOut.png';
 import { Svg, Path } from 'react-native-svg';
 import circle from '../assets/home/circle.png';
 import IP_Address from '../utilities';
+import * as geolib from 'geolib';
 
 const SuggestModal = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -45,9 +46,26 @@ const SuggestModal = () => {
           'Content-Type': 'application/json',
         },
       });
+      
       if (response.ok) {
         const data = await response.json();
-        setOffsiteData(data);
+
+        // Define your geofence center point
+        const geofenceCenter = { latitude: 19.072778, longitude: 72.900730 };
+        const geofenceRadius = 2000; // Radius in meters
+
+        // Filter the data to only include those within the geofence
+        const filteredData = data.filter(offsite => {
+          return geolib.isPointWithinRadius(
+            { latitude: offsite.latitude, longitude: offsite.longitude },
+            geofenceCenter,
+            geofenceRadius
+          );
+        });
+
+        // Set the filtered data
+        console.log(filteredData)
+        setOffsiteData(filteredData);
       } else {
         const errorText = await response.text();
         console.error('Error Response:', errorText);
