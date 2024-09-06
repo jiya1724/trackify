@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cors());
 
 connectTOMongo();
-const PORT = 5000;
+const PORT = 6000;
 app.use('/admin',require('./routes/adminRoute'));
 app.use('/offsite', require('./routes/offsiteRoute'));
 
