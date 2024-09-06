@@ -53,7 +53,7 @@ const Home = () => {
             <h1 className="text-2xl font-bold text-gray-200 p-6 mb-6">Home</h1>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
+              <div className="bg-[#E7ECF2] p-6 rounded-lg shadow-md flex items-center justify-between">
                 <div>
                   <h2 className="text-lg font-semibold text-gray-700 mb-2">
                     Total Employees
@@ -64,7 +64,7 @@ const Home = () => {
                   <FaUser size={24} className="text-blue-600" />
                 </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
+              <div className="bg-[#E7ECF2] p-6 rounded-lg shadow-md flex items-center justify-between">
                 <div>
                   <h2 className="text-lg font-semibold text-gray-700 mb-2">
                     Employees on Leave Today
@@ -75,7 +75,7 @@ const Home = () => {
                   <FaCalendarAlt size={24} className="text-red-600" />
                 </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
+              <div className="bg-[#E7ECF2] p-6 rounded-lg shadow-md flex items-center justify-between">
                 <div>
                   <h2 className="text-lg font-semibold text-gray-700 mb-2">
                     Total Checked In
@@ -86,7 +86,7 @@ const Home = () => {
                   <FaClock size={24} className="text-green-600" />
                 </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
+              <div className="bg-[#E7ECF2] p-6 rounded-lg shadow-md flex items-center justify-between">
                 <div>
                   <h2 className="text-lg font-semibold text-gray-700 mb-2">
                     Left for Check-In
@@ -100,7 +100,7 @@ const Home = () => {
             </div>
 
             {/* Add the Daily Employees Chart */}
-            <div className="mt-6" style={{ height: "35vh", width: "45vw" }}>
+            <div className="mt-6 bg-[#E7ECF2]" style={{ height: "35vh", width: "45vw" }}>
               <DailyEmployeesChart />
             </div>
           </div>

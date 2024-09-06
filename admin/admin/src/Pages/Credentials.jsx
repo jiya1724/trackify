@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { FaBars, FaUpload, FaPaperPlane } from 'react-icons/fa';
-import Logo from '../assets/Images/Logo.svg';
-import Sidebar from '../Components/Sidebar.jsx';
+import { FaBars, FaUpload, FaPaperPlane } from "react-icons/fa";
+import Logo from "../assets/Images/Logo.svg";
+import Sidebar from "../Components/Sidebar.jsx";
 // Sample employees data
 const sampleEmployees = [
   {
@@ -30,7 +30,7 @@ const sampleEmployees = [
 
 const Credentials = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [activePage, setActivePage] = useState('credentials');
+  const [activePage, setActivePage] = useState("credentials");
   const [employees, setEmployees] = useState(sampleEmployees);
 
   const toggleSidebar = () => {
@@ -89,7 +89,7 @@ const Credentials = () => {
         {/* Table Design */}
         <table className="min-w-full bg-white rounded-lg shadow-lg overflow-hidden">
           <thead>
-            <tr className="text-left bg-gray-200">
+            <tr className="text-left bg-[#CADCF5]">
               <th className="py-3 px-6">Name</th>
               <th className="py-3 px-6">Username</th>
               <th className="py-3 px-6">Password</th>
@@ -119,6 +119,7 @@ const Credentials = () => {
           <FaPaperPlane className="inline mr-2" /> Send Mail
         </button>
       </div>
+      <div></div>
     </div>
   );
 };
