@@ -17,6 +17,7 @@ import FaceVerify from './screens/FaceVerify';
 import HomeSlide from './screens/HomeSlide';
 import Navbar from './components/Navbar';
 import Profile from './screens/Profile'
+import BiometricAuth from './screens/BiometricAuth';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -42,6 +43,10 @@ export default function App() {
             component={Login}
             options={{ headerShown: false }}
           />
+          <Stack.Screen 
+          name="BioAuth"
+          component={BiometricAuth}
+          options={{headerShown:false}}/>
           {/* <Stack.Screen
             name="Signup"
             component={Signup}
