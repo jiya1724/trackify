@@ -49,7 +49,7 @@ const Login = ({ navigation }) => {
       if (data.success) {
         console.log(data.token)
         await AsyncStorage.setItem('auth-token', data.token);
-        navigation.navigate('HomeSlide')
+        navigation.navigate('BioAuth')
       } else {
         alert(data.message);
       }
