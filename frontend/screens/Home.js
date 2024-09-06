@@ -333,6 +333,7 @@ const Home = () => {
                 </Svg>
               </TouchableOpacity>
             </View>
+            
           ) : (
             <View></View>
           )}

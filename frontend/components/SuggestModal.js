@@ -1,9 +1,10 @@
 import { View, Image, Text, TouchableOpacity, StyleSheet, Modal, TextInput, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import checkIn from '../assets/home/Check In.png';
-import checkOut from '../assets/home/checkOut.png'
-import { Svg,Path } from 'react-native-svg';
-import circle from '../assets/home/circle.png'
+import checkOut from '../assets/home/checkOut.png';
+import { Svg, Path } from 'react-native-svg';
+import circle from '../assets/home/circle.png';
+import IP_Address from '../utilities';
 
 const SuggestModal = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -12,21 +13,10 @@ const SuggestModal = () => {
   const [selectedLocation, setSelectedLocation] = useState({ index: null, source: '' });
   const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [confirmationVisible, setConfirmationVisible] = useState(true);
-  const handleCloseConfirmation = () => {
-    setConfirmationVisible(false); 
-  };
+  const [offsiteData, setOffsiteData] = useState([]);
 
-  const data1 = {
-    location: [
-      {
-        lname: 'Gail India- Navi Mumbai',
-        address: '225P+X6R, Daulat Ram Mahatre Marg, Sector 15, CBD Belapur,Navi Mumbai-400703',
-      },
-      {
-        lname: 'Gail India- Navi Mumbai',
-        address: '225P+X6R, Daulat Ram Mahatre Marg, Sector 15, CBD Belapur,Navi Mumbai-400703',
-      },
-    ],
+  const handleCloseConfirmation = () => {
+    setConfirmationVisible(false);
   };
 
   const data2 = {
@@ -45,8 +35,29 @@ const SuggestModal = () => {
       },
     ],
   };
+
+  const getOffsitesLocations = async () => {
+    try {
+      const response = await fetch(`http://${IP_Address}:6000/offsite`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setOffsiteData(data);
+      } else {
+        const errorText = await response.text();
+        console.error('Error Response:', errorText);
+      }
+    } catch (error) {
+      console.error('Fetch Error:', error);
+    }
+  };
+
   useEffect(() => {
- 
     if (searchQuery.trim() !== '') {
       const filtered = data2.location.filter((loca) =>
         loca.address.toLowerCase().includes(searchQuery.toLowerCase())
@@ -56,61 +67,61 @@ const SuggestModal = () => {
       setFilteredLocations([]);
     }
   }, [searchQuery]);
+
   const manualCheckIn = () => {
     setModalVisible(true);
   };
 
+  useEffect(() => {
+    console.log('Fetched Offsite Data:', offsiteData);
+  }, [offsiteData]);
+  
   const closeModal = () => {
     setModalVisible(false);
-    setSelectedLocation({ index: null, source: '' })
+    setSelectedLocation({ index: null, source: '' });
     setSearchQuery('');
     setFilteredLocations([]);
   };
-  
+
   const handleLocationSelect = (index, source) => {
     setSelectedLocation({ index, source });
   };
 
   const handleChecked = () => {
-    console.log('Before setting isCheckedIn:', isCheckedIn);
     setIsCheckedIn(true);
-    console.log('After setting isCheckedIn:', isCheckedIn);
     closeModal();
   };
-  
+
   useEffect(() => {
     console.log('isCheckedIn state changed:', isCheckedIn);
   }, [isCheckedIn]);
-  
- 
 
   return (
     <View className='w-full'>
       <View className='w-full '>
-      {isCheckedIn ? (
-        <View className='w-full'>
-      <View className='  items-center justify-center rounded-full'>
-        <Image className='-z-10 h-[200px] w-[200px]' source={circle} />
-        <TouchableOpacity className='z-10 top-0 translate-y-5 absolute bg-[#1E1E1E]' style={styles.button}>
-          <Image className='h-[83px] w-[63px]' source={checkOut} />
-          <Text className='text-lightGrey font-bold text-xs mt-2 uppercase'>Already</Text>
-          <Text className='text-lightGrey font-bold text-xs uppercase'>Checked In</Text>
-        </TouchableOpacity>
-        
-      </View>
-      </View>
-    ) : (
-      <View className=' items-center justify-center rounded-full'>
-        <Image className='-z-10 h-[200px] w-[200px]' source={circle} />
-        <TouchableOpacity className='z-10 top-0 translate-y-5 bg-Blue absolute' style={styles.button} onPress={manualCheckIn}>
-          <Image className='h-[83px] w-[63px]' source={checkIn} />
-          <Text className='text-white font-bold text-base uppercase'>Manual</Text>
-          <Text className='text-white font-bold text-base uppercase'>Check In</Text>
-        </TouchableOpacity>
-      </View>
-    )}
-      
-      {isCheckedIn && confirmationVisible ? (
+        {isCheckedIn ? (
+          <View className='w-full'>
+            <View className='  items-center justify-center rounded-full'>
+              <Image className='-z-10 h-[200px] w-[200px]' source={circle} />
+              <TouchableOpacity className='z-10 top-0 translate-y-5 absolute bg-[#1E1E1E]' style={styles.button}>
+                <Image className='h-[83px] w-[63px]' source={checkOut} />
+                <Text className='text-lightGrey font-bold text-xs mt-2 uppercase'>Already</Text>
+                <Text className='text-lightGrey font-bold text-xs uppercase'>Checked In</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        ) : (
+          <View className=' items-center justify-center rounded-full'>
+            <Image className='-z-10 h-[200px] w-[200px]' source={circle} />
+            <TouchableOpacity onPressIn={getOffsitesLocations} className='z-10 top-0 translate-y-5 bg-Blue absolute' style={styles.button} onPress={manualCheckIn}>
+              <Image className='h-[83px] w-[63px]' source={checkIn} />
+              <Text className='text-white font-bold text-base uppercase'>Manual</Text>
+              <Text className='text-white font-bold text-base uppercase'>Check In</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {isCheckedIn && confirmationVisible ? (
           <View className="p-3 -translate-y-16  bg-darkBg z-20 justify-center border border-solid border-seagreen rounded-xl">
             <Text className="text-seagreen font-bold text-[10px]">Checked In Confirmation Request sent to the admin</Text>
             <Text className="text-darkGrey text-[8px]">Working Hours will be displayed in the Records section once admin approves</Text>
@@ -134,97 +145,53 @@ const SuggestModal = () => {
           <View className='w-full p-6 rounded-t-2xl bg-[#161616] flex justify-center  space-y-5'>
             <Text className='text-Blue text-base font-bold'>Suggested Offsites</Text>
             <TouchableOpacity style={styles.modalCloseButton} onPress={closeModal}>
-            <Svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-<Path d="M1 16L16 1M16 16L1 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</Svg>
-
+              <Svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <Path d="M1 16L16 1M16 16L1 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </Svg>
             </TouchableOpacity>
             <ScrollView className='flex flex-col space-y-4'>
-            {data1.location.map((loca, index) => (
-  <TouchableOpacity
-    key={index}
-    onPress={() => handleLocationSelect(index, 'data1')}
-    className={`w-full ${
-      selectedLocation.index === index && selectedLocation.source === 'data1' ? 'border-Blue' : 'border-darkGrey'
-    }`}
-  >
-    <View
-      className={`bg-greyishBlack space-y-2 p-3 rounded-lg border-[0.5px] border-solid ${
-        selectedLocation.index === index && selectedLocation.source === 'data1' ? 'border-Blue' : 'border-darkGrey'
-      }`}
-    >
-      <Text
-        className={`text-xs font-bold ${
-          selectedLocation.index === index && selectedLocation.source === 'data1' ? 'text-Blue' : 'text-white'
+  {offsiteData.map((loca, index) => (
+    <TouchableOpacity
+      key={index}
+      onPress={() => handleLocationSelect(index, 'offsiteData')}
+      className={`w-full ${selectedLocation.index === index && selectedLocation.source === 'offsiteData' ? 'border-Blue' : 'border-darkGrey'
         }`}
+    >
+      <View
+        className={`bg-greyishBlack space-y-2 p-3 rounded-lg border-[0.5px] border-solid ${selectedLocation.index === index && selectedLocation.source === 'offsiteData' ? 'border-Blue' : 'border-darkGrey'
+          }`}
       >
-        {loca.lname}
-      </Text>
-      <Text className='text-[9px] text-darkGrey'>{loca.address}</Text>
-    </View>
-  </TouchableOpacity>
-))}
+        <Text
+          className={`text-xs font-bold ${selectedLocation.index === index && selectedLocation.source === 'offsiteData' ? 'text-Blue' : 'text-white'
+            }`}
+        >
+          {loca.name}  {/* Changed from loca.lname to loca.name */}
+        </Text>
+        <Text className='text-[9px] text-darkGrey'>
+          Latitude: {loca.latitude}, Longitude: {loca.longitude}  {/* Displaying latitude and longitude */}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  ))}
+</ScrollView>
 
-
-            <Text className='text-white font-bold'>Not these? Search by city</Text>
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Search"
-              placeholderTextColor="#888"
-              value={searchQuery}
-              onChangeText={(text) => setSearchQuery(text)}
-            />
-             
-              {filteredLocations.length > 0 ? (
-                filteredLocations.map( (loca, index) => (
-                  <TouchableOpacity
-                  key={index}
-                  onPress={() => handleLocationSelect(index, 'filteredLocations')}
-                  className={`w-full ${
-                    selectedLocation.index === index && selectedLocation.source === 'filteredLocations' ? 'border-Blue' : 'border-darkGrey'
-                  }`}
-                >
-                  <View
-                    className={`bg-greyishBlack space-y-2 p-3 rounded-lg border-[0.5px] border-solid ${
-                      selectedLocation.index === index && selectedLocation.source === 'filteredLocations' ? 'border-Blue' : 'border-darkGrey'
-                    }`}
-                  >
-                    <Text
-                      className={`text-xs font-bold ${
-                        selectedLocation.index === index && selectedLocation.source === 'filteredLocations' ? 'text-Blue' : 'text-white'
-                      }`}
-                    >
-                      {loca.lname}
-                    </Text>
-                    <Text className='text-[9px] text-darkGrey'>{loca.address}</Text>
-                  </View>
-                </TouchableOpacity>
-                ))
-              ) : (
-                <View className='h-10 w-full'>
-
-                </View>
-              )}
-            
-
-            <TouchableOpacity style={styles.checkInButton} onPress={handleChecked}>
-              <Text style={styles.checkInButtonText}>Check IN</Text>
+            <TouchableOpacity
+              className='bg-Blue flex items-center justify-center rounded-full w-full p-2'
+              onPress={handleChecked}
+            >
+              <Text className='text-white font-bold text-lg'>Confirm</Text>
             </TouchableOpacity>
-            </ScrollView>
           </View>
         </View>
       </Modal>
-
-      
     </View>
-  )
-}
+  );
+};
 
-export default SuggestModal
-
+export default SuggestModal;
 const styles = StyleSheet.create({
   button: {
-   
+
     width: 160,
     height: 160,
     borderRadius: 100,
@@ -251,7 +218,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  
+
   searchInput: {
     backgroundColor: '#202020',
     borderRadius: 5,

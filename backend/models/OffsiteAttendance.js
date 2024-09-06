@@ -7,10 +7,13 @@ const offsiteAttendanceSchema = new Schema({
         ref: 'Employee',
         required: true,
     },
+    locationName: {
+        type: String,
+        required: true,  // Make sure 'required' is correctly spelled
+    },
     offsiteStatus: {
         type: String,
-        require: true,
-    
+        required: true,
     },
     latestCheckin: {
         type: Date,
@@ -32,10 +35,7 @@ const offsiteAttendanceSchema = new Schema({
             required: true,
         },
     },
-  
-   
-    
 });
 
-const Employee = mongoose.model('OffsiteAttendance', offsiteAttendanceSchema);
-module.exports = Employee;
+const OffsiteAttendance = mongoose.model('OffsiteAttendance', offsiteAttendanceSchema);
+module.exports = OffsiteAttendance;
