@@ -1,64 +1,18 @@
-import React, { useState } from "react";
-import {
-  FaBars,
-  FaCheckCircle,
-  FaTimesCircle,
-  FaHome,
-  FaMapMarkerAlt,
-  FaKey,
-  FaEnvelope,
-} from "react-icons/fa";
-import Logo from "../assets/Images/Logo.svg";
+import React, { useState, useEffect, useCallback } from "react";
+import { FaBars, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import Sidebar from "../Components/Sidebar.jsx";
-import TrianglesBG from "../assets/Images/TrianglesBG.png";
-
-const sampleLeaveRequests = [
-  {
-    id: 1,
-    photo: "https://via.placeholder.com/50",
-    name: "Bhakti Lahane",
-    leaveFrom: "2024-09-01",
-    leaveTo: "2024-09-05",
-    reason: "Medical appointment",
-  },
-  {
-    id: 2,
-    photo: "https://via.placeholder.com/50",
-    name: "Khushi Poojary",
-    leaveFrom: "2024-09-10",
-    leaveTo: "2024-09-12",
-    reason: "Family event",
-  },
-  {
-    id: 3,
-    photo: "https://via.placeholder.com/50",
-    name: "Jiya Trivedi",
-    leaveFrom: "2024-09-15",
-    leaveTo: "2024-09-20",
-    reason: "Vacation",
-  },
-];
 
 const LeaveRequests = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activePage, setActivePage] = useState("leaveRequests");
-  const [requests, setRequests] = useState(
-    sampleLeaveRequests.map((request) => ({
-      ...request,
-      status: null,
-    }))
-  );
+  const [requests, setRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState(null);
+  const [userId, setuserId] = useState(null);
+  console.log(userId)
+
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const handleButtonClick = (id, status) => {
-    setRequests((prev) =>
-      prev.map((req) => (req.id === id ? { ...req, status } : req))
-    );
-    setSelectedRequest(null); // Close modal
   };
 
   const openModal = (request) => {
@@ -68,6 +22,58 @@ const LeaveRequests = () => {
   const closeModal = () => {
     setSelectedRequest(null);
   };
+
+  const handleButtonClick = useCallback(async (id, status) => {
+    try {
+
+      // Update leave request status
+      const response = await fetch(`http://localhost:5000/leave/updatestatus/${userId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status:'approved' }),
+      });
+
+      if (response.ok) {
+        const updatedLeave = await response.json();
+        setRequests((prev) =>
+          prev.map((req) => (req._id === id ? updatedLeave.leave : req))
+        );
+        setSelectedRequest(null); // Close modal
+      } else {
+        console.error("Error updating leave request status:", response.status);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchLeaveRequests = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/leave/getallLeaves", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setuserId(data[0].emp_id._id)
+          setRequests(data);
+        } else {
+          console.error("Error fetching leave requests:", response.status);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchLeaveRequests(); // Fetch leave requests on component mount
+  }, []);
+  
 
   return (
     <div className="flex h-screen">
@@ -96,99 +102,94 @@ const LeaveRequests = () => {
           Leave Requests
         </h1>
 
-        <table className="min-w-full bg-white rounded-lg overflow-hidden">
-          <thead>
-            <tr>
-              <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
-                Name
-              </th>
-              <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
-                Leave From
-              </th>
-              <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
-                Leave To
-              </th>
-              <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
-                Status
-              </th>
-              <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {requests.map((request) => (
-              <tr key={request.id} className="border-t">
-                <td className="py-3 px-6">{request.name}</td>
-                <td className="py-3 px-6">{request.leaveFrom}</td>
-                <td className="py-3 px-6">{request.leaveTo}</td>
-                <td className="py-3 px-6">
-                  {request.status ? (
-                    <span
-                      className={`px-2 py-1 rounded-full text-sm font-semibold ${
-                        request.status === "accepted"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-700"
-                      }`}
-                    >
-                      {request.status.charAt(0).toUpperCase() +
-                        request.status.slice(1)}
-                    </span>
-                  ) : (
-                    "Pending"
-                  )}
-                </td>
-                <td className="py-3 px-6">
-                  <button
-                    className="text-blue-600 hover:underline"
-                    onClick={() => openModal(request)}
-                  >
-                    View
-                  </button>
-                </td>
+        {requests.length === 0 ? (
+          <p className="text-white">No leave requests found</p>
+        ) : (
+          <table className="min-w-full bg-white rounded-lg overflow-hidden">
+            <thead>
+              <tr>
+                <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
+                  Name
+                </th>
+                <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
+                  Leave From
+                </th>
+                <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
+                  Leave To
+                </th>
+                <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
+                  Status
+                </th>
+                <th className="py-3 px-6 bg-gray-200 text-left text-sm font-semibold text-gray-700">
+                  Actions
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {requests.map((request) => (
+                <tr key={request._id} className="border-t">
+                  <td className="py-3 px-6">{request.emp_id.name}</td> {/* Display employee name */}
+                  <td className="py-3 px-6">
+                    {request.dateFrom.day}/{request.dateFrom.month}/
+                    {request.dateFrom.year}
+                  </td>
+                  <td className="py-3 px-6">
+                    {request.dateTo.day}/{request.dateTo.month}/
+                    {request.dateTo.year}
+                  </td>
+                  <td className="py-3 px-6">
+                    {request.status ? (
+                      <span
+                        className={`px-2 py-1 rounded-full text-sm font-semibold ${
+                          request.status === "accepted"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-red-100 text-red-700"
+                        }`}
+                      >
+                        {request.status.charAt(0).toUpperCase() +
+                          request.status.slice(1)}
+                      </span>
+                    ) : (
+                      "Pending"
+                    )}
+                  </td>
+                  <td className="py-3 px-6">
+                    <button
+                      className="text-green-500 hover:text-green-700"
+                      onClick={() => handleButtonClick(request._id, "accepted")}
+                    >
+                      <FaCheckCircle size={24} />
+                    </button>
+                    <button
+                      className="text-red-500 hover:text-red-700 ml-4"
+                      onClick={() => handleButtonClick(request._id, "rejected")}
+                    >
+                      <FaTimesCircle size={24} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
 
-        {/* Modal */}
+        {/* Modal for Leave Details */}
         {selectedRequest && (
-          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-1/3">
-              <h2 className="text-2xl font-semibold mb-4">
-                Leave Request from {selectedRequest.name}
-              </h2>
-              <p className="text-sm mb-2">
-                Leave From: {selectedRequest.leaveFrom}
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={closeModal}>
+                &times;
+              </span>
+              <h2>Leave Request Details</h2>
+              <p>Reason: {selectedRequest.reason}</p>
+              <p>
+                From: {selectedRequest.dateFrom.day}/
+                {selectedRequest.dateFrom.month}/{selectedRequest.dateFrom.year}
               </p>
-              <p className="text-sm mb-2">
-                Leave To: {selectedRequest.leaveTo}
+              <p>
+                To: {selectedRequest.dateTo.day}/
+                {selectedRequest.dateTo.month}/{selectedRequest.dateTo.year}
               </p>
-              <p className="text-sm mb-4">Reason: {selectedRequest.reason}</p>
-              <div className="flex justify-end space-x-4">
-                <button
-                  className="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center"
-                  onClick={() =>
-                    handleButtonClick(selectedRequest.id, "accepted")
-                  }
-                >
-                  <FaCheckCircle className="mr-2" /> Accept
-                </button>
-                <button
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg flex items-center"
-                  onClick={() =>
-                    handleButtonClick(selectedRequest.id, "rejected")
-                  }
-                >
-                  <FaTimesCircle className="mr-2" /> Reject
-                </button>
-                <button
-                  className="bg-gray-500 text-white px-4 py-2 rounded-lg flex items-center"
-                  onClick={closeModal}
-                >
-                  Cancel
-                </button>
-              </div>
             </div>
           </div>
         )}
