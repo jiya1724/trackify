@@ -60,26 +60,26 @@ export default function App() {
           <Stack.Screen name='HomeSlide'
             component={HomeSlide}
             options={{ headerShown: false }} />
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Records"
             component={Records}
             options={{ headerShown: false }}
-          /> */}
-          {/* <Stack.Screen
+          />
+          <Stack.Screen
             name="Leave"
             component={Leave}
             options={{ headerShown: false }}
-          /> */}
+          />
           {/* <Stack.Screen
             name="Face Verify"
             component={FaceVerify}
             options={{ headerShown: false }}
           /> */}
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Profile"
             component={Profile}
             options={{ headerShown: false }}
-          /> */}
+          />
           {/* <Stack.Screen
             name="Home"
             component={Home}
