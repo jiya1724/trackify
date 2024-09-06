@@ -16,7 +16,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
     try {
-      const response = await fetch('http://localhost:5000/admin/login', {
+      const response = await fetch('http://localhost:6000/admin/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -125,6 +125,7 @@ const Login = () => {
                 </div>
 
                 <button
+                onClick={handleLogin}
                   type="submit"
                   className={`w-full bg-blue-700 text-white font-medium rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-800 ${
                     !isFormValid ? "opacity-50 cursor-not-allowed" : ""

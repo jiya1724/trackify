@@ -12,20 +12,27 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
 counter = 0
 face_match = False
+lock = threading.Lock()  # Thread lock for synchronizing access to face_match
 
 # Load reference image for matching
-reference_img = cv2.imread("photo1.jpg")  # Ensure the image path is correct
+reference_img = cv2.imread("Aimodels/photo1.jpg")  # Ensure the image path is correct
+
+# Check if the image is loaded correctly
+if reference_img is None:
+    raise ValueError("Reference image not found. Check the path.")
 
 # Function to check face match
 def check_face(frame):
     global face_match
     try:
         # Using DeepFace to verify face match
-        result = DeepFace.verify(frame, reference_img.copy())['verified']
-        face_match = result
+        result = DeepFace.verify(frame, reference_img)['verified']
+        with lock:  # Ensure thread-safe access to face_match
+            face_match = result
     except Exception as e:
         print(f"Error in face verification: {e}")
-        face_match = False
+        with lock:
+            face_match = False
 
 while True:
     ret, frame = cap.read()
@@ -42,10 +49,11 @@ while True:
         counter += 1
 
         # Display result on the frame
-        if face_match:
-            cv2.putText(frame, "Match!", (20, 450), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 3)
-        else:
-            cv2.putText(frame, "NO Match!", (20, 450), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 3)
+        with lock:  # Lock while accessing face_match to avoid race conditions
+            if face_match:
+                cv2.putText(frame, "Match!", (20, 450), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 3)
+            else:
+                cv2.putText(frame, "NO Match!", (20, 450), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 3)
         
         # Show video
         cv2.imshow("video", frame)

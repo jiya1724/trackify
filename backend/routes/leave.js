@@ -74,6 +74,22 @@ router.post('/getleaves', fetchEmp, async (req, res) => {
     }
 });
 
+router.post('/getallLeaves', async (req, res) => {
+    
+    
+
+    try {
+
+       const leaves= await Leave.find({status:'pending'});
+       res.json(leaves);
+
+       
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 
 
 module.exports = router;
