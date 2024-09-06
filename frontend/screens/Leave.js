@@ -4,31 +4,80 @@ import Navbar from '../components/Navbar';
 import LeaveModal from '../components/LeaveModal';
 import Calen from '../assets/leave/calen.svg';
 import pattern from '../assets/bgPattern.png';
+import IP_Address from '../utilities';
+
 
 const Leave = () => {
 
+  const getLeaves = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/leave/getspecificleaves`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+
+        // Define your geofence center point
+        const geofenceCenter = { latitude: 19.072778, longitude: 72.900730 };
+        const geofenceRadius = 2000; // Radius in meters
+
+        // Filter the data to only include those within the geofence
+        const filteredData = data.filter(offsite => {
+          return geolib.isPointWithinRadius(
+            { latitude: offsite.latitude, longitude: offsite.longitude },
+            geofenceCenter,
+            geofenceRadius
+          );
+        });
+
+        // Set the filtered data
+        console.log(filteredData)
+        setOffsiteData(filteredData);
+      } else {
+        const errorText = await response.text();
+        console.error('Error Response:', errorText);
+      }
+    } catch (error) {
+      console.error('Fetch Error:', error);
+    }
+  };
+
   const [leaveRequests, setLeaveRequests] = useState([
     {
-      reason: 'Suffering from Cold',
-      fromDate: '31 Aug',
-      toDate: '02 Sep',
-      reqDate: '30 Aug',
-      status: 'Pending',
+      dateFrom: {
+        day: 5,
+        month: 9,
+        year: 2024
+      },
+      dateTo: {
+        day: 8,
+        month: 9,
+        year: 2024
+      },
+      reason: "fever",
+      status: "pending",
+     
     },
     {
-      reason: 'Family Function',
-      fromDate: '15 Sep',
-      toDate: '17 Sep',
-      reqDate: '10 Sep',
-      status: 'Approved',
-    },
-    {
-      reason: 'Vacation',
-      fromDate: '25 Sep',
-      toDate: '30 Sep',
-      reqDate: '22 Sep',
-      status: 'Rejected',
-    },
+      dateFrom: {
+        day: 4,
+        month: 9,
+        year: 2024
+      },
+      dateTo: {
+        day: 6,
+        month: 9,
+        year: 2024
+      },
+      reason: "fever",
+      status: "approved",
+      
+    }
   ]);
 
 
@@ -62,7 +111,7 @@ const Leave = () => {
               <View className='flex-row items-center space-x-2'>
                 <Calen />
                 <View className='space-y-1'>
-                  <Text className='font-semibold text-darkGrey text-xs'>Leave from: <Text className='text-white'>{request.fromDate} - {request.toDate}</Text></Text>
+                  <Text className='font-semibold text-darkGrey text-xs'>Leave from: <Text className='text-white'>{request.dateFrom.day}/{request.dateFrom.month}/2024 - {request.dateTo.day}/{request.dateTo.month}/2024</Text></Text>
                   <Text className='text-[9px] text-darkGrey'>Requested on {request.reqDate}</Text>
                 </View>
               </View>

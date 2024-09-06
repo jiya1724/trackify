@@ -105,4 +105,22 @@ router.post('/updatestatus/:id', async (req, res) => {
     }
 });
 
+router.post('/getspecificleaves', fetchEmp, async (req, res) => {
+    let success = false;
+    const emp_id = req.user.id;
+
+    if (!emp_id) {
+        return res.status(400).json({ success, message: "Unauthorized" });
+    }
+
+    try {
+        const leaves = await Leave.find({emp_id});
+        
+        res.status(200).json(leaves);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success, message: 'Server error' });
+    }
+});
+
 module.exports = router;
