@@ -50,12 +50,14 @@ const Home = () => {
               isSidebarOpen ? "ml-64" : "ml-0"
             } p-6 bg-[#121212] relative`}
           >
-            <h1 className="text-2xl font-bold text-gray-200 p-6 mb-6">Home</h1>
-
+            <div className="pt-6 pb-6 flex justify-between items-center">
+            <h1 className="text-2xl font-bold text-gray-200 ">Home</h1>
+            <img src={Logo} alt="" />
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-[#E7ECF2] p-6 rounded-lg shadow-md flex items-center justify-between">
+              <div className="bg-darkBg border border-solid border-lightGrey p-6 rounded-lg shadow-md flex items-center justify-between">
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-700 mb-2">
+                  <h2 className="text-lg font-semibold text-gray-400 mb-2">
                     Total Employees
                   </h2>
                   <p className="text-3xl font-bold text-blue-600">200</p>
@@ -64,9 +66,9 @@ const Home = () => {
                   <FaUser size={24} className="text-blue-600" />
                 </div>
               </div>
-              <div className="bg-[#E7ECF2] p-6 rounded-lg shadow-md flex items-center justify-between">
+              <div className="bg-darkBg border border-solid border-lightGrey p-6 rounded-lg shadow-md flex items-center justify-between">
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-700 mb-2">
+                  <h2 className="text-lg font-semibold text-gray-400 mb-2">
                     Employees on Leave Today
                   </h2>
                   <p className="text-3xl font-bold text-red-600">15</p>
@@ -75,9 +77,9 @@ const Home = () => {
                   <FaCalendarAlt size={24} className="text-red-600" />
                 </div>
               </div>
-              <div className="bg-[#E7ECF2] p-6 rounded-lg shadow-md flex items-center justify-between">
+              <div className="bg-darkBg border border-solid border-lightGrey p-6 rounded-lg shadow-md flex items-center justify-between">
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-700 mb-2">
+                  <h2 className="text-lg font-semibold text-gray-400 mb-2">
                     Total Checked In
                   </h2>
                   <p className="text-3xl font-bold text-green-600">160</p>
@@ -86,9 +88,9 @@ const Home = () => {
                   <FaClock size={24} className="text-green-600" />
                 </div>
               </div>
-              <div className="bg-[#E7ECF2] p-6 rounded-lg shadow-md flex items-center justify-between">
+              <div className="bg-darkBg border border-solid border-lightGrey p-6 rounded-lg shadow-md flex items-center justify-between">
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-700 mb-2">
+                  <h2 className="text-lg font-semibold text-gray-400 mb-2">
                     Left for Check-In
                   </h2>
                   <p className="text-3xl font-bold text-orange-600">40</p>
@@ -100,9 +102,9 @@ const Home = () => {
             </div>
 
             {/* Add the Daily Employees Chart */}
-            <div className="mt-6 bg-[#E7ECF2]" style={{ height: "35vh", width: "45vw" }}>
+            <div className="mt-6 bg-darkBg border border-solid border-lightGrey" style={{ height: "35vh", width: "45vw" }}>
               <DailyEmployeesChart />
-            </div>
+         </div>
           </div>
         </div>
       </div>
