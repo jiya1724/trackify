@@ -102,9 +102,64 @@ const Home = () => {
             </div>
 
             {/* Add the Daily Employees Chart */}
-            <div className="mt-6 bg-darkBg border border-solid border-lightGrey" style={{ height: "35vh", width: "45vw" }}>
+            <div className="flex  justify-between w-full">
+            <div className="mt-6 bg-darkBg  " style={{ height: "35vh", width: "45vw" }}>
               <DailyEmployeesChart />
          </div>
+         <div className=" h-[57vh] w-[42%] rounded-lg border border-solid p-6 border-lightGrey mt-6">
+ <div className="flex justify-between ">
+ <div className="text-white text-lg font-semibold mb-4">Employees having battery low</div>
+ <div className="hover:underline cursor-pointer font-medium text-blue-400 text-sm">See all</div>
+ </div>
+  <table className="w-full text-left table-auto">
+    <thead>
+      <tr className="bg-blue-300 bg-opacity-80 ">
+        <th className="text-black p-3 text-xs text-center">Name</th>
+        <th className="text-black p-3 text-xs text-center">Battery Status</th>
+        <th className="text-black p-3 text-xs text-center">Checked In Status</th>
+        <th className="text-black p-3 text-xs text-center">Handle CheckIn/Out </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="border-b border-gray-600 ">
+        <td className="text-gray-200 p-2">
+          <div className="flex items-center text-sm  justify-center">
+            <div className="bg-gray-400 w-8 h-8 p-2   flex justify-center items-center rounded-full mr-2">
+              <FaUser size={12} className="text-gray-800" />
+            </div>
+            Employee1
+          </div>
+        </td>
+        <td className="text-gray-100 p-4 text-sm text-center">5%</td>
+        <td className="text-gray-100 p-4 text-sm text-center">Checked In</td>
+        <td className="text-gray-100 p-4 text-sm text-center">
+          <button className="bg-transparent hover:bg-blue-500 text-white p-1 text-xs rounded-lg border-2 border-blue-500">
+            Check Out
+          </button>
+        </td>
+      </tr>
+      <tr className="border-b border-gray-600 ">
+        <td className="text-gray-200 p-2">
+          <div className="flex items-center text-sm  justify-center">
+            <div className="bg-gray-400 w-8 h-8 p-2   flex justify-center items-center rounded-full mr-2">
+              <FaUser size={12} className="text-gray-800" />
+            </div>
+            Employee2
+          </div>
+        </td>
+        <td className="text-gray-100 p-4 text-sm text-center">3%</td>
+        <td className="text-gray-100 p-4 text-sm text-center">Checked Out</td>
+        <td className="text-gray-100 p-4 text-sm text-center">
+          <button className="bg-transparent hover:bg-red-500 text-white p-1 text-xs rounded-lg border-2 border-red-500">
+            Check In
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+            </div>
           </div>
         </div>
       </div>

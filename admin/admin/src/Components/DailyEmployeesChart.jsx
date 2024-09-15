@@ -36,7 +36,7 @@ const DailyEmployeesChart = () => {
 
   return (
     <div className="bg-bg p-6 border border-solid border-lightGrey rounded-lg shadow-md">
-      <h2 className="text-lg font-semibold text-gray-400 mb-4">Daily Employees</h2>
+      <h2 className="text-lg font-semibold text-white mb-4">Daily Employees</h2>
       <Line data={data} options={options} />
     </div>
   );
