@@ -6,7 +6,7 @@ import Sidebar from "../Components/Sidebar.jsx";
 const sampleRequests = [
   {
     _id: "1",
-    emp_id: { name: "John Doe", _id: "123" },
+    emp_id: { name: "Emp_1", _id: "123" },
     dateFrom: { day: 1, month: 9, year: 2024 },
     dateTo: { day: 5, month: 9, year: 2024 },
     status: "accepted",
@@ -14,7 +14,7 @@ const sampleRequests = [
   },
   {
     _id: "2",
-    emp_id: { name: "Jane Smith", _id: "456" },
+    emp_id: { name: "Emp_2", _id: "456" },
     dateFrom: { day: 3, month: 9, year: 2024 },
     dateTo: { day: 8, month: 9, year: 2024 },
     status: "pending",
