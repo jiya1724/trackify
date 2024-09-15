@@ -106,7 +106,7 @@ const Home = () => {
             <div className="mt-6 bg-darkBg  " style={{ height: "35vh", width: "45vw" }}>
               <DailyEmployeesChart />
          </div>
-         <div className=" h-[57vh] w-[42%] rounded-lg border border-solid p-6 border-lightGrey mt-6">
+         <div className=" pb-16 w-[42%] rounded-lg border border-solid p-6 border-lightGrey mt-6">
  <div className="flex justify-between ">
  <div className="text-white text-lg font-semibold mb-4">Employees having battery low</div>
  <div className="hover:underline cursor-pointer font-medium text-blue-400 text-sm">See all</div>
