@@ -10,7 +10,7 @@ const DailyEmployeesChart = () => {
     datasets: [
       {
         label: "Daily Employees",
-        data: [50, 60, 70, 65, 80, 55, 90], // Example data
+        data: [90, 60, 70, 65, 80, 55, 0], // Example data
         borderColor: "rgb(75, 192, 192)",
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         fill: true,
@@ -35,8 +35,8 @@ const DailyEmployeesChart = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-lg font-semibold text-gray-700 mb-4">Daily Employees</h2>
+    <div className="bg-bg p-6 border border-solid border-lightGrey rounded-lg shadow-md">
+      <h2 className="text-lg font-semibold text-white mb-4">Daily Employees</h2>
       <Line data={data} options={options} />
     </div>
   );

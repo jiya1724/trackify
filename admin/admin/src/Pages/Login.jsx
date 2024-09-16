@@ -72,7 +72,7 @@ const Login = () => {
                 </p>
               </div>
                 
-              <form className="space-y-4" onSubmit={handleLogin}>
+              <form className="space-y-4" >
                 <div>
                   <label
                     htmlFor="code"
@@ -141,7 +141,6 @@ const Login = () => {
                   {errorMessage}
                 </div>
               )}
-
               <div className="mt-6 text-center">
                 <p className="text-sm text-gray-400">
                   Don't have an account?{" "}

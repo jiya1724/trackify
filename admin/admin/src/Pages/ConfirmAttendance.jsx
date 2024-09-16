@@ -17,15 +17,15 @@ const sampleEmployees = [
   {
     id: 1,
     photo: "https://via.placeholder.com/50",
-    name: "Bhakti Lahane",
+    name: "Employee3",
     code: "E123",
     location: "Office A",
-    date: "2024-09-01",
+    date: "2024-09-10",
   },
   {
     id: 2,
     photo: "https://via.placeholder.com/50",
-    name: "Khushi Poojary",
+    name: "Employee2",
     code: "E456",
     location: "Office B",
     date: "2024-09-02",
@@ -33,7 +33,7 @@ const sampleEmployees = [
   {
     id: 3,
     photo: "https://via.placeholder.com/50",
-    name: "Jiya Trivedi",
+    name: "Employee1",
     code: "E789",
     location: "Office C",
     date: "2024-09-01",
@@ -110,15 +110,11 @@ const ConfirmAttendance = () => {
       <div
         className={`flex-1 transition-all duration-300 ${
           isSidebarOpen ? "ml-64" : "ml-0"
-        } p-8 bg-[#121212] relative`}
+        } p-8 bg-bg relative`}
         style={{ minHeight: "100vh" }}
       >
         {/* Watermark Logo */}
-        <img
-          src={Logo}
-          alt="Logo"
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 opacity-10 pointer-events-none"
-        />
+        
 
         <h1 className="text-3xl font-extrabold text-white mb-8">
           Confirm Attendance
@@ -141,7 +137,7 @@ const ConfirmAttendance = () => {
         </div>
 
         {/* Table Design */}
-        <table className="min-w-full bg-white rounded-lg shadow-lg overflow-hidden">
+        <table className="min-w-full bg-darkGrey mt-9 shadow-lg overflow-hidden">
           <thead>
             <tr className="text-left bg-gray-200">
               <th className="py-3 px-6">Name</th>
@@ -151,11 +147,11 @@ const ConfirmAttendance = () => {
               <th className="py-3 px-6">Status</th>
             </tr>
           </thead>
-          <tbody className="bg-gray-50">
+          <tbody className="bg-darkBg text-white ">
             {filteredAttendance.map((employee) => (
               <tr
                 key={employee.id}
-                className="border-b hover:bg-gray-100 cursor-pointer transition-all duration-300"
+                className="border-b hover:bg-gray-800 cursor-pointer transition-all duration-300"
                 onClick={() => openModal(employee)}
               >
                 <td className="py-3 px-6">{employee.name}</td>

@@ -118,11 +118,7 @@ const Locations = () => {
             } p-6 h-fit bg-[#121212] relative`}
           >
             {/* Watermark Logo */}
-            <img
-              src={Logo}
-              alt="Logo"
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 opacity-20 pointer-events-none"
-            />
+            
 
             <h1 className="text-2xl font-bold text-gray-200 mb-6">Locations</h1>
 
@@ -136,6 +132,7 @@ const Locations = () => {
                 <MapContainer
                   center={position}
                   zoom={13}
+                  className="z-0"
                   style={{ height: "100%", width: "100%", borderRadius: "8px" }}
                 >
                   <TileLayer
@@ -224,31 +221,32 @@ const Locations = () => {
 
       {/* Delete Confirmation Modal */}
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-xl z-60 w-full max-w-md">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
-              Confirm Delete
-            </h2>
-            <p className="mb-6 text-center text-gray-600">
-              Are you sure you want to delete this location?
-            </p>
-            <div className="flex justify-center space-x-4">
-              <button
-                className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
-                onClick={() => setShowModal(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-                onClick={confirmDeleteLocation}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+  <div className="fixed inset-0 flex items-center justify-center z-[1000] bg-black bg-opacity-50">
+    <div className="bg-white p-6 rounded-lg shadow-xl z-[1001] w-full max-w-md">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+        Confirm Delete
+      </h2>
+      <p className="mb-6 text-center text-gray-600">
+        Are you sure you want to delete this location?
+      </p>
+      <div className="flex justify-center space-x-4">
+        <button
+          className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+          onClick={() => setShowModal(false)}
+        >
+          Cancel
+        </button>
+        <button
+          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+          onClick={confirmDeleteLocation}
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
