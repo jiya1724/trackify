@@ -49,35 +49,20 @@ const Leave = () => {
 
   const [leaveRequests, setLeaveRequests] = useState([
     {
-      dateFrom: {
-        day: 5,
-        month: 9,
-        year: 2024
-      },
-      dateTo: {
-        day: 8,
-        month: 9,
-        year: 2024
-      },
-      reason: "fever",
-      status: "pending",
-     
+      reason: 'fever',
+      fromDate: '31 Aug',
+      toDate: '02 Sep',
+      reqDate: '30 Aug',
+      status: 'Pending',
     },
     {
-      dateFrom: {
-        day: 4,
-        month: 9,
-        year: 2024
-      },
-      dateTo: {
-        day: 6,
-        month: 9,
-        year: 2024
-      },
-      reason: "fever",
-      status: "approved",
-      
-    }
+      reason: 'fever',
+      fromDate: '15 Sep',
+      toDate: '17 Sep',
+      reqDate: '10 Sep',
+      status: 'Approved',
+    },
+    
   ]);
 
 
@@ -111,7 +96,7 @@ const Leave = () => {
               <View className='flex-row items-center space-x-2'>
                 <Calen />
                 <View className='space-y-1'>
-                  <Text className='font-semibold text-darkGrey text-xs'>Leave from: <Text className='text-white'>{request.dateFrom.day}/{request.dateFrom.month}/2024 - {request.dateTo.day}/{request.dateTo.month}/2024</Text></Text>
+                  <Text className='font-semibold text-darkGrey text-xs'>Leave from: <Text className='text-white'>{request.fromDate} - {request.toDate}</Text></Text>
                   <Text className='text-[9px] text-darkGrey'>Requested on {request.reqDate}</Text>
                 </View>
               </View>

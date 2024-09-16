@@ -168,7 +168,7 @@ const Home = () => {
       setLocationInRadius(geolib.isPointWithinRadius(
         { latitude: 19.072778, longitude: 72.900730 },
         { latitude: checkLatitude, longitude: checkLongitude },
-        2
+        200
       ));
       console.log(checkLatitude)
       console.log(checkLongitude)

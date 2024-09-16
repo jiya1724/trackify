@@ -11,6 +11,7 @@ connectTOMongo();
 const PORT = 6000;
 app.use('/admin',require('./routes/adminRoute'));
 app.use('/offsite', require('./routes/offsiteRoute'));
+app.use('/mail',require('./routes/mailRoute'));
 
 
 app.listen(PORT,()=>{
