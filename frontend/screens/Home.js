@@ -12,6 +12,7 @@ import Connected from '../assets/home/connected.svg';
 import NotConnected from '../assets/home/notConnected.svg';
 import IP_Address from '../utilities';
 import Timer from '../components/Timer';
+import {Audio} from 'expo-av'
 import { addLatestcheckIn, addLatestCheckOut, setShowCheckinTime,setWorking } from '../redux/punch/punchSlice';
 
 const Home = () => {
@@ -151,6 +152,35 @@ const Home = () => {
   const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [checkinTime, setCheckinTime] = useState(null);
   const [checkOutTime, setCheckOutTime] = useState(null);
+  const playBeepSound = async () => {
+    try {
+      const { sound, status } = await Audio.Sound.createAsync(
+        require('../assets/check in.mp3')
+      );
+      console.log('Sound loaded successfully:', status);
+  
+      await sound.playAsync();
+      console.log('Playing sound');
+      
+      sound.setOnPlaybackStatusUpdate((status) => {
+        console.log('Playback Status:', status);
+        if (status.didJustFinish) {
+          sound.unloadAsync();
+          console.log('Sound finished playing');
+        }
+      });
+    } catch (error) {
+      console.log('Error loading or playing sound:', error);
+    }
+  };
+  
+
+  useEffect(() => {
+    if (isCheckedIn) {
+      console.log('Playing beep sound');
+      playBeepSound(); 
+    }
+  }, [isCheckedIn]);
 
   useEffect(() => {
     console.log(userCheckin);
@@ -166,7 +196,7 @@ const Home = () => {
       const checkLatitude = location.coords.latitude;
       const checkLongitude = location.coords.longitude;
       setLocationInRadius(geolib.isPointWithinRadius(
-        { latitude: 19.072778, longitude: 72.900730 },
+        { latitude:  19.0914633, longitude: 73.0086763 },
         { latitude: checkLatitude, longitude: checkLongitude },
         200
       ));

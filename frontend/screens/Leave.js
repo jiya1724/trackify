@@ -49,14 +49,14 @@ const Leave = () => {
 
   const [leaveRequests, setLeaveRequests] = useState([
     {
-      reason: 'fever',
+      reason: 'Suffering from Cold',
       fromDate: '31 Aug',
       toDate: '02 Sep',
       reqDate: '30 Aug',
       status: 'Pending',
     },
     {
-      reason: 'fever',
+      reason: 'Family Function',
       fromDate: '15 Sep',
       toDate: '17 Sep',
       reqDate: '10 Sep',
@@ -93,7 +93,7 @@ const Leave = () => {
                   }`}>{request.status}</Text>
                 </View>
               </View>
-              <View className='flex-row items-center space-x-2'>
+              <View className='flex-row  space-x-2'>
                 <Calen />
                 <View className='space-y-1'>
                   <Text className='font-semibold text-darkGrey text-xs'>Leave from: <Text className='text-white'>{request.fromDate} - {request.toDate}</Text></Text>

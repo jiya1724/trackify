@@ -17,27 +17,12 @@ const sampleEmployees = [
   {
     id: 1,
     photo: "https://via.placeholder.com/50",
-    name: "Employee3",
+    name: "Employee1",
     code: "E123",
-    location: "Office A",
+    location: "Gail India-Navi Mumbai",
     date: "2024-09-10",
   },
-  {
-    id: 2,
-    photo: "https://via.placeholder.com/50",
-    name: "Employee2",
-    code: "E456",
-    location: "Office B",
-    date: "2024-09-02",
-  },
-  {
-    id: 3,
-    photo: "https://via.placeholder.com/50",
-    name: "Employee1",
-    code: "E789",
-    location: "Office C",
-    date: "2024-09-01",
-  },
+  
 ];
 
 const ConfirmAttendance = () => {
@@ -164,7 +149,7 @@ const ConfirmAttendance = () => {
                   ) : employee.status === "rejected" ? (
                     <FaTimesCircle className="text-red-500" />
                   ) : (
-                    <span className="text-gray-500">Pending</span>
+                    <FaCheckCircle className="text-green-500" />
                   )}
                 </td>
               </tr>

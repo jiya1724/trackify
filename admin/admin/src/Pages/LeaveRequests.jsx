@@ -6,22 +6,14 @@ import Sidebar from "../Components/Sidebar.jsx";
 const sampleRequests = [
   {
     _id: "1",
-    emp_id: { name: "Emp_1", _id: "123" },
-    dateFrom: { day: 1, month: 9, year: 2024 },
-    dateTo: { day: 5, month: 9, year: 2024 },
-    status: "accepted",
-    reason: "Medical",
+    emp_id: { name: "Employee1", _id: "E123" },
+    dateFrom: { day: 19, month: 9, year: 2024 },
+    dateTo: { day: 25, month: 9, year: 2024 },
+    status: "Pending",
+    reason: "Fever",
   },
-  {
-    _id: "2",
-    emp_id: { name: "Emp_2", _id: "456" },
-    dateFrom: { day: 3, month: 9, year: 2024 },
-    dateTo: { day: 8, month: 9, year: 2024 },
-    status: "pending",
-    reason: "Vacation",
-  },
+  
 ];
-
 const LeaveRequests = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activePage, setActivePage] = useState("leaveRequests");

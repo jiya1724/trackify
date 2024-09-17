@@ -8,15 +8,8 @@ import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import Sidebar from '../Components/Sidebar.jsx';
 import {
   FaBars,
-  FaHome,
-  FaMapMarkerAlt,
-  FaKey,
-  FaCheckCircle,
-  FaEnvelope,
   FaTrashAlt,
 } from "react-icons/fa";
-import Logo from "../assets/Images/Logo.svg";
-import TrianglesBG from "../assets/Images/TrianglesBG.png";
 
 // Leaflet marker icon fix
 delete L.Icon.Default.prototype._getIconUrl;
@@ -58,7 +51,22 @@ const LocationMarker = ({ position, setPosition }) => {
 const Locations = () => {
   const [position, setPosition] = useState(initialPosition);
   const [locationName, setLocationName] = useState("");
-  const [locations, setLocations] = useState([]);
+  const [locations, setLocations] = useState([
+    {
+      _id: "66d9bcffd7b66d55366aa1c5",
+      name: "Gail India-Navi Mumbai",
+      officeCode: "abc123",
+      lat: 19.055049,
+      lng: 72.904192,
+    },
+    {
+      _id: "66da763d0785fa1028cde980",
+      name: "Gail India-Mumbai",
+      officeCode: "abc123",
+      lat: 19.072873,
+      lng: 72.90084,
+    },
+  ]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activePage, setActivePage] = useState("locations");
   const [showModal, setShowModal] = useState(false);
@@ -117,9 +125,6 @@ const Locations = () => {
               isSidebarOpen ? "ml-64" : "ml-0"
             } p-6 h-fit bg-[#121212] relative`}
           >
-            {/* Watermark Logo */}
-            
-
             <h1 className="text-2xl font-bold text-gray-200 mb-6">Locations</h1>
 
             {/* Add Location Container */}
@@ -221,32 +226,27 @@ const Locations = () => {
 
       {/* Delete Confirmation Modal */}
       {showModal && (
-  <div className="fixed inset-0 flex items-center justify-center z-[1000] bg-black bg-opacity-50">
-    <div className="bg-white p-6 rounded-lg shadow-xl z-[1001] w-full max-w-md">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
-        Confirm Delete
-      </h2>
-      <p className="mb-6 text-center text-gray-600">
-        Are you sure you want to delete this location?
-      </p>
-      <div className="flex justify-center space-x-4">
-        <button
-          className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
-          onClick={() => setShowModal(false)}
-        >
-          Cancel
-        </button>
-        <button
-          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-          onClick={confirmDeleteLocation}
-        >
-          Delete
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold mb-4">Confirm Delete</h2>
+            <p>Are you sure you want to delete this location?</p>
+            <div className="mt-4">
+              <button
+                className="mr-4 bg-red-500 text-white p-2 rounded"
+                onClick={confirmDeleteLocation}
+              >
+                Delete
+              </button>
+              <button
+                className="bg-gray-500 text-white p-2 rounded"
+                onClick={() => setShowModal(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

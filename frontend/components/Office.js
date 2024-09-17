@@ -1,36 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { writeAsStringAsync, documentDirectory } from 'expo-file-system';
 import checkin from '../assets/record/arrowSector.png';
 import arrow from '../assets/record/arrow.png';
 import SevenDaysRecoed from './SevenDaysRecoed';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-// Define your data directly or fetch it as needed
-const data = {
-  records: [
-    {
-      date: "Mon, 19th August 24",
-      workingHours: "9hrs 45mins",
-    },
-    {
-      date: "Tue, 20th August 24",
-      workingHours: "8hrs 30mins",
-    },
-    {
-      date: "Wed, 21st August 24",
-      workingHours: "7hrs 50mins",
-    },
-    {
-      date: "Thu, 22nd August 24",
-      workingHours: "6hrs 15mins",
-    },
-    {
-      date: "Fri, 23rd August 24",
-      workingHours: "8hrs 10mins",
-    },
-  ],
+// Helper function to get past 7 days' records
+const getPastSevenDaysRecords = () => {
+  const records = [];
+  const today = new Date();
+
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() - i);
+
+    const day = date.toLocaleDateString('en-GB', { weekday: 'short' });
+    const dayMonth = date.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'long',
+    });
+
+    const formattedDate = `${day}, ${dayMonth} ${date.getFullYear()}`;
+    
+    // Randomly generated working hours for demo purposes
+    const workingHours = `${Math.floor(Math.random() * 3) + 6}hrs ${Math.floor(Math.random() * 60)}mins`;
+
+    records.push({ date: formattedDate, workingHours });
+  }
+
+  return records;
 };
 
 // Convert data to CSV format
@@ -42,16 +42,20 @@ const generateCSV = (records) => {
 
 const Office = () => {
   const showworking = useSelector((state) => state.punch.working);
-
   const showCheckin = useSelector((state) => state.punch.showCheckinTime);
-  const [checkinTime] = useState('4:02 pm');
-  const [checinHours, setChecinHours] = useState('NA')
+
   const [dateRange, setDateRange] = useState({
     fromDate: null,
     toDate: null,
   });
   const [showFromPicker, setShowFromPicker] = useState(false);
   const [showToPicker, setShowToPicker] = useState(false);
+  const [records, setRecords] = useState([]);
+
+  useEffect(() => {
+    // Set past 7 days' records when component mounts
+    setRecords(getPastSevenDaysRecords());
+  }, []);
 
   const onChangeFrom = (event, selectedDate) => {
     setShowFromPicker(false);
@@ -79,7 +83,7 @@ const Office = () => {
   const download = async () => {
     try {
       // Convert data to CSV format
-      const csv = generateCSV(data.records);
+      const csv = generateCSV(records);
 
       // Define file path and write CSV content
       const fileUri = documentDirectory + '7_days_records.csv';
@@ -148,7 +152,7 @@ const Office = () => {
       </View>
 
       <View>
-        <SevenDaysRecoed records={data.records} />
+        <SevenDaysRecoed records={records} />
       </View>
 
       <View className='h-12 w-full bottom-0'></View>
