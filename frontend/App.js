@@ -43,10 +43,10 @@ export default function App() {
             component={Login}
             options={{ headerShown: false }}
           /> */}
-          <Stack.Screen 
+          {/* <Stack.Screen 
           name="BioAuth"
           component={BiometricAuth}
-          options={{headerShown:false}}/> */}
+          options={{headerShown:false}}/>  */}
           {/* <Stack.Screen
             name="Signup"
             component={Signup}

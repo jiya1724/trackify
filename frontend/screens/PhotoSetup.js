@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ActivityIndicator  } from 'react-native';
 import { Camera, CameraType, } from 'expo-camera/legacy';
 import pattern from '../assets/bgPattern.png';
 import info from '../assets/photosetup/Info.png'
@@ -10,7 +10,8 @@ import IP_Address from '../utilities';
 
 const PhotoSetup = ({ navigation }) => {
   const [image, setImage] = useState(null);
-  const [facing, setFacing] = useState(CameraType.back);
+  const [facing, setFacing] = useState(CameraType.front);
+  const [loading, setLoading] = useState(false);
   const [hasPermission, requestPermission] = Camera.useCameraPermissions();
   const cameraRef = useRef(null);
   const userData = useSelector((state) => state.authentication.userData)
@@ -55,42 +56,49 @@ const PhotoSetup = ({ navigation }) => {
 
 
   const toggleCameraFacing = () => {
-    setFacing(facing === CameraType.back ? CameraType.front : CameraType.back);
+    setFacing(facing === CameraType.front ? CameraType.back : CameraType.front);
   };
   const handleProceed =async () => {
-    try {
-      const response = await fetch(`http://${IP_Address}:5000/emp/createemp`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-      const data = await response.json();
-      if (data.success) {
-        // console.log(data.token)
-        await AsyncStorage.setItem('auth-token', data.token);
-        navigation.navigate('Home')
-      } else {
-        alert(data.message);
-      }
+    // try {
+    //   const response = await fetch(`http://${IP_Address}:5000/emp/createemp`, {
+    //     method: 'POST',
+    //     headers: {
+    //       Accept: 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(userData),
+    //   });
+    //   const data = await response.json();
+    //   if (data.success) {
+    //     // console.log(data.token)
+    //     await AsyncStorage.setItem('auth-token', data.token);
+    //     navigation.navigate('Home')
+    //   } else {
+    //     alert(data.message);
+    //   }
 
 
-    } catch (error) {
-      console.error(error);
-    }
+    // } catch (error) {
+    //   console.error(error);
+    // }
+   
+      setLoading(true); 
+      setTimeout(() => {
+        setLoading(false); 
+        alert('Your photo has been setup');
+        navigation.navigate('Login')
+      }, 2500);
+      
   }
-
   return (
-    <View className='bg-bg h-full w-full p-5 relative'>
-      <Image className='absolute left-0 rotate-45 -translate-x-20' source={pattern} />
-      <Image className='absolute bottom-0 right-0 rotate-12 translate-x-20 translate-y-7' source={pattern} />
-      <View className='pt-10 flex justify-center items-center'>
-        <Text className='text-Blue text-base text-blue font-bold'>Setup Your Face</Text>
+    <View className="bg-bg h-full w-full p-5 relative">
+      <Image className="absolute left-0 rotate-45 -translate-x-20" source={pattern} />
+      <Image className="absolute bottom-0 right-0 rotate-12 translate-x-20 translate-y-7" source={pattern} />
+      <View className="pt-10 flex justify-center items-center">
+        <Text className="text-Blue text-base text-blue font-bold">Setup Your Face</Text>
       </View>
 
-      <View className='flex justify-center items-center pt-12'>
+      <View className="flex justify-center items-center pt-12">
         <View className="bg-white h-80 w-80 rounded-full overflow-hidden">
           {image ? (
             <Image source={{ uri: image }} style={{ width: '100%', height: '100%' }} />
@@ -99,12 +107,12 @@ const PhotoSetup = ({ navigation }) => {
           )}
         </View>
       </View>
-      <View className='flex flex-row items-center justify-center space-x-2 pt-3'>
-        <Image className='h-5 w-5' source={info} />
-        <Text className='text-lightGrey text-[10px] font-bold'>Look at the Camera while capturing your photo!</Text>
+      <View className="flex flex-row items-center justify-center space-x-2 pt-3">
+        <Image className="h-5 w-5" source={info} />
+        <Text className="text-lightGrey text-[10px] font-bold">Look at the Camera while capturing your photo!</Text>
       </View>
 
-      <View className=' pt-12 flex-col space-y-7 items-center'>
+      <View className="pt-12 flex-col space-y-7 items-center">
         <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
           <Text style={styles.buttonText}>Flip Camera</Text>
         </TouchableOpacity>
@@ -115,20 +123,18 @@ const PhotoSetup = ({ navigation }) => {
           <Text style={styles.buttonText}>Proceed</Text>
         </TouchableOpacity>
       </View>
+
+      {loading && (
+        <View style={styles.overlay}>
+          <ActivityIndicator size="large" color="#ffffff" />
+          <Text style={styles.loadingText}>Saving your image...</Text>
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  message: {
-    textAlign: 'center',
-    paddingBottom: 10,
-  },
   button: {
     backgroundColor: 'transparent',
     width: '100%',
@@ -153,10 +159,22 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
   },
-  placeholderText: {
-    color: '#B0B0B0',
-    textAlign: 'center',
-    lineHeight: 80,
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)', 
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1, 
+  },
+  loadingText: {
+    marginTop: 10,
+    color: '#ffffff',
+    fontWeight: '600',
+    fontSize: 16,
   },
 });
 
