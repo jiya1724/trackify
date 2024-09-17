@@ -46,7 +46,7 @@ export default function App() {
           <Stack.Screen 
           name="BioAuth"
           component={BiometricAuth}
-          options={{headerShown:false}}/>
+          options={{headerShown:false}}/> */}
           {/* <Stack.Screen
             name="Signup"
             component={Signup}
@@ -57,7 +57,7 @@ export default function App() {
             component={PhotoSetup}
             options={{ headerShown: false }}
           /> */}
-          <Stack.Screen name='HomeSlide'
+          {/* <Stack.Screen name='HomeSlide'
             component={HomeSlide}
             options={{ headerShown: false }} />
           <Stack.Screen
@@ -69,13 +69,13 @@ export default function App() {
             name="Leave"
             component={Leave}
             options={{ headerShown: false }}
-          />
-          {/* <Stack.Screen
+          /> */}
+          <Stack.Screen
             name="Face Verify"
             component={FaceVerify}
             options={{ headerShown: false }}
-          /> */}
-          <Stack.Screen
+          />
+          {/* <Stack.Screen
             name="Profile"
             component={Profile}
             options={{ headerShown: false }}
@@ -84,7 +84,7 @@ export default function App() {
             name="Home"
             component={Home}
             options={{ headerShown: false }}
-          />
+          /> */}
 
         </Stack.Navigator>
 

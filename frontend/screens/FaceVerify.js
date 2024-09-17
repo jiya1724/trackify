@@ -9,7 +9,7 @@ const App = () => {
   const takePhoto = async () => {
     // Request camera permissions
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
-    
+
     if (!permissionResult.granted) {
       alert("Permission to access camera is required!");
       return;
@@ -30,14 +30,22 @@ const App = () => {
       setBase64Image(`data:image/jpeg;base64,${base64}`);
     }
   };
-  const showLink = ()=>{
+  const showLink = () => {
     console.log(base64Image)
   }
 
   return (
-    <View className='w-full h-full flex-1 items-center justify-center' >
-      <Button title="Take Photo" onPress={takePhoto} />
-      <Button title="show link" onPress={showLink} />
+    <View className='w-full h-full flex-1 bg-darkBg  items-center justify-center' >
+      <View className='flex-row gap-6'>
+        <View>
+          <Button title="Take Photo" onPress={takePhoto} />
+        </View>
+        <View>
+          <Button title="Verify" />
+        </View>
+
+      </View>
+      {/* <Button title="show link" onPress={showLink} /> */}
       {base64Image && (
         <Image
           source={{ uri: base64Image }}
