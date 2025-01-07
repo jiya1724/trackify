@@ -35,7 +35,9 @@
 ### 7. **Battery Optimization**
 - Implements speed and distance-based polling to minimize battery usage.
 - Reduces location update frequency when stationary.
-
+---
+## Implementation Video:
+-[YouTube Link](https://www.youtube.com/watch?v=Qfiei4I8kRI)
 ---
 ## Screeshots:
 <p float="left">
