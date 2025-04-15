@@ -5,7 +5,17 @@
 **Trackify** is an innovative mobile application designed for seamless attendance tracking using advanced geolocation technologies. Developed by **Team Axios** for the **Smart India Hackathon 2024**, it addresses the challenges of traditional attendance systems by offering automated check-ins, real-time GPS-based location suggestions, offline functionality, and secure data handling.
 
 ---
-
+## Implementation Video:
+-[YouTube Link](https://www.youtube.com/watch?v=Qfiei4I8kRI)
+---
+## Screeshots:
+<p float="left">
+ <img src="./frontend/assets/track SS/IMG-20250103-WA0006.jpg" alt="landing"  height="500" >
+  <img src="/frontend/assets/track SS/IMG-20250103-WA0008.jpg" alt="image 1"  height="500">
+  <img src="/frontend/assets/track SS/IMG-20250103-WA0005.jpg" alt="image 2"  height="500">
+    <img src="/frontend/assets/track SS/IMG-20250103-WA0007.jpg" alt="image 3"  height="500">
+</p>
+---
 ## Features
 
 ### 1. **Automatic Check-ins**
@@ -36,17 +46,7 @@
 - Implements speed and distance-based polling to minimize battery usage.
 - Reduces location update frequency when stationary.
 ---
-## Implementation Video:
--[YouTube Link](https://www.youtube.com/watch?v=Qfiei4I8kRI)
----
-## Screeshots:
-<p float="left">
- <img src="./frontend/assets/track SS/IMG-20250103-WA0006.jpg" alt="landing"  height="500" >
-  <img src="/frontend/assets/track SS/IMG-20250103-WA0008.jpg" alt="image 1"  height="500">
-  <img src="/frontend/assets/track SS/IMG-20250103-WA0005.jpg" alt="image 2"  height="500">
-    <img src="/frontend/assets/track SS/IMG-20250103-WA0007.jpg" alt="image 3"  height="500">
-</p>
----
+
 
 ## Technical Stack
 
